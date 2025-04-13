@@ -6,20 +6,20 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 18:44:50 by obajja            #+#    #+#             */
-/*   Updated: 2025/04/02 01:13:10 by obajja           ###   ########.fr       */
+/*   Updated: 2025/04/09 19:52:07 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int ft_strslen(char **str)
+int	ft_strslen(char **str)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    if (!str)
-        return (0);
-    while (str[i])
-        i++;
-    return (i);
+	i = 0;
+	if (!str)
+		return (0);
+	while (str[i])
+		i++;
+	return (i);
 }

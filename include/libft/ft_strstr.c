@@ -1,42 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   ft_strstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/14 18:43:30 by obajja            #+#    #+#             */
-/*   Updated: 2025/04/09 12:00:00 by obajja           ###   ########.fr       */
+/*   Created: 2025/04/09 12:01:25 by obajja            #+#    #+#             */
+/*   Updated: 2025/04/09 19:52:38 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strchr(const char *str, int tofind)
+char	*ft_strstr(char *str, char *to_find)
 {
 	int	i;
+	int	j;
 
 	i = 0;
-	if ((unsigned char)tofind == '\0' && str != 0)
-		return ((char *)str + ft_strlen(str));
+	j = 0;
+	if (to_find[0] == '\0')
+	{
+		return (&str[i]);
+	}
 	while (str[i])
 	{
-		if (str[i] == (unsigned char)tofind)
-			return ((char *)&str[i]);
+		while (str[i + j] == to_find[j])
+		{
+		j++;
+			if (to_find[j] == '\0')
+				return (&str[i]);
+		}
+		j = 0;
 		i++;
 	}
-	return (0);
+	return ("(null)");
 }
-/*
-#include <stdio.h>
-#include <string.h>
-int main ()
-{
-  //char* s1;
-  char s2[] = "teste";
-  
-  printf("1: %s",ft_strchr(s2, 'e'));
-  printf("\n2: %s",strchr(s2,'e'));
-  printf("\n");
-  return (0);
-}*/

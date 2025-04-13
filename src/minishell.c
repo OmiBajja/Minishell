@@ -6,25 +6,19 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:02:04 by obajja            #+#    #+#             */
-/*   Updated: 2025/04/02 02:13:45 by obajja           ###   ########.fr       */
+/*   Updated: 2025/04/09 23:38:23 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void input_handler(char *input, char **envp)
+void input_handler(char *input, t_mini *mini)
 {
-    int i;
+    ft_init_list(input, mini);
 
-    i = 0;
-    if (!ft_strncmp(input, "env", 4))
-    {
-        while (envp[i])
-            printf("%s\n",envp[i++]);
-    }
 }
 
-int mini_handler(char **envp)
+int mini_handler(t_mini *mini)
 {
     char        *input;
 
@@ -33,7 +27,7 @@ int mini_handler(char **envp)
         input = readline(BRED "MinisHell :" RESET_COLOR);
         if (!input)
             return (EXIT_FAILURE);
-        input_handler(input, envp);
+        input_handler(input,mini);
         add_history(input);
         free(input);
     }
@@ -42,14 +36,14 @@ int mini_handler(char **envp)
 
 int main(int argc, char **argv, char **envp)
 {
-    char        **dup_env;
-    
+    t_mini  mini;
+
     (void)argc;
     (void)argv;
-    dup_env = ft_strsdup(envp, ft_strslen(envp));
-    if (!dup_env)
+    mini.env = ft_strsdup(envp, ft_strslen(envp));
+    if (!mini.env)
         return (EXIT_FAILURE);
     signal_handling();
-    mini_handler(dup_env);
+    mini_handler(&mini);
     return (EXIT_SUCCESS);
 }

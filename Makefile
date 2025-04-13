@@ -1,76 +1,83 @@
-NAME        = minishell
-CC          = cc
-CFLAGS      = -Wall -Wextra -Werror
-RM          = rm -f
+ifneq ($(filter clean fclean, $(MAKECMDGOALS)),)
+$(info Cleaning Minishell 🚮)
+else
+$(info Compiling Minishell 📟)
+endif
 
-# Directory paths - remove trailing slashes
-SRC_DIR     = src
-OBJ_DIR     = obj
-INC_DIR     = include
+NAME         = minishell
+CC           = cc
+CFLAGS       = -Wall -Wextra -Werror
+RM           = rm -f
+MAKEFLAGS   += --no-print-directory
 
-# Source files with explicit paths
-SRC_FILES   = $(SRC_DIR)/minishell.c \
-              $(SRC_DIR)/signal/signal.c \
-              $(SRC_DIR)/exec/handler.c
+# Directory paths
+SRC_DIR      = src
+OBJ_DIR      = obj
+INC_DIR      = include
+LIBFT_DIR    = $(INC_DIR)/libft
 
-# Object files with proper directory structure
-OBJ_FILES   = $(OBJ_DIR)/minishell.o \
-              $(OBJ_DIR)/signal/signal.o \
-              $(OBJ_DIR)/exec/handler.o
+# Source files list
+SRC_FILES    = \
+	$(SRC_DIR)/minishell.c \
+	$(SRC_DIR)/signal/signal.c \
+	$(SRC_DIR)/exec/handler.c \
+	$(SRC_DIR)/built-in/echo.c \
+	$(SRC_DIR)/built-in/env.c \
+	$(SRC_DIR)/built-in/exit.c \
+	$(SRC_DIR)/built-in/export.c \
+	$(SRC_DIR)/built-in/pwd.c \
+	$(SRC_DIR)/built-in/unset.c \
+	$(SRC_DIR)/parsing/input_parser.c \
+	$(SRC_DIR)/parsing/ft_split_str_mini.c
 
-# Include paths
-INCLUDES    = -I$(INC_DIR)
+# Automatically generate object file names corresponding to source files
+OBJS         = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC_FILES))
 
-# Libft settings
-LIBFT_DIR   = $(INC_DIR)/libft
-LIBFT       = $(LIBFT_DIR)/libft.a
-LIBFT_FLAGS = -L$(LIBFT_DIR) -lft
-
-# Readline library flags
+# Include and library settings
+INCLUDES     = -I$(INC_DIR)
+LIBFT        = $(LIBFT_DIR)/libft.a
+LIBFT_FLAGS  = -L$(LIBFT_DIR) -lft
 READLINE_FLAGS = -lreadline
+
+# Stamp file to ensure Libft is built only once
+LIBFT_STAMP  = $(OBJ_DIR)/.libft_compiled
 
 all: $(OBJ_DIR) $(NAME)
 
 bonus: all
 
-# Create object directories
+# Create object directories including subdirectories
 $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
 	@mkdir -p $(OBJ_DIR)/signal
 	@mkdir -p $(OBJ_DIR)/exec
+	@mkdir -p $(OBJ_DIR)/built-in
 	@mkdir -p $(OBJ_DIR)/parsing
 
-$(LIBFT):
-	@$(MAKE) -C $(LIBFT_DIR)
+# Build Libft only once; no SILENCE_LIBFT_INFO flag here so its info prints once
+$(LIBFT_STAMP):
+	@$(MAKE) --no-print-directory -C $(LIBFT_DIR)
+	@echo "Libft Compiled Successfully ✅"
+	@touch $(LIBFT_STAMP)
 
-libft_bonus:
-	@$(MAKE) -C $(LIBFT_DIR) bonus
-
-# Compile source files
-$(OBJ_DIR)/minishell.o: $(SRC_DIR)/minishell.c
+# Generic rule for compiling a source file into an object file
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) $(INCLUDES) -I$(LIBFT_DIR) -c $< -o $@
+	@$(CC) $(CFLAGS) $(INCLUDES) -I$(LIBFT_DIR) -c $< -o $@
 
-$(OBJ_DIR)/signal/signal.o: $(SRC_DIR)/signal/signal.c
-	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) $(INCLUDES) -I$(LIBFT_DIR) -c $< -o $@
-
-$(OBJ_DIR)/exec/handler.o: $(SRC_DIR)/exec/handler.c
-	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) $(INCLUDES) -I$(LIBFT_DIR) -c $< -o $@
-
-# Link object files to create executable
-$(NAME): libft_bonus $(OBJ_FILES)
-	$(CC) $(OBJ_FILES) $(LIBFT_FLAGS) $(READLINE_FLAGS) -o $(NAME)
+# Link object files to create the executable, ensuring Libft has been built first
+$(NAME): $(LIBFT_STAMP) $(OBJS)
+	@$(CC) $(OBJS) $(LIBFT_FLAGS) $(READLINE_FLAGS) -o $(NAME) && echo "Minishell Compiled Successfully ✅"
 
 clean:
-	$(MAKE) -C $(LIBFT_DIR) clean
-	$(RM) -r $(OBJ_DIR)
+	@$(MAKE) --no-print-directory SILENCE_LIBFT_INFO=1 -C $(LIBFT_DIR) clean
+	@$(RM) -r $(OBJ_DIR)
 
 fclean: clean
-	$(MAKE) -C $(LIBFT_DIR) fclean
-	$(RM) $(NAME)
+	@$(MAKE) --no-print-directory SILENCE_LIBFT_INFO=1 -C $(LIBFT_DIR) fclean
+	@$(RM) $(NAME)
+	@$(RM) $(LIBFT_STAMP)
 
 re: fclean all
 
-.PHONY: all clean fclean re bonus libft_bonus
+.PHONY: all bonus clean fclean re

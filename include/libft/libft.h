@@ -6,7 +6,7 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 16:48:50 by obajja            #+#    #+#             */
-/*   Updated: 2025/04/02 02:13:28 by obajja           ###   ########.fr       */
+/*   Updated: 2025/04/09 19:47:25 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,35 +19,35 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-//KOLOR
-#define BLACK "\033[0;30m"
-#define RED "\033[0;31m"
-#define GREEN "\033[0;32m"
-#define YELLOW "\033[0;33m"
-#define BLUE "\033[0;34m"
-#define PURPLE "\033[0;35m"
-#define CYAN "\033[0;36m"
-#define WHITE "\033[0;37m"
+// KOLOR
+# define BLACK "\033[0;30m"
+# define RED "\033[0;31m"
+# define GREEN "\033[0;32m"
+# define YELLOW "\033[0;33m"
+# define BLUE "\033[0;34m"
+# define PURPLE "\033[0;35m"
+# define CYAN "\033[0;36m"
+# define WHITE "\033[0;37m"
 
-//BALD KOLOR
-#define BBLACK "\033[1;30m"
-#define BRED "\033[1;31m"
-#define BGREEN "\033[1;32m"
-#define BYELLOW "\033[1;33m"
-#define BBLUE "\033[1;34m"
-#define BPURPLE "\033[1;35m"
-#define BCYAN "\033[1;36m"
-#define BWHITE "\033[1;37m"
+// BALD KOLOR
+# define BBLACK "\033[1;30m"
+# define BRED "\033[1;31m"
+# define BGREEN "\033[1;32m"
+# define BYELLOW "\033[1;33m"
+# define BBLUE "\033[1;34m"
+# define BPURPLE "\033[1;35m"
+# define BCYAN "\033[1;36m"
+# define BWHITE "\033[1;37m"
 
-//UNDERLINE
-#define UBLACK "\033[4;30m"
-#define URED "\033[4;31m"
-#define UGREEN "\033[4;32m"
-#define UYELLOW "\033[4;33m"
-#define UBLUE "\033[4;34m"
-#define UPURPLE "\033[4;35m"
-#define UCYAN "\033[4;36m"
-#define UWHITE "\033[4;37m"
+// UNDERLINE
+# define UBLACK "\033[4;30m"
+# define URED "\033[4;31m"
+# define UGREEN "\033[4;32m"
+# define UYELLOW "\033[4;33m"
+# define UBLUE "\033[4;34m"
+# define UPURPLE "\033[4;35m"
+# define UCYAN "\033[4;36m"
+# define UWHITE "\033[4;37m"
 
 # define CLEAR "\033c"
 # define RESET_COLOR "\e[m"
@@ -207,7 +207,7 @@ void				ft_lstiter(t_list *lst, void (*f)(void *));
 
 /* Crée une nouvelle liste en appliquant une fonction */
 t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
-                        void (*del)(void *));
+						void (*del)(void *));
 
 /* Version personnalisée de printf */
 int					ft_printf(const char *str, ...);
@@ -234,6 +234,10 @@ int					ft_putnbrhexalow(unsigned int n, int *count);
 int					ft_putnbrhexaupp(unsigned int n, int *count);
 
 /* Calcule le nombre de chaînes dans un tableau de chaînes */
-int 				ft_strslen(char **str);
+int					ft_strslen(char **str);
+
+char				*ft_strstr(char *str, char *to_find);
+
+char				**ft_split_str(char *str, char *charset);
 
 #endif
