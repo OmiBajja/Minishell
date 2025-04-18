@@ -24,7 +24,7 @@ void	*ft_memchr(const void *str, int searchedChar, size_t size)
 	while (i < size)
 	{
 		if (src[i] == tofind)
-			return ((char *)&str[i]);
+			return ((char *)str + i);
 		i++;
 	}
 	return (0);

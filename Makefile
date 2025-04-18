@@ -5,8 +5,8 @@ $(info Compiling Minishell 📟)
 endif
 
 NAME         = minishell
-CC           = cc
-CFLAGS       = -Wall -Wextra -Werror
+CC           = gcc
+CFLAGS       = -Wall -Wextra -Werror -g3
 RM           = rm -f
 MAKEFLAGS   += --no-print-directory
 
@@ -16,21 +16,22 @@ OBJ_DIR      = obj
 INC_DIR      = include
 LIBFT_DIR    = $(INC_DIR)/libft
 
-# Source files list
-SRC_FILES    = \
-	$(SRC_DIR)/minishell.c \
-	$(SRC_DIR)/signal/signal.c \
-	$(SRC_DIR)/exec/handler.c \
-	$(SRC_DIR)/built-in/echo.c \
-	$(SRC_DIR)/built-in/env.c \
-	$(SRC_DIR)/built-in/exit.c \
-	$(SRC_DIR)/built-in/export.c \
-	$(SRC_DIR)/built-in/pwd.c \
-	$(SRC_DIR)/built-in/unset.c \
-	$(SRC_DIR)/parsing/input_parser.c \
-	$(SRC_DIR)/parsing/ft_split_str_mini.c
+# Source files list grouped by directory
+MAIN_SRC     = minishell.c
+LEXER_SRC    = lexing/lexing.c lexing/token_init.c
+PARSER_SRC   = parsing/parser.c parsing/parsing_init.c
+SIGNAL_SRC   = signal/signal.c
+UTILS_SRC    = utils/ft_strndup.c utils/ft_is_whitespace.c
 
-# Automatically generate object file names corresponding to source files
+# Combine all source files
+SRC_FILES    = $(addprefix $(SRC_DIR)/, \
+			   $(MAIN_SRC) \
+			   $(LEXER_SRC) \
+			   $(PARSER_SRC) \
+			   $(SIGNAL_SRC) \
+			   $(UTILS_SRC))
+
+# Object files
 OBJS         = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC_FILES))
 
 # Include and library settings
@@ -44,17 +45,15 @@ LIBFT_STAMP  = $(OBJ_DIR)/.libft_compiled
 
 all: $(OBJ_DIR) $(NAME)
 
-bonus: all
-
 # Create object directories including subdirectories
 $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
 	@mkdir -p $(OBJ_DIR)/signal
-	@mkdir -p $(OBJ_DIR)/exec
-	@mkdir -p $(OBJ_DIR)/built-in
+	@mkdir -p $(OBJ_DIR)/lexing
 	@mkdir -p $(OBJ_DIR)/parsing
+	@mkdir -p $(OBJ_DIR)/utils
 
-# Build Libft only once; no SILENCE_LIBFT_INFO flag here so its info prints once
+# Build Libft only once
 $(LIBFT_STAMP):
 	@$(MAKE) --no-print-directory -C $(LIBFT_DIR)
 	@echo "Libft Compiled Successfully ✅"
@@ -65,7 +64,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) $(INCLUDES) -I$(LIBFT_DIR) -c $< -o $@
 
-# Link object files to create the executable, ensuring Libft has been built first
+# Link object files to create the executable
 $(NAME): $(LIBFT_STAMP) $(OBJS)
 	@$(CC) $(OBJS) $(LIBFT_FLAGS) $(READLINE_FLAGS) -o $(NAME) && echo "Minishell Compiled Successfully ✅"
 
@@ -80,4 +79,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all bonus clean fclean re
+.PHONY: all clean fclean re
