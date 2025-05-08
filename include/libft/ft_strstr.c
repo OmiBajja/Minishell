@@ -6,7 +6,7 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 12:01:25 by obajja            #+#    #+#             */
-/*   Updated: 2025/04/09 19:52:38 by obajja           ###   ########.fr       */
+/*   Updated: 2025/05/08 15:47:35 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,5 @@ char	*ft_strstr(char *str, char *to_find)
 		j = 0;
 		i++;
 	}
-	return ("(null)");
+	return (NULL);
 }
