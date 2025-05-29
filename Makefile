@@ -18,6 +18,7 @@ LIBFT_DIR    = $(INC_DIR)/libft
 
 # Source files list grouped by directory
 MAIN_SRC     = minishell.c
+EXEC_SRC	 = exec/error_handling.c exec/exec_cmd.c exec/ft_split.c exec/handler.c exec/main.c exec/process.c exec/string_utils.c
 LEXER_SRC    = lexing/lexing.c lexing/token_init.c
 PARSER_SRC   = parsing/parser.c parsing/parsing_init.c
 SIGNAL_SRC   = signal/signal.c
@@ -26,6 +27,7 @@ UTILS_SRC    = utils/ft_strndup.c utils/ft_is_whitespace.c
 # Combine all source files
 SRC_FILES    = $(addprefix $(SRC_DIR)/, \
 			   $(MAIN_SRC) \
+			   $(EXEC_SRC) \
 			   $(LEXER_SRC) \
 			   $(PARSER_SRC) \
 			   $(SIGNAL_SRC) \

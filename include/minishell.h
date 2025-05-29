@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:02:13 by obajja            #+#    #+#             */
-/*   Updated: 2025/04/15 18:18:45 by obajja           ###   ########.fr       */
+/*   Updated: 2025/05/29 02:22:45 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,24 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
+#include <fcntl.h>
+#include <unistd.h>
+#include <errno.h>
+#include <string.h>
+#include <stdbool.h>
+#include <sys/wait.h>
+
 #define TOKEN_UNKOWN	0
 #define TOKEN_COMMAND	1
 #define TOKEN_PIPE		2
 #define TOKEN_REDIR_IN	3
 #define TOKEN_REDIR_OUT	4
+
+typedef struct s_data
+{
+	char	*paths;
+	char	**env;
+}	t_env_data;
 
 typedef struct s_lex
 {
@@ -72,3 +85,27 @@ t_parsing *create_parse();
 char 	**new_args(char **args, char *new_arg);
 t_parsing *token_parser(char *input, t_lex *tokens);
 void print_all_commands(t_parsing *head);
+
+int		pipes_and_forks(t_env_data env_data, char *av[]);
+char	*find_env_paths(char **env);
+char	*find_cmd_in_pahts(const char *cmd, char **env_paths_tab);
+
+void	pipex(char *infile, char *outfile, char **cmds, int cmd_count, char **env);
+int		**create_pipes(int n);
+void	close_pipes(int **pipes, int n);
+void	child_process(int index, int infile_fd, int outfile_fd, char *cmd, char **env, int **pipes, int cmd_count);
+
+void	exec_cmd(char const *cmd, char const *paths, char **env);
+
+void	free_tab(char **tab);
+void	perror_exit(void);
+void	command_not_found_exit(char **cmd_tab);
+void	invalid_usage_exit(int ac);
+
+int	ft_strlen(const char *s);
+char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+char	*ft_strnstr(const char *haystack, const char *needle, int n);
+bool	is_needle_in_haystack(const char *haystack, const char *needle);
+char	**ft_split_pau(char const *s, char c);
+void	exec_handler(t_parsing *head, char **envp);
