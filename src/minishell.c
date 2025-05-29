@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:02:04 by obajja            #+#    #+#             */
-/*   Updated: 2025/04/15 17:05:45 by obajja           ###   ########.fr       */
+/*   Updated: 2025/05/28 23:16:00 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@ void input_handler(char *input, t_mini *mini)
     print_tokens(tokens);
 	parser = token_parser(input, tokens);
 	print_all_commands(parser);
+
+	exec_handler(parser, mini->env);
+	
     free_tokens(tokens);
 }
 
