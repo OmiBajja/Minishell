@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 19:53:35 by pafranci          #+#    #+#             */
-/*   Updated: 2025/05/29 02:04:22 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/06/04 00:40:24 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,27 @@ void	exec_handler(t_parsing *head, char **envp)
 
 	cmd_count = 0;
 	node = head;
-	infile = head->infile;
+	infile = NULL;
+	outfile = NULL;
 	while (node)
 	{
 		cmd_count++;
+		if (node->infile && !infile)
+			infile = node->infile;
 		if (node->outfile)
 			outfile = node->outfile;
 		node = node->next;
 	}
+	if (!infile)
+		infile = "/dev/stdin";
+	if (!outfile)
+		outfile = "/dev/stdout";
 	cmds = malloc((cmd_count + 1) * sizeof(char *));
 	if (!cmds)
-		return;
+	{
+		perror("malloc");
+		return ;
+	}
 	node = head;
 	i = 0;
 	while (node)
