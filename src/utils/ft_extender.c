@@ -86,17 +86,20 @@ char *word_assigner(char *input)
 int	is_extendable(char *input)
 {
 	int	i;
+	int counter;
 
+	counter = 1;
 	i = 0;
-	while (input[i] && input[i] != '$')
-		i++;
-	if (input[i] == '$')
+	while (input[i])
 	{
+		if (input[i] == '\'')
+			counter *= -1;
+		printf("Input[i]:%c\tCOunter:%d\n",input[i],counter);
+		if (input[i] == '$' && counter == 1)
+			return (i + 1);
 		i++;
-		return (i);
 	}
-	else
-		return (-1);
+	return (-1);
 }
 
 char *ft_extender(char *input, char **env)
