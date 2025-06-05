@@ -12,7 +12,7 @@
 
 #include <minishell.h>
 
-t_parsing *token_parser(char *input, t_lex *tokens)
+t_parsing *token_parser(char *input, t_lex *tokens, char **env)
 {
     t_parsing *head;
 	t_parsing *node;
@@ -27,7 +27,7 @@ t_parsing *token_parser(char *input, t_lex *tokens)
 			node = create_parse();
 			head = node;
 		}
-		tokens = command_processor(node, tokens);
+		tokens = command_processor(node, tokens, env);
 		if (tokens && tokens->type == TOKEN_PIPE)
 		{
 			tokens = tokens->next;

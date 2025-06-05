@@ -22,7 +22,7 @@ EXEC_SRC	 = exec/error_handling.c exec/exec_cmd.c exec/ft_split.c exec/handler.c
 LEXER_SRC    = lexing/lexing.c lexing/token_init.c
 PARSER_SRC   = parsing/parser.c parsing/parsing_init.c
 SIGNAL_SRC   = signal/signal.c
-UTILS_SRC    = utils/ft_strndup.c utils/ft_is_whitespace.c
+UTILS_SRC    = utils/ft_strndup.c utils/ft_is_whitespace.c utils/ft_extender.c
 
 # Combine all source files
 SRC_FILES    = $(addprefix $(SRC_DIR)/, \
