@@ -78,12 +78,12 @@ void 	add_to_list(t_lex **head, t_lex *new);
 char 	*word_lexer(char *input, int *start);
 void 	print_tokens(t_lex *tokens);
 void 	free_tokens(t_lex *tokens);
-t_lex 	*command_processor(t_parsing *cmd, t_lex *tokens);
+t_lex *command_processor(t_parsing *cmd, t_lex *tokens, char **env);
 t_lex 	*redirection_machine(t_parsing *cmd, t_lex *tokens);
-void  	command_machine(t_parsing *cmd, t_lex *token);
+void  command_machine(t_parsing *cmd, t_lex *token, char **env);
 t_parsing *create_parse();
 char 	**new_args(char **args, char *new_arg);
-t_parsing *token_parser(char *input, t_lex *tokens);
+t_parsing *token_parser(char *input, t_lex *tokens, char **env);
 void print_all_commands(t_parsing *head);
 
 int		pipes_and_forks(t_env_data env_data, char *av[]);
@@ -109,3 +109,6 @@ char	*ft_strnstr(const char *haystack, const char *needle, int n);
 bool	is_needle_in_haystack(const char *haystack, const char *needle);
 char	**ft_split_pau(char const *s, char c);
 void	exec_handler(t_parsing *head, char **envp);
+
+char *ft_extender(char *input, char **env);
+int	is_extendable(char *input);

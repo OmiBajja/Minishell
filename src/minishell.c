@@ -17,13 +17,12 @@ void input_handler(char *input, t_mini *mini)
     t_lex *tokens;
 	t_parsing *parser;
     
-    (void) mini;
     printf("Input received: [%s]\n", input);  // Debug print
     tokens = lexing(input);
     if (!tokens)
         printf("No tokens generated\n");  // Debug print
     print_tokens(tokens);
-	parser = token_parser(input, tokens);
+	parser = token_parser(input, tokens, mini->env);
 	print_all_commands(parser);
 
 	exec_handler(parser, mini->env);

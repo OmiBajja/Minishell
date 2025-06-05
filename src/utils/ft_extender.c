@@ -52,7 +52,7 @@ char *env_fetcher(char *word, char **env)
 		i++;
 	}
 	if (!env[i])
-		return (NULL);
+		return ("");
 	replace = ft_strdup(&env[i][len + 1]);
 	if (!replace)
 		return (NULL);
