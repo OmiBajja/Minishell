@@ -15,5 +15,6 @@
 void ft_exit(char **envp)
 {
 	//free stuff
+	(void)envp;
 	exit(EXIT_SUCCESS);
 }

@@ -90,7 +90,7 @@ char	**ft_split_str(char *str, char *charset)
 	int		b;
 
 	b = ft_count_words(str, charset) + 1;
-	risotto = malloc((b) * sizeof(char *));
+	risotto = ft_calloc((b), sizeof(char *));
 	if (!risotto)
 		return (NULL);
 	risotto[b - 1] = 0;
@@ -101,13 +101,13 @@ char	**ft_split_str(char *str, char *charset)
 		while (str[i] && ft_check_char(str[i], charset))
 			i++;
 		if (str[i] && !ft_check_char(str[i], charset))
+		{	
 			risotto[j] = ft_word_printer(&str[i], charset);
-		if (!risotto[j])
-			ft_freestrs(risotto);
-		j++;
+			if (!risotto[j++])
+				ft_freestrs(risotto);
+		}
 		i = i + ft_lenght_word(&str[i], charset);
 	}
-	risotto[j] = 0;
 	return (risotto);
 }
 

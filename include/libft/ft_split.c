@@ -75,8 +75,7 @@ char	**ft_split(char const *s, char c)
 	int		j;
 
 	j = 0;
-	i = ft_strlen(s);
-	tab = malloc((ft_countwords(s, c) + 1) * sizeof(char *));
+	tab = ft_calloc((ft_countwords(s, c) + 1), sizeof(char *));
 	if (!tab)
 		return (NULL);
 	i = 0;
@@ -86,13 +85,11 @@ char	**ft_split(char const *s, char c)
 			i++;
 		tab[j] = ft_wordprinter(&s[i], c);
 		if (!tab[j])
-			ft_freestrs(tab);
+			return(ft_freestrs(tab), NULL);
 		j++;
 		while (s[i] && s[i] != c)
 			i++;
 	}
-	tab[j] = NULL;
-	j = 0;
 	return (tab);
 }
 /*

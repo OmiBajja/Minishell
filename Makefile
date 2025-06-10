@@ -23,6 +23,7 @@ LEXER_SRC    = lexing/lexing.c lexing/token_init.c
 PARSER_SRC   = parsing/parser.c parsing/parsing_init.c
 SIGNAL_SRC   = signal/signal.c
 UTILS_SRC    = utils/ft_strndup.c utils/ft_is_whitespace.c utils/ft_extender.c
+BUILTIN_SRC	 = built-in/cd.c built-in/echo.c built-in/env.c built-in/exit.c built-in/export.c built-in/pwd.c built-in/unset.c
 
 # Combine all source files
 SRC_FILES    = $(addprefix $(SRC_DIR)/, \
@@ -31,7 +32,8 @@ SRC_FILES    = $(addprefix $(SRC_DIR)/, \
 			   $(LEXER_SRC) \
 			   $(PARSER_SRC) \
 			   $(SIGNAL_SRC) \
-			   $(UTILS_SRC))
+			   $(UTILS_SRC) \
+			   $(BUILTIN_SRC))
 
 # Object files
 OBJS         = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC_FILES))

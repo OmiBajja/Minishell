@@ -14,12 +14,9 @@
 
 void ft_pwd(char **envp)
 {
-	int i;
 	char *pwd;
 
-	i = 0;
-	while (!ft_strstr(envp[i],"PWD="))
-		i++;
-	pwd = ft_strstr(envp[i],"PWD=");
-	printf("%s\n",&pwd[4]);
+	(void)envp;
+	pwd = getcwd(NULL, 0);
+	printf("%s\n",pwd);
 }
