@@ -17,16 +17,15 @@ void input_handler(char *input, t_mini *mini)
     t_lex *tokens;
 	t_parsing *parser;
     
-    printf("Input received: [%s]\n", input);  // Debug print
+    //printf("Input received: [%s]\n", input);
     tokens = lexing(input);
     if (!tokens)
-        printf("No tokens generated\n");  // Debug print
-    print_tokens(tokens);
+        printf("No tokens generated\n");
+    //print_tokens(tokens);
 	parser = token_parser(input, tokens, mini->env);
-	print_all_commands(parser);
+	//print_all_commands(parser);
 
 	exec_handler(parser, mini->env);
-	
     free_tokens(tokens);
 }
 
@@ -41,6 +40,9 @@ int mini_handler(t_mini *mini)
             return (EXIT_FAILURE);
         input_handler(input,mini);
         add_history(input);
+        printf("DInosaur\n");
+        //rl_on_new_line();
+        //rl_replace_line("",0);
         free(input);
     }
     return (EXIT_SUCCESS);

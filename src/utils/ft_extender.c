@@ -52,7 +52,7 @@ char *env_fetcher(char *word, char **env)
 		i++;
 	}
 	if (!env[i])
-		return ("");
+		return (ft_calloc(1,1));
 	replace = ft_strdup(&env[i][len + 1]);
 	if (!replace)
 		return (NULL);
@@ -65,8 +65,7 @@ char *word_assigner(char *input)
 	int j;
 	int len;
 	int i;
-	
-	len = 0;
+
 	i = 0;
 	j = 0;
 	word = NULL;
@@ -94,7 +93,7 @@ int	is_extendable(char *input)
 	{
 		if (input[i] == '\'')
 			counter *= -1;
-		printf("Input[i]:%c\tCOunter:%d\n",input[i],counter);
+		//printf("Input[i]:%c\tCOunter:%d\n",input[i],counter);
 		if (input[i] == '$' && counter == 1)
 			return (i + 1);
 		i++;
@@ -109,16 +108,17 @@ char *ft_extender(char *input, char **env)
 	char *extended;
 	char *replace;
 	
-	if ((i = is_extendable(input)) == -1)
+	i = is_extendable(input);
+	if (i == -1)
 		return (NULL);
 	word = word_assigner(&input[i]);
 	if (!word)
 		return (NULL);
 	replace = env_fetcher(word, env);
 	if (!replace)
-		return (NULL);
+		return (free(word),NULL);
 	extended = input_extender(input, replace, word, i - 1);
 	if (!extended)
-		return (NULL);
-	return(extended);
+		return (free(word),free(replace),NULL);
+	return(free(word),free(replace),extended);
 }

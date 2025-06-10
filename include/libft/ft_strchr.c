@@ -17,7 +17,9 @@ char	*ft_strchr(const char *str, int tofind)
 	int	i;
 
 	i = 0;
-	if ((unsigned char)tofind == '\0' && str != 0)
+	if (!str)
+		return (NULL);
+	if ((unsigned char)tofind == '\0' && !str)
 		return ((char *)str + ft_strlen(str));
 	while (str[i])
 	{

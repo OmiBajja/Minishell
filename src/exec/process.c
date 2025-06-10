@@ -56,7 +56,7 @@ int	**create_pipes(int n)
 
 	pipes = malloc(n * sizeof (int *));
 	if (!pipes)
-		perror_exit();
+		return(perror_exit(), NULL);
 	i = 0;
 	while (i < n)
 	{

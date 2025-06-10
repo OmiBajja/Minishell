@@ -17,9 +17,10 @@ void ft_echo(char **envp, char *input)
     int i;
 
     i = 0;
+	(void)envp;
 	while (ft_is_whitespace(input[i]))
 		i++;
-	if (input[i] == 'e')
+	if (ft_strncmp(&input[i],"echo ",5))
 	{
 		i += 5;
 		while (ft_is_whitespace(input[i]))
