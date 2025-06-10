@@ -40,7 +40,6 @@ int mini_handler(t_mini *mini)
             return (EXIT_FAILURE);
         input_handler(input,mini);
         add_history(input);
-        printf("DInosaur\n");
         //rl_on_new_line();
         //rl_replace_line("",0);
         free(input);
