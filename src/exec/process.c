@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 13:24:19 by pafranci          #+#    #+#             */
-/*   Updated: 2025/05/29 02:13:20 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/06/10 17:06:33 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void pipex(char *infile, char *outfile, char **cmds, int cmd_count, char **env)
 	int		outfile_fd;
 	int		**pipes;
 	int		i;
-	pid_t	pid;
+	pid_t	*pid;
 
 	infile_fd = open(infile, O_RDONLY);
 	if (infile_fd < 0)
@@ -28,15 +28,19 @@ void pipex(char *infile, char *outfile, char **cmds, int cmd_count, char **env)
 		perror_exit();
 	pipes = create_pipes(cmd_count - 1);
 	i = 0;
+	pid = malloc(sizeof(pid_t *));
 	while (i < cmd_count)
 	{
-		pid = fork();
-		if (pid < 0)
+		pid[i] = fork();
+		if (pid[i] < 0)
 			perror_exit();
-		if (pid == 0)
+		if (pid[i] == 0)
 			child_process(i, infile_fd, outfile_fd, cmds[i], env, pipes, cmd_count);
 		i++;
 	}
+	i = 0;
+	while (i < cmd_count)
+		waitpid(pid[i++], NULL, 0);
 	close(infile_fd);
 	close(outfile_fd);
 	close_pipes(pipes, cmd_count - 1);
@@ -48,6 +52,7 @@ void pipex(char *infile, char *outfile, char **cmds, int cmd_count, char **env)
 	}
 	free(pipes);
 }
+
 
 int	**create_pipes(int n)
 {
