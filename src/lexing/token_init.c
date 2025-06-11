@@ -6,7 +6,7 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 15:57:19 by obajja            #+#    #+#             */
-/*   Updated: 2025/04/14 16:31:31 by obajja           ###   ########.fr       */
+/*   Updated: 2025/06/11 11:51:42 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,17 @@ void add_to_list(t_lex **head, t_lex *new)
 			temp = temp->next;
 		temp->next = new;
 	}
+}
+
+void print_tokens(t_lex *tokens)
+{
+	if (!tokens)
+		return;
+	
+	while (tokens) {
+		if (tokens->value)
+			printf("Token: [%s] Type: %d\n", tokens->value, tokens->type);
+        tokens = tokens->next;
+    }
+	//fflush(stdout);
 }
