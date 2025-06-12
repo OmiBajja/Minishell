@@ -6,14 +6,68 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 19:53:35 by pafranci          #+#    #+#             */
-/*   Updated: 2025/06/04 00:40:24 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/06/12 15:20:28 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
+static bool is_builtin(const char *cmd)
+{
+	return (!strcmp(cmd, "cd")
+		|| !strcmp(cmd, "echo")
+		|| !strcmp(cmd, "env")
+		|| !strcmp(cmd, "exit")
+		|| !strcmp(cmd, "export")
+		|| !strcmp(cmd, "pwd")
+		|| !strcmp(cmd, "unset"));
+}
+
+static void exec_builtin(t_parsing *node, char ***envp)
+{
+	/*if (!strcmp(node->cmd, "cd"))
+		ft_cd(*envp);
+	else if (!strcmp(node->cmd, "export"))
+		ft_export(*envp);
+	else if (!strcmp(node->cmd, "unset"))
+		ft_unset(*envp);
+	else*/if (!strcmp(node->cmd, "echo"))
+		ft_echo(*envp, node->args[0]);
+	else if (!strcmp(node->cmd, "env"))
+		ft_env(*envp);
+	else if (!strcmp(node->cmd, "exit"))
+		ft_exit(*envp);
+	else if (!strcmp(node->cmd, "pwd"))
+		ft_pwd(*envp);
+}
+
 void	exec_handler(t_parsing *head, char **envp)
 {
+	if (head->next == NULL && is_builtin(head->cmd))
+	{
+		int saved_in = dup(STDIN_FILENO);
+		int saved_out = dup(STDOUT_FILENO);
+
+		if (head->infile)
+		{
+			int fd = open(head->infile, O_RDONLY);
+			dup2(fd, STDIN_FILENO);
+			close(fd);
+		}
+		if (head->outfile)
+		{
+			int fd = open(head->outfile, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+			dup2(fd, STDOUT_FILENO);
+			close(fd);
+		}
+		exec_builtin(head, &envp);
+		dup2(saved_in, STDIN_FILENO);
+		dup2(saved_out, STDOUT_FILENO);
+		close(saved_in);
+		close(saved_out);
+		return ;
+	}
+
 	t_parsing	*node;
 	char		**cmds;
 	char		*infile;

@@ -6,7 +6,7 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:02:04 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/11 21:18:22 by obajja           ###   ########.fr       */
+/*   Updated: 2025/06/10 18:05:15 by pafranci         ###   ########.fr       */ 
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ int mini_handler(t_mini *mini)
             return (EXIT_FAILURE);
         input_handler(input,mini);
         add_history(input);
+        exec_builtins
+
         free(input);
     }
     return (EXIT_SUCCESS);
