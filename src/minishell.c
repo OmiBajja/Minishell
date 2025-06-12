@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:02:04 by obajja            #+#    #+#             */
-/*   Updated: 2025/05/28 23:16:00 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/06/10 18:05:15 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ int mini_handler(t_mini *mini)
             return (EXIT_FAILURE);
         input_handler(input,mini);
         add_history(input);
-        printf("DInosaur\n");
         //rl_on_new_line();
         //rl_replace_line("",0);
         free(input);

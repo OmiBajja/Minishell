@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_extender.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 15:56:51 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/04 22:53:52 by obajja           ###   ########.fr       */
+/*   Updated: 2025/06/10 18:05:25 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ char *input_extender(char *input, char *replace, char *word, int stop)
 	while (input[++len])
 		extended[i++] = input[len];
 	extended[i + 1] = '\0';
-	printf("Final: %s\n", extended);
 	return (extended);
 }
 
