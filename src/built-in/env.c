@@ -6,7 +6,7 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 00:47:24 by obajja            #+#    #+#             */
-/*   Updated: 2025/05/08 15:47:05 by obajja           ###   ########.fr       */
+/*   Updated: 2025/06/12 17:14:45 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void ft_env(char **envp)
 {
     int i;
 
-    i = 0;
-    while (envp[i])
-        printf("%s\n",envp[i++]);
+    i = -1;
+    while (envp[++i])
+        printf("%d: %s\n", i, envp[i]);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handler.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 19:53:35 by pafranci          #+#    #+#             */
-/*   Updated: 2025/06/12 15:20:28 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/06/12 19:07:31 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,25 +23,25 @@ static bool is_builtin(const char *cmd)
 		|| !strcmp(cmd, "unset"));
 }
 
-static void exec_builtin(t_parsing *node, char ***envp)
+static void exec_builtin(t_parsing *node, t_mini *mini)
 {
 	/*if (!strcmp(node->cmd, "cd"))
 		ft_cd(*envp);
-	else if (!strcmp(node->cmd, "export"))
-		ft_export(*envp);
+	else */if (!strcmp(node->cmd, "export"))
+		ft_export(mini, node->args[1]);
 	else if (!strcmp(node->cmd, "unset"))
-		ft_unset(*envp);
-	else*/if (!strcmp(node->cmd, "echo"))
-		ft_echo(*envp, node->args[0]);
+		ft_unset(mini, node->args[1]);
+	else if (!strcmp(node->cmd, "echo"))
+		ft_echo(mini->env, node->args[0]);
 	else if (!strcmp(node->cmd, "env"))
-		ft_env(*envp);
+		ft_env(mini->env);
 	else if (!strcmp(node->cmd, "exit"))
-		ft_exit(*envp);
+		ft_exit(mini);
 	else if (!strcmp(node->cmd, "pwd"))
-		ft_pwd(*envp);
+		ft_pwd(mini->env);
 }
 
-void	exec_handler(t_parsing *head, char **envp)
+void	exec_handler(t_parsing *head, char **envp, t_mini *mini)
 {
 	if (head->next == NULL && is_builtin(head->cmd))
 	{
@@ -60,7 +60,7 @@ void	exec_handler(t_parsing *head, char **envp)
 			dup2(fd, STDOUT_FILENO);
 			close(fd);
 		}
-		exec_builtin(head, &envp);
+		exec_builtin(head, mini);
 		dup2(saved_in, STDIN_FILENO);
 		dup2(saved_out, STDOUT_FILENO);
 		close(saved_in);

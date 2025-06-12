@@ -20,11 +20,14 @@ void input_handler(char *input, t_mini *mini)
     //printf("Input received: [%s]\n", input);
     tokens = lexing(input, mini->env);
     if (!tokens)
-        printf("No tokens generated\n");
+    {
+        printf("Quotes please\n");
+        return;
+    }
     print_tokens(tokens);
 	parser = token_parser(input, tokens);
 	//print_all_commands(parser);
-	exec_handler(parser, mini->env);
+	exec_handler(parser, mini->env, mini);
     free_tokens(tokens);
 }
 
@@ -35,12 +38,11 @@ int mini_handler(t_mini *mini)
     while (42)
     {
         input = readline(BRED "MinisHell :" RESET_COLOR);
+        // CTRL D  IS HANDLED HERE, INSTEAD OF JUST RETURN EXIT FAILURE, FREE SHIT
         if (!input)
             return (EXIT_FAILURE);
         input_handler(input,mini);
         add_history(input);
-        exec_builtins
-
         free(input);
     }
     return (EXIT_SUCCESS);

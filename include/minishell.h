@@ -6,7 +6,7 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:02:13 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/11 21:16:39 by obajja           ###   ########.fr       */
+/*   Updated: 2025/06/12 17:35:44 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,11 @@
 #define TOKEN_REDIR_IN	3
 #define TOKEN_REDIR_OUT	4
 
-typedef struct s_data
-{
-	char	*paths;
-	char	**env;
-}	t_env_data;
+// typedef struct s_data
+// {
+// 	char	*paths;
+// 	char	**env;
+// }	t_env_data;
 
 typedef struct s_lex
 {
@@ -59,13 +59,11 @@ typedef struct s_mini
 {
     char **env;
     t_parsing *data;
-
-
+	
 }   t_mini;
 
 void    signal_handling();
 short   ft_init_list(char *input, t_mini *mini);
-void    ft_env(char **envp);
 void    parser(char *input, t_mini  *mini);
 char    **ft_split_str_mini(char *str, char *charset, t_mini  *mini);
 int		ft_is_whitespace(int str);
@@ -86,7 +84,7 @@ char 	**new_args(char **args, char *new_arg);
 t_parsing *token_parser(char *input, t_lex *tokens);
 void print_all_commands(t_parsing *head);
 
-int		pipes_and_forks(t_env_data env_data, char *av[]);
+//int		pipes_and_forks(t_env_data env_data, char *av[]);
 char	*find_env_paths(char **env);
 char	*find_cmd_in_pahts(const char *cmd, char **env_paths_tab);
 
@@ -108,7 +106,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strnstr(const char *haystack, const char *needle, int n);
 bool	is_needle_in_haystack(const char *haystack, const char *needle);
 char	**ft_split_pau(char const *s, char c);
-void	exec_handler(t_parsing *head, char **envp);
+void	exec_handler(t_parsing *head, char **envp, t_mini *mini);
 
 char *ft_extender(char *input, char **env);
 int	is_extendable(char *input);
@@ -117,3 +115,11 @@ int ft_quotechecker(char *input);
 char *ft_dequoter(char *input);
 
 char *quote_handler(char *input, int *index, char **env);
+char	**ft_strsjoin(char **src, char *dest);
+
+void ft_echo(char **envp, char *input);
+void ft_env(char **envp);
+void ft_pwd(char **env);
+void ft_export(t_mini *mini, char *command);
+void ft_unset(t_mini *mini, char *command);
+void ft_exit(t_mini *mini);

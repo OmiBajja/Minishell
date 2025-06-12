@@ -1,22 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export.c                                           :+:      :+:    :+:   */
+/*   ft_strsjoin.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/09 00:47:38 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/12 17:28:44 by obajja           ###   ########.fr       */
+/*   Created: 2025/06/12 16:47:07 by obajja            #+#    #+#             */
+/*   Updated: 2025/06/12 16:53:02 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void ft_export(t_mini *mini, char *command)
+char	**ft_strsjoin(char **src, char *dest)
 {
-    char **new_env;
-    
-    new_env = ft_strsjoin (mini->env, command);
-    free(mini->env);
-    mini->env = new_env;
+	size_t	i;
+    int     size;
+	char	**cpy;
+
+	i = -1;
+    size = ft_strslen(src);
+    cpy = ft_calloc((size + 2), sizeof(char *));
+	if (!cpy)
+		return (NULL);
+	while (src[++i])
+	{
+		cpy[i] = ft_strdup(src[i]);
+		if (!cpy[i])
+			return (ft_freestrs(cpy), NULL);
+	}
+	cpy[i] = ft_strdup(dest);
+	return (cpy);
 }
