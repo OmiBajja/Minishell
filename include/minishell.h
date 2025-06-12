@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:02:13 by obajja            #+#    #+#             */
-/*   Updated: 2025/05/29 02:22:45 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/06/11 21:16:39 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,21 +69,21 @@ void    ft_env(char **envp);
 void    parser(char *input, t_mini  *mini);
 char    **ft_split_str_mini(char *str, char *charset, t_mini  *mini);
 int		ft_is_whitespace(int str);
-t_lex 	*lexing (char *input);
+t_lex 	*lexing (char *input, char **env);
 char 	*ft_strndup(char *str, size_t size);
 int		operator_check(char c);
 int		find_operator(char c);
 t_lex 	*create_token(char *value, int type);
 void 	add_to_list(t_lex **head, t_lex *new);
-char 	*word_lexer(char *input, int *start);
+char 	*word_lexer(char *input, int *start, char **env);
 void 	print_tokens(t_lex *tokens);
 void 	free_tokens(t_lex *tokens);
-t_lex *command_processor(t_parsing *cmd, t_lex *tokens, char **env);
+t_lex *command_processor(t_parsing *cmd, t_lex *tokens);
 t_lex 	*redirection_machine(t_parsing *cmd, t_lex *tokens);
-void  command_machine(t_parsing *cmd, t_lex *token, char **env);
+void  command_machine(t_parsing *cmd, t_lex *token);
 t_parsing *create_parse();
 char 	**new_args(char **args, char *new_arg);
-t_parsing *token_parser(char *input, t_lex *tokens, char **env);
+t_parsing *token_parser(char *input, t_lex *tokens);
 void print_all_commands(t_parsing *head);
 
 int		pipes_and_forks(t_env_data env_data, char *av[]);
@@ -112,3 +112,8 @@ void	exec_handler(t_parsing *head, char **envp);
 
 char *ft_extender(char *input, char **env);
 int	is_extendable(char *input);
+
+int ft_quotechecker(char *input);
+char *ft_dequoter(char *input);
+
+char *quote_handler(char *input, int *index, char **env);

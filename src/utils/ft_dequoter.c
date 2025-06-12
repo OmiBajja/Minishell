@@ -1,39 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   ft_dequoter.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/09 00:48:21 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/11 21:16:23 by obajja           ###   ########.fr       */
+/*   Created: 2025/06/10 17:43:05 by obajja            #+#    #+#             */
+/*   Updated: 2025/06/11 16:13:32 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-t_parsing *token_parser(char *input, t_lex *tokens)
+int ft_quotechecker(char *quote)
 {
-    t_parsing *head;
-	t_parsing *node;
+    if (quote[0] == '\'' || quote[0] == '"')
+        return (1);
+    else
+        return (0);
+}
 
-	head = NULL;
-	node = NULL;
-	(void)input;
-	while (tokens)
-	{
-		if (!node)
-		{
-			node = create_parse();
-			head = node;
-		}
-		tokens = command_processor(node, tokens);
-		if (tokens && tokens->type == TOKEN_PIPE)
-		{
-			tokens = tokens->next;
-			node->next = create_parse();
-			node = node->next;
-		}
-	}
-	return (head);
+char *ft_dequoter(char *quote)
+{
+    int i;
+    int j;
+    int size;
+    char *result;
+
+    j = -1;
+    i = 0;
+    size = ft_strlen(quote);
+    result = ft_calloc(size - 1, 1);
+    while (++j < size)
+        result[j] = quote[++i];
+    free(quote);
+    return (result);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:02:04 by obajja            #+#    #+#             */
-/*   Updated: 2025/05/28 23:16:00 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/06/11 21:18:22 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,12 @@ void input_handler(char *input, t_mini *mini)
 	t_parsing *parser;
     
     //printf("Input received: [%s]\n", input);
-    tokens = lexing(input);
+    tokens = lexing(input, mini->env);
     if (!tokens)
         printf("No tokens generated\n");
-    //print_tokens(tokens);
-	parser = token_parser(input, tokens, mini->env);
+    print_tokens(tokens);
+	parser = token_parser(input, tokens);
 	//print_all_commands(parser);
-
 	exec_handler(parser, mini->env);
     free_tokens(tokens);
 }
@@ -40,9 +39,6 @@ int mini_handler(t_mini *mini)
             return (EXIT_FAILURE);
         input_handler(input,mini);
         add_history(input);
-        printf("DInosaur\n");
-        //rl_on_new_line();
-        //rl_replace_line("",0);
         free(input);
     }
     return (EXIT_SUCCESS);
