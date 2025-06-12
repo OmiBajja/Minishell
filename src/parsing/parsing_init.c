@@ -6,7 +6,7 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:40:03 by obajja            #+#    #+#             */
-/*   Updated: 2025/04/15 18:15:22 by obajja           ###   ########.fr       */
+/*   Updated: 2025/06/11 21:15:38 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,23 +94,9 @@ t_parsing *create_parse()
 
 	return (parse);
 }
-void  command_machine(t_parsing *cmd, t_lex *token, char **env)
+void  command_machine(t_parsing *cmd, t_lex *token)
 {
-	char *input;
-
-	if (is_extendable(token->value) != -1)
-	{
-		input = ft_extender(token->value,env);
-		if (!cmd->cmd)
-		{
-			cmd->cmd = input;
-			cmd->args = new_args(NULL, input);
-		}
-		else
-			cmd->args = new_args(cmd->args, input);
-	}
-
-	else if (!cmd->cmd)
+	if (!cmd->cmd)
 	{
 		cmd->cmd = ft_strdup(token->value);
 		cmd->args = new_args(NULL, token->value);
@@ -136,12 +122,12 @@ t_lex *redirection_machine(t_parsing *cmd, t_lex *tokens)
 	return (next);
 }
 
-t_lex *command_processor(t_parsing *cmd, t_lex *tokens, char **env)
+t_lex *command_processor(t_parsing *cmd, t_lex *tokens)
 {
 	while (tokens && tokens->type != TOKEN_PIPE)
 	{
 		if (tokens->type == TOKEN_COMMAND)
-			command_machine(cmd, tokens, env);
+			command_machine(cmd, tokens);
 		else if (tokens->type == TOKEN_REDIR_IN || tokens->type == TOKEN_REDIR_OUT)
 			tokens = redirection_machine(cmd, tokens);
 		tokens = tokens->next;
