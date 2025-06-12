@@ -17,7 +17,6 @@ void input_handler(char *input, t_mini *mini)
     t_lex *tokens;
 	t_parsing *parser;
     
-    //printf("Input received: [%s]\n", input);
     tokens = lexing(input, mini->env);
     if (!tokens)
     {
@@ -28,6 +27,7 @@ void input_handler(char *input, t_mini *mini)
 	parser = token_parser(input, tokens);
 	//print_all_commands(parser);
 	exec_handler(parser, mini->env, mini);
+    free_parse(parser);
     free_tokens(tokens);
 }
 
@@ -40,7 +40,13 @@ int mini_handler(t_mini *mini)
         input = readline(BRED "MinisHell :" RESET_COLOR);
         // CTRL D  IS HANDLED HERE, INSTEAD OF JUST RETURN EXIT FAILURE, FREE SHIT
         if (!input)
+        {
+            if (mini->env)
+                ft_freestrs(mini->env);       
+            if (mini)
+                free(mini);
             return (EXIT_FAILURE);
+        }
         input_handler(input,mini);
         add_history(input);
         free(input);
@@ -50,14 +56,15 @@ int mini_handler(t_mini *mini)
 
 int main(int argc, char **argv, char **envp)
 {
-    t_mini  mini;
+    t_mini  *mini;
 
     (void)argc;
     (void)argv;
-    mini.env = ft_strsdup(envp, ft_strslen(envp));
-    if (!mini.env)
+    mini = ft_calloc(1, sizeof(t_mini));
+    mini->env = ft_strsdup(envp, ft_strslen(envp));
+    if (!mini->env)
         return (EXIT_FAILURE);
     signal_handling();
-    mini_handler(&mini);
+    mini_handler(mini);
     return (EXIT_SUCCESS);
 }

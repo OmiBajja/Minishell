@@ -6,49 +6,11 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:40:03 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/11 21:15:38 by obajja           ###   ########.fr       */
+/*   Updated: 2025/06/12 21:06:33 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-
-void print_command(t_parsing *cmd) 
-{
-    int i = 0;
-    printf("=== COMMAND ===\n");
-
-    if (cmd->cmd)
-        printf("Command: %s\n", cmd->cmd);
-    else
-        printf("Command: (null)\n");
-
-    printf("Args: ");
-    if (cmd->args) {
-        while (cmd->args[i]) {
-            printf("[%s] ", cmd->args[i]);
-            i++;
-        }
-    } else {
-        printf("(null)");
-    }
-    printf("\n");
-
-    if (cmd->infile)
-        printf("Infile: %s\n", cmd->infile);
-    if (cmd->outfile)
-        printf("Outfile: %s\n", cmd->outfile);
-
-    printf("================\n\n");
-}
-
-void print_all_commands(t_parsing *head) 
-{
-    while (head) {
-        printf("== PIPE ==\n");
-        print_command(head);
-        head = head->next;
-    }
-}
 
 char **new_args(char **args, char *new_arg)
 {
