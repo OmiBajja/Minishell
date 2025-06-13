@@ -6,7 +6,7 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:02:13 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/12 20:51:02 by obajja           ###   ########.fr       */
+/*   Updated: 2025/06/13 22:04:56 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void    signal_handling(void);
 void    exec_handler(t_parsing *head, char **envp, t_mini *mini);
 
 //=== Built-in Commands ===//
-void ft_echo(char **envp, char *input);
+void ft_echo(char **input);
 void ft_env(char **envp);
 void ft_pwd(char **env);
 void ft_export(t_mini *mini, char *command);
@@ -113,6 +113,7 @@ char    *ft_strnstr(const char *haystack, const char *needle, int n);
 bool    is_needle_in_haystack(const char *haystack, const char *needle);
 char    **ft_split_pau(char const *s, char c);
 char    **ft_strsjoin(char **src, char *dest);
+char 	*ft_strscomp(char **src);
 
 //=== Memory & Error Handling ===//
 void    free_tab(char **tab);

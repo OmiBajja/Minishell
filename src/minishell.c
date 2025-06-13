@@ -38,14 +38,13 @@ int mini_handler(t_mini *mini)
     while (42)
     {
         input = readline(BRED "MinisHell :" RESET_COLOR);
-        // CTRL D  IS HANDLED HERE, INSTEAD OF JUST RETURN EXIT FAILURE, FREE SHIT
         if (!input)
         {
             if (mini->env)
                 ft_freestrs(mini->env);       
             if (mini)
                 free(mini);
-            return (EXIT_FAILURE);
+            exit(1);
         }
         input_handler(input,mini);
         add_history(input);

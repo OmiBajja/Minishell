@@ -6,7 +6,7 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 19:53:35 by pafranci          #+#    #+#             */
-/*   Updated: 2025/06/12 19:07:31 by obajja           ###   ########.fr       */
+/*   Updated: 2025/06/13 22:23:22 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void exec_builtin(t_parsing *node, t_mini *mini)
 	else if (!strcmp(node->cmd, "unset"))
 		ft_unset(mini, node->args[1]);
 	else if (!strcmp(node->cmd, "echo"))
-		ft_echo(mini->env, node->args[0]);
+		ft_echo(&node->args[1]);
 	else if (!strcmp(node->cmd, "env"))
 		ft_env(mini->env);
 	else if (!strcmp(node->cmd, "exit"))

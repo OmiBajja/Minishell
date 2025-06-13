@@ -6,25 +6,17 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 00:47:17 by obajja            #+#    #+#             */
-/*   Updated: 2025/05/08 15:18:29 by obajja           ###   ########.fr       */
+/*   Updated: 2025/06/13 22:27:59 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void ft_echo(char **envp, char *input)
+void ft_echo(char **inputs)
 {
-    int i;
+	char *result;
 
-    i = 0;
-	(void)envp;
-	while (ft_is_whitespace(input[i]))
-		i++;
-	if (ft_strncmp(&input[i],"echo ",5))
-	{
-		i += 5;
-		while (ft_is_whitespace(input[i]))
-			i++;
-		printf("%s\n",&input[i]);
-	}
+	result = ft_strscomp(inputs);
+	printf("%s\n",result);
+	free(result);
 }

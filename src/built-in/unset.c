@@ -6,7 +6,7 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 00:54:01 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/12 19:24:44 by obajja           ###   ########.fr       */
+/*   Updated: 2025/06/13 20:22:34 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,6 @@ void    ft_unset(t_mini *mini, char *command)
 	    		ft_freestrs(env_cpy);   
         }
     }
-    free(mini->env);
+    ft_freestrs(mini->env);
     mini->env = env_cpy;
 }
