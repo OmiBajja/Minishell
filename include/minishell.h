@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:02:13 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/19 15:03:21 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/06/19 17:06:29 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ void    signal_handling(void);
 void    exec_handler(t_parsing *head, char **envp, t_mini *mini);
 
 //=== Built-in Commands ===//
+char *ft_get_env_val(char **env, const char *key);
+void ft_replace_env(char ***env, const char *key, const char *value);
 void ft_cd(t_mini *mini, char **args);
 void ft_echo(char **input);
 void ft_env(char **envp);
