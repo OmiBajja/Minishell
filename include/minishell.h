@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:02:13 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/13 22:04:56 by obajja           ###   ########.fr       */
+/*   Updated: 2025/06/19 15:03:21 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ void    signal_handling(void);
 void    exec_handler(t_parsing *head, char **envp, t_mini *mini);
 
 //=== Built-in Commands ===//
+void ft_cd(t_mini *mini, char **args);
 void ft_echo(char **input);
 void ft_env(char **envp);
 void ft_pwd(char **env);
