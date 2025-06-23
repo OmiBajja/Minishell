@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_init.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:40:03 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/12 21:06:33 by obajja           ###   ########.fr       */
+/*   Updated: 2025/06/19 20:29:39 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ t_parsing *create_parse()
 	if (!parse)
 		return (NULL);
 	parse->outfile = NULL;
+	parse->append_outfile = NULL;
 	parse->infile = NULL;
 	parse->cmd = NULL;
 	parse->args = NULL;
@@ -81,6 +82,8 @@ t_lex *redirection_machine(t_parsing *cmd, t_lex *tokens)
 		cmd->infile = ft_strdup(next->value);
 	else if (tokens->type == TOKEN_REDIR_OUT)
 		cmd->outfile = ft_strdup(next->value);
+	else if (tokens->type == TOKEN_APPEND_OUT)
+		cmd->append_outfile = ft_strdup(next->value);
 	return (next);
 }
 

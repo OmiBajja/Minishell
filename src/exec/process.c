@@ -6,13 +6,13 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 13:24:19 by pafranci          #+#    #+#             */
-/*   Updated: 2025/06/12 14:31:09 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/06/19 21:04:40 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void pipex(char *infile, char *outfile, char **cmds, int cmd_count, char **env)
+void pipex(char *infile, char *outfile, char *append_outfile, char **cmds, int cmd_count, char **env)
 {
 	int		infile_fd;
 	int		outfile_fd;
@@ -23,7 +23,10 @@ void pipex(char *infile, char *outfile, char **cmds, int cmd_count, char **env)
 	infile_fd = open(infile, O_RDONLY);
 	if (infile_fd < 0)
 		perror_exit();
-	outfile_fd = open(outfile, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	if (append_outfile)
+		outfile_fd = open(append_outfile, O_CREAT | O_WRONLY | O_APPEND);
+	else
+		outfile_fd = open(outfile, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (outfile_fd < 0)
 		perror_exit();
 	pipes = create_pipes(cmd_count - 1);

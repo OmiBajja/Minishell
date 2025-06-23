@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:02:13 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/19 17:06:29 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/06/19 21:02:48 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@
 #define TOKEN_PIPE       2
 #define TOKEN_REDIR_IN   3
 #define TOKEN_REDIR_OUT  4
+#define TOKEN_HEREDOC_IN 5
+#define TOKEN_APPEND_OUT 6
 
 //=== Struct Definitions ===//
 typedef struct s_lex
@@ -42,6 +44,7 @@ typedef struct s_lex
 typedef struct s_parsing
 {
 	char *outfile;
+	char *append_outfile;
 	char *infile;
 	char *cmd;
 	char **args;
@@ -91,7 +94,7 @@ void ft_unset(t_mini *mini, char *command);
 void ft_exit(t_mini *mini);
 
 //=== Execution & Pipes ===//
-void    pipex(char *infile, char *outfile, char **cmds, int cmd_count, char **env);
+void    pipex(char *infile, char *outfile, char *append_outfile, char **cmds, int cmd_count, char **env);
 int     **create_pipes(int n);
 void    close_pipes(int **pipes, int n);
 void    child_process(int index, int infile_fd, int outfile_fd, char *cmd, char **env, int **pipes, int cmd_count);
@@ -105,8 +108,8 @@ char    *find_cmd_in_pahts(const char *cmd, char **env_paths_tab);
 char    **ft_split_str_mini(char *str, char *charset, t_mini *mini);
 int     ft_is_whitespace(int str);
 char    *ft_strndup(char *str, size_t size);
-int     operator_check(char c);
-int     find_operator(char c);
+int     operator_check(const char *input);
+int     find_operator(const char *str);
 
 //=== Libft Extensions / Utils ===//
 int     ft_strlen(const char *s);

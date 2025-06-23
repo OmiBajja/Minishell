@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexing.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 10:53:13 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/11 21:21:15 by obajja           ###   ########.fr       */
+/*   Updated: 2025/06/19 20:43:44 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char *word_lexer(char *input, int *start, char **env)
 	{
 		if (input[i] == '"' || input[i] == '\'')
 			break;
-		else if (operator_check(input[i]) || ft_is_whitespace(input[i]))
+		else if (operator_check(&input[i]) || ft_is_whitespace(input[i]))
 			break;
 		i++;
 	}
@@ -41,9 +41,10 @@ char *word_lexer(char *input, int *start, char **env)
 t_lex *lexing (char *input, char **env)
 {
 	t_lex 	*tokens;
-	char	operator;
+	char	*operator;
 	char	*word;
 	int		i;
+	int		op_len;
 
 	i = 0;
 	tokens = NULL;
@@ -51,10 +52,11 @@ t_lex *lexing (char *input, char **env)
 	{
 		while (ft_is_whitespace(input[i]))
 			i++;
-		if (operator_check(input[i]))
+		op_len = operator_check(&input[i]);
+		if (op_len)
 		{
-			operator = input[i++];
-			add_to_list(&tokens, create_token(ft_strndup(&operator, 1), find_operator(operator)));
+			operator = ft_strndup(&input[i], op_len);
+			add_to_list(&tokens, create_token(operator, find_operator(operator)));
 		}
 		else
 		{
@@ -62,6 +64,7 @@ t_lex *lexing (char *input, char **env)
 			if (word)
 				add_to_list(&tokens, create_token(word, TOKEN_COMMAND));
 		}
+		i++;
 	}
 	return (tokens);
 }

@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 19:53:35 by pafranci          #+#    #+#             */
-/*   Updated: 2025/06/19 14:59:18 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/06/19 21:07:59 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,20 +43,27 @@ static void exec_builtin(t_parsing *node, t_mini *mini)
 
 void	exec_handler(t_parsing *head, char **envp, t_mini *mini)
 {
+	int	saved_in;
+	int	saved_out;
+	int	fd;
+
 	if (head->next == NULL && is_builtin(head->cmd))
 	{
-		int saved_in = dup(STDIN_FILENO);
-		int saved_out = dup(STDOUT_FILENO);
+		saved_in = dup(STDIN_FILENO);
+		saved_out = dup(STDOUT_FILENO);
 
 		if (head->infile)
 		{
-			int fd = open(head->infile, O_RDONLY);
+			fd = open(head->infile, O_RDONLY);
 			dup2(fd, STDIN_FILENO);
 			close(fd);
 		}
-		if (head->outfile)
+		if (head->outfile || head->append_outfile)
 		{
-			int fd = open(head->outfile, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+			if (head->append_outfile)
+				fd = open(head->append_outfile, O_CREAT | O_WRONLY | O_APPEND, 0644);
+			else
+				fd = open(head->outfile, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 			dup2(fd, STDOUT_FILENO);
 			close(fd);
 		}
@@ -72,6 +79,7 @@ void	exec_handler(t_parsing *head, char **envp, t_mini *mini)
 	char		**cmds;
 	char		*infile;
 	char		*outfile;
+	char		*append_outfile;
 	int			cmd_count;
 	int			i;
 	int			j;
@@ -81,6 +89,7 @@ void	exec_handler(t_parsing *head, char **envp, t_mini *mini)
 	node = head;
 	infile = NULL;
 	outfile = NULL;
+	append_outfile = NULL;
 	while (node)
 	{
 		cmd_count++;
@@ -88,11 +97,13 @@ void	exec_handler(t_parsing *head, char **envp, t_mini *mini)
 			infile = node->infile;
 		if (node->outfile)
 			outfile = node->outfile;
+		if (node->append_outfile)
+			append_outfile = node->append_outfile;
 		node = node->next;
 	}
 	if (!infile)
 		infile = "/dev/stdin";
-	if (!outfile)
+	if (!outfile && !append_outfile)
 		outfile = "/dev/stdout";
 	cmds = malloc((cmd_count + 1) * sizeof(char *));
 	if (!cmds)
@@ -130,7 +141,7 @@ void	exec_handler(t_parsing *head, char **envp, t_mini *mini)
 		node = node->next;
 	}
 	cmds[i] = NULL;
-	pipex(infile, outfile, cmds, cmd_count, envp);
+	pipex(infile, outfile, append_outfile, cmds, cmd_count, envp);
 	i = 0;
 	while (i < cmd_count)
 	{
