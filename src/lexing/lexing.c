@@ -6,7 +6,7 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 10:53:13 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/11 21:21:15 by obajja           ###   ########.fr       */
+/*   Updated: 2025/06/23 20:17:15 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ t_lex *lexing (char *input, char **env)
 			word = word_lexer(input, &i, env);
 			if (word)
 				add_to_list(&tokens, create_token(word, TOKEN_COMMAND));
+			else
+				return (NULL);
 		}
 	}
 	return (tokens);

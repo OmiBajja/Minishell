@@ -6,7 +6,7 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 11:30:23 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/11 17:13:32 by obajja           ###   ########.fr       */
+/*   Updated: 2025/06/23 20:17:55 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ char *single_quote_handler(char *input, int *index)
             return(quote);
         }
     }
+    *index = fin;
+	printf("You forgot quotes not cool\n");
     return (NULL);
 }
 
@@ -53,6 +55,8 @@ char *double_quote_handler(char *input, int *index, char **env)
             return(quote);
         }
     }
+	*index = fin;
+	printf("You forgot quotes not cool\n");
     return (NULL);
 }
 

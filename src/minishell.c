@@ -20,7 +20,7 @@ void input_handler(char *input, t_mini *mini)
     tokens = lexing(input, mini->env);
     if (!tokens)
     {
-        printf("Quotes please\n");
+        printf("Something's wrong\n");
         return;
     }
     print_tokens(tokens);
@@ -39,13 +39,7 @@ int mini_handler(t_mini *mini)
     {
         input = readline(BRED "MinisHell :" RESET_COLOR);
         if (!input)
-        {
-            if (mini->env)
-                ft_freestrs(mini->env);       
-            if (mini)
-                free(mini);
-            exit(1);
-        }
+			ft_exit(mini);
         input_handler(input,mini);
         add_history(input);
         free(input);
