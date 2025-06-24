@@ -6,7 +6,7 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 00:53:56 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/13 20:37:23 by obajja           ###   ########.fr       */
+/*   Updated: 2025/06/24 11:12:55 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,9 @@
 
 void ft_pwd(char **envp)
 {
-	int i;
-	char *pwd;
+	char	cwd[1024];
 
-	i = 0;
-	while (!ft_strstr(envp[i],"PWD="))
-		i++;
-	pwd = ft_strstr(envp[i],"PWD=");
-	printf("%s\n",&pwd[4]);
+	(void)envp;
+	getcwd(cwd, sizeof(cwd));
+	printf("%s\n",cwd);
 }

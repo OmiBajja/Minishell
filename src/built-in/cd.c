@@ -1,8 +1,5 @@
 #include <minishell.h>
 
-//SEND PARSED INPUT INSTEAD OF THE WHOLE THING, 
-//CUZ NOW YOU ARE TRYING TO TOKENIZE AGAIN DUMBASS
-
 char	*ft_get_env_val(char **env, const char *key)
 {
 	int	i;
