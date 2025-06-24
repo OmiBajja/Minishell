@@ -1,36 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strsdup.c                                       :+:      :+:    :+:   */
+/*   ft_shllvl.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/14 19:11:56 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/13 20:21:19 by obajja           ###   ########.fr       */
+/*   Created: 2025/06/24 14:53:05 by obajja            #+#    #+#             */
+/*   Updated: 2025/06/24 15:04:19 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <minishell.h>
 
-char	**ft_strsdup(char **src, size_t size)
+void ft_shllvl(t_mini  *mini)
 {
-	size_t	i;
-	char	**cpy;
+    int j;
 
-	i = 0;
-	cpy = (char **)malloc((size + 1) * sizeof(char *));
-	if (!cpy)
-		return (NULL);
-	while (i < size)
+    j = -1;
+    while (mini->env[++j])
 	{
-		cpy[i] = ft_strdup(src[i]);
-		if (!cpy[i])
-		{
-			ft_freestrs(cpy);
-			return (NULL);
-		}
-		i++;
-	}
-	cpy[i] = NULL;
-	return (cpy);
+        if (ft_strncmp(mini->env[j],"SHLVL", ft_strlen("SHLVL")) == 0)
+            mini->env[j][6] += 1;
+    }
 }

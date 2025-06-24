@@ -6,7 +6,7 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 16:48:50 by obajja            #+#    #+#             */
-/*   Updated: 2025/04/09 19:47:25 by obajja           ###   ########.fr       */
+/*   Updated: 2025/06/24 14:50:50 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void				*ft_calloc(size_t elementCount, size_t elementSize);
 int					ft_isascii(int str);
 
 /* Duplique un tableau de chaînes de caractères */
-char				**ft_strsdup(char **src, size_t size);
+char				**ft_strsndup(char **src, size_t size);
 
 /* Libère la mémoire d'un tableau de chaînes */
 void				ft_freestrs(char **tab);

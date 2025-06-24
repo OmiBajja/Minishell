@@ -6,18 +6,16 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:02:04 by obajja            #+#    #+#             */
-/*   Updated: 2025/04/10 01:04:57 by obajja           ###   ########.fr       */
+/*   Updated: 2025/06/24 11:29:26 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 #include <signal.h>
 
-int     g_ok = 0;
-
 void	ctrlc_handler()
 {
-    g_ok = 130;
+    g_sig = 130;
     printf("\n");
     rl_on_new_line();
     rl_replace_line("",0);

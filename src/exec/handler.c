@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handler.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 19:53:35 by pafranci          #+#    #+#             */
-/*   Updated: 2025/06/19 14:59:18 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/06/24 11:53:16 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void exec_builtin(t_parsing *node, t_mini *mini)
 	else if (!strcmp(node->cmd, "env"))
 		ft_env(mini->env);
 	else if (!strcmp(node->cmd, "exit"))
-		ft_exit(mini);
+		ft_exit(mini, node->args);
 	else if (!strcmp(node->cmd, "pwd"))
 		ft_pwd(mini->env);
 }

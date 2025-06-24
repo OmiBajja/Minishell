@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:02:13 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/19 17:06:29 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/06/24 15:00:10 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@
 //=== Struct Definitions ===//
 typedef struct s_lex
 {
-	char *value;
-	int type;
+	char 	*value;
+	int 	type;
 	struct s_lex *next;
 } t_lex;
 
@@ -52,6 +52,7 @@ typedef struct s_parsing
 typedef struct s_mini
 {
 	char **env;
+	int		status;
 	t_parsing *data;
 } t_mini;
 
@@ -88,7 +89,7 @@ void ft_env(char **envp);
 void ft_pwd(char **env);
 void ft_export(t_mini *mini, char *command);
 void ft_unset(t_mini *mini, char *command);
-void ft_exit(t_mini *mini);
+void ft_exit(t_mini *mini, char **args);
 
 //=== Execution & Pipes ===//
 void    pipex(char *infile, char *outfile, char **cmds, int cmd_count, char **env);
@@ -100,6 +101,8 @@ void    exec_cmd(char const *cmd, char const *paths, char **env);
 //=== Environment Helpers ===//
 char    *find_env_paths(char **env);
 char    *find_cmd_in_pahts(const char *cmd, char **env_paths_tab);
+void 	ft_shllvl(t_mini  *mini);
+
 
 //=== String & Utility Functions ===//
 char    **ft_split_str_mini(char *str, char *charset, t_mini *mini);
@@ -130,6 +133,8 @@ int     is_extendable(char *input);
 int     ft_quotechecker(char *input);
 char    *ft_dequoter(char *input);
 char    *quote_handler(char *input, int *index, char **env);
+
+extern int g_sig;
 
 // typedef struct s_data
 // {

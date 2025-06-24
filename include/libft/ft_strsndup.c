@@ -1,22 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   ft_strsdup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/09 00:47:24 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/24 15:01:45 by obajja           ###   ########.fr       */
+/*   Created: 2025/01/14 19:11:56 by obajja            #+#    #+#             */
+/*   Updated: 2025/06/24 14:50:33 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
+#include "libft.h"
 
-void ft_env(char **envp)
+char	**ft_strsndup(char **src, size_t size)
 {
-    int i;
+	size_t	i;
+	char	**cpy;
 
-    i = -1;
-    while (envp[++i])
-        printf("%s\n",envp[i]);
+	i = 0;
+	cpy = (char **)malloc((size + 1) * sizeof(char *));
+	if (!cpy)
+		return (NULL);
+	while (i < size)
+	{
+		cpy[i] = ft_strdup(src[i]);
+		if (!cpy[i])
+		{
+			ft_freestrs(cpy);
+			return (NULL);
+		}
+		i++;
+	}
+	cpy[i] = NULL;
+	return (cpy);
 }

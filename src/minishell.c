@@ -12,6 +12,8 @@
 
 #include <minishell.h>
 
+int     g_sig = 0;
+
 void input_handler(char *input, t_mini *mini)
 {
     t_lex *tokens;
@@ -39,10 +41,21 @@ int mini_handler(t_mini *mini)
     {
         input = readline(BRED "MinisHell :" RESET_COLOR);
         if (!input)
-			ft_exit(mini);
+        {
+            if (mini->env)
+                ft_freestrs(mini->env);
+            if (mini)
+	        {
+                free(mini);
+                mini = NULL;
+	        }
+	        printf("exit\n");
+	        exit(EXIT_SUCCESS);
+        }
         input_handler(input,mini);
         add_history(input);
         free(input);
+        input = NULL;
     }
     return (EXIT_SUCCESS);
 }
@@ -54,9 +67,11 @@ int main(int argc, char **argv, char **envp)
     (void)argc;
     (void)argv;
     mini = ft_calloc(1, sizeof(t_mini));
-    mini->env = ft_strsdup(envp, ft_strslen(envp));
+    mini->env = ft_strsndup(envp, ft_strslen(envp));
     if (!mini->env)
         return (EXIT_FAILURE);
+    ft_shllvl(mini);
+    mini->status = 0;
     signal_handling();
     mini_handler(mini);
     return (EXIT_SUCCESS);
