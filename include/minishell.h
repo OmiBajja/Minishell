@@ -6,7 +6,7 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:02:13 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/24 15:00:10 by obajja           ###   ########.fr       */
+/*   Updated: 2025/06/24 16:29:38 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void ft_cd(t_mini *mini, char **args);
 void ft_echo(char **input);
 void ft_env(char **envp);
 void ft_pwd(char **env);
-void ft_export(t_mini *mini, char *command);
+void ft_export(t_mini *mini, char **command);
 void ft_unset(t_mini *mini, char *command);
 void ft_exit(t_mini *mini, char **args);
 

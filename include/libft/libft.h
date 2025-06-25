@@ -6,7 +6,7 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 16:48:50 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/24 14:50:50 by obajja           ###   ########.fr       */
+/*   Updated: 2025/06/24 16:58:49 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,6 +174,9 @@ size_t				ft_strlcpy(char *dst, const char *src, size_t size);
 
 /* Compare deux chaînes avec limite */
 int					ft_strncmp(const char *str1, const char *str2, int n);
+
+/* Compare deux chaînes */
+int					ft_strcmp(char *str1, char *str2);
 
 /* Supprime des caractères au début et à la fin d'une chaîne */
 char				*ft_strtrim(char const *s1, char const *s2);

@@ -6,7 +6,7 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 15:56:51 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/23 20:02:34 by obajja           ###   ########.fr       */
+/*   Updated: 2025/06/24 16:05:40 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,15 +111,12 @@ char *ft_extender(char *input, char **env)
 	if (i == -1)
 		return (NULL);
 	word = word_assigner(&input[i]);
-	printf("Word: %s\n", word);
 	if (!word)
 		return (NULL);
 	replace = env_fetcher(word, env);
-	printf("Replace: %s\n", replace);	
 	if (!replace)
 		return (free(word),NULL);
 	extended = input_extender(input, replace, word, i - 1);
-	printf("Extended: %s\n", extended);
 	if (!extended)
 		return (free(word),free(replace),NULL);
 	return(free(word),free(replace),extended);
