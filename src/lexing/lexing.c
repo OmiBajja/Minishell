@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 10:53:13 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/19 20:43:44 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/06/25 20:19:22 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ t_lex *lexing (char *input, char **env)
 		{
 			operator = ft_strndup(&input[i], op_len);
 			add_to_list(&tokens, create_token(operator, find_operator(operator)));
+			i += op_len;
 		}
 		else
 		{
@@ -64,7 +65,6 @@ t_lex *lexing (char *input, char **env)
 			if (word)
 				add_to_list(&tokens, create_token(word, TOKEN_COMMAND));
 		}
-		i++;
 	}
 	return (tokens);
 }

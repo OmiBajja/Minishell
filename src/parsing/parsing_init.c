@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:40:03 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/19 20:29:39 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/06/25 20:40:46 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ t_parsing *create_parse()
 	parse->outfile = NULL;
 	parse->append_outfile = NULL;
 	parse->infile = NULL;
+	parse->heredoc_delim = NULL;
+	parse->heredoc_file = NULL;
 	parse->cmd = NULL;
 	parse->args = NULL;
 	parse->next = NULL;
@@ -84,6 +86,8 @@ t_lex *redirection_machine(t_parsing *cmd, t_lex *tokens)
 		cmd->outfile = ft_strdup(next->value);
 	else if (tokens->type == TOKEN_APPEND_OUT)
 		cmd->append_outfile = ft_strdup(next->value);
+	else if (tokens->type == TOKEN_HEREDOC_IN)
+		cmd->heredoc_delim = ft_strdup(next->value);
 	return (next);
 }
 
@@ -93,7 +97,7 @@ t_lex *command_processor(t_parsing *cmd, t_lex *tokens)
 	{
 		if (tokens->type == TOKEN_COMMAND)
 			command_machine(cmd, tokens);
-		else if (tokens->type == TOKEN_REDIR_IN || tokens->type == TOKEN_REDIR_OUT)
+		else if (tokens->type == TOKEN_REDIR_IN || tokens->type == TOKEN_REDIR_OUT || tokens->type == TOKEN_APPEND_OUT || tokens->type == TOKEN_HEREDOC_IN)
 			tokens = redirection_machine(cmd, tokens);
 		tokens = tokens->next;
 	}

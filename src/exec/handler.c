@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 19:53:35 by pafranci          #+#    #+#             */
-/*   Updated: 2025/06/19 21:07:59 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/06/25 20:39:47 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,107 @@ static void exec_builtin(t_parsing *node, t_mini *mini)
 		ft_pwd(mini->env);
 }
 
+char	*handle_heredoc(const char *delim)
+{
+	char	*line;
+	int		fd;
+	char	*filename;
+
+	filename = ft_strdup("/tmp/.minishell_heredoc");
+	fd = open(filename, O_CREAT | O_WRONLY | O_TRUNC, 0600);
+	if (fd < 0)
+	{
+		perror("heredoc");
+		return (NULL);
+	}
+	while (42)
+	{
+		line = readline("> ");
+		if (!line || !strcmp(line, delim))
+		{
+			free(line);
+			break;
+		}
+		write(fd, line, ft_strlen(line));
+		write(fd, "\n", 1);
+		free(line);
+	}
+	close(fd);
+	return (filename);
+}
+
 void	exec_handler(t_parsing *head, char **envp, t_mini *mini)
+{
+	int		saved_in;
+	int		saved_out;
+	int		fd;
+	t_parsing *node;
+	int		cmd_count;
+	char	*infile;
+
+	// Builtin short-circuit (single builtin with redirection)
+	if (head->next == NULL && is_builtin(head->cmd))
+	{
+		saved_in = dup(STDIN_FILENO);
+		saved_out = dup(STDOUT_FILENO);
+
+		if (head->infile)
+		{
+			fd = open(head->infile, O_RDONLY);
+			if (fd >= 0)
+			{
+				dup2(fd, STDIN_FILENO);
+				close(fd);
+			}
+		}
+		if (head->append_outfile || head->outfile)
+		{
+			if (head->append_outfile)
+				fd = open(head->append_outfile, O_CREAT | O_WRONLY | O_APPEND, 0644);
+			else
+				fd = open(head->outfile, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+			if (fd >= 0)
+			{
+				dup2(fd, STDOUT_FILENO);
+				close(fd);
+			}
+		}
+		exec_builtin(head, mini);
+		dup2(saved_in, STDIN_FILENO);
+		dup2(saved_out, STDOUT_FILENO);
+		close(saved_in);
+		close(saved_out);
+		return;
+	}
+
+	// Count number of commands (t_parsing nodes)
+	cmd_count = 0;
+	node = head;
+	infile = NULL;
+	while (node)
+	{
+		cmd_count++;
+		if (node->heredoc_delim)
+			node->heredoc_file = handle_heredoc(node->heredoc_delim);
+		if (node->infile && !infile && !node->heredoc_file)
+			infile = node->infile;
+		node = node->next;
+	}
+	if (!infile)
+		infile = "/dev/stdin";
+
+	// Execute via pipex with per-node handling
+	pipex(infile, head, cmd_count, envp);
+	node = head;
+	while (node)
+	{
+		if (node->heredoc_file)
+			unlink(node->heredoc_file);
+		node = node->next;
+	}
+}
+
+/*void	exec_handler(t_parsing *head, char **envp, t_mini *mini)
 {
 	int	saved_in;
 	int	saved_out;
@@ -149,4 +249,4 @@ void	exec_handler(t_parsing *head, char **envp, t_mini *mini)
 		i++;
 	}
 	free(cmds);
-}
+}*/

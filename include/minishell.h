@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:02:13 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/19 21:02:48 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/06/25 20:26:21 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ typedef struct s_parsing
 	char *outfile;
 	char *append_outfile;
 	char *infile;
+	char *heredoc_delim;
+	char *heredoc_file;
 	char *cmd;
 	char **args;
 	t_lex *lex;
@@ -94,10 +96,12 @@ void ft_unset(t_mini *mini, char *command);
 void ft_exit(t_mini *mini);
 
 //=== Execution & Pipes ===//
-void    pipex(char *infile, char *outfile, char *append_outfile, char **cmds, int cmd_count, char **env);
+//void    pipex(char *infile, char *outfile, char *append_outfile, char **cmds, int cmd_count, char **env);
+void	pipex(char *infile, t_parsing *cmds, int cmd_count, char **env);
 int     **create_pipes(int n);
 void    close_pipes(int **pipes, int n);
-void    child_process(int index, int infile_fd, int outfile_fd, char *cmd, char **env, int **pipes, int cmd_count);
+//void    child_process(int index, int infile_fd, int outfile_fd, char *cmd, char **env, int **pipes, int cmd_count);
+void child_process(int index, int infile_fd, t_parsing *cmds, char **env, int **pipes, int cmd_count);
 void    exec_cmd(char const *cmd, char const *paths, char **env);
 
 //=== Environment Helpers ===//
