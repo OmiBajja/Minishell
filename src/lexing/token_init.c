@@ -3,30 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   token_init.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 15:57:19 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/11 11:51:42 by obajja           ###   ########.fr       */
+/*   Updated: 2025/06/19 20:52:29 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-int	operator_check(char c)
+int	operator_check(const char *input)
 {
-	if (c == '|' || c == '<' || c == '>')
+	if (!input || !*input)
+		return (0);
+	else if ((input[0] == '<' || input[0] == '>') && input[0] == input[1])
+		return (2);
+	else if (input[0] == '|' || input[0] == '<' || input[0] == '>')
 		return (1);
 	else
 		return (0);
 }
 
-int	find_operator(char c)
+int	find_operator(const char *str)
 {
-	if (c == '|')
+	if (!strcmp(str, "|"))
 		return (TOKEN_PIPE);
-	if (c == '<')
+	else if (!strcmp(str, "<<"))
+		return (TOKEN_HEREDOC_IN);
+	else if (!strcmp(str, ">>"))
+		return (TOKEN_APPEND_OUT);
+	else if (!strcmp(str, "<"))
 		return (TOKEN_REDIR_IN);
-	if (c == '>')
+	else if (!strcmp(str, ">"))
 		return (TOKEN_REDIR_OUT);
 	else
 		return (TOKEN_UNKOWN);
