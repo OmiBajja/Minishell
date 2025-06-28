@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:02:13 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/28 07:58:33 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/06/28 12:22:49 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ typedef struct s_lex
 typedef struct s_parsing
 {
 	char				*outfile;
-	char				*append_outfile;
+	char				*append_out;
 	char				*infile;
 	char				*heredoc_delim;
 	char				*heredoc_file;
@@ -60,6 +60,16 @@ typedef struct s_mini
 	int			status;
 	t_parsing	*data;
 }	t_mini;
+
+typedef struct	s_child
+{
+	int			i;
+	int			infile_fd;
+	int			cmd_count;
+	int			**pipes;
+	t_parsing	*cmds;
+	char		**env;
+}	t_child;
 
 //=== Lexer Functions ===//
 t_lex		*lexing(char *input, char **env);
@@ -99,8 +109,20 @@ void		ft_exit(t_mini *mini, char **args);
 void		pipex(char *infile, t_parsing *cmds, int cmd_count, char **env);
 int			**create_pipes(int n);
 void		close_pipes(int **pipes, int n);
-void		child_process(int index, int infile_fd, t_parsing *cmds, char **env, int **pipes, int cmd_count);
+void		child_process(t_child *child);
+void		setup_input(t_child *child, t_parsing *cmd);
+void		setup_output(t_child *child, t_parsing *cmd);
 void		exec_cmd(char const *cmd, char const *paths, char **env);
+
+//=== Pipex Helpers ===//
+void		cleanup_pipex(int infile_fd, int **pipes, int cmd_count, pid_t *pid);
+t_parsing	*get_nth_node(t_parsing *head, int n);
+void		wait_for_children(pid_t *pid, int cmd_count);
+
+//=== Heredoc Helpers ===//
+char		*handle_heredoc(const char *delim);
+char		*prep_heredoc_get_infile(t_parsing *head, int *cmd_count);
+void		cleanup_heredoc(t_parsing *head);
 
 //=== Environment Helpers ===//
 char		*find_env_paths(char **env);

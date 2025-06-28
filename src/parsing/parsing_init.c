@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:40:03 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/28 07:23:28 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/06/28 09:23:19 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ t_parsing	*create_parse(void)
 	if (!parse)
 		return (NULL);
 	parse->outfile = NULL;
-	parse->append_outfile = NULL;
+	parse->append_out = NULL;
 	parse->infile = NULL;
 	parse->heredoc_delim = NULL;
 	parse->heredoc_file = NULL;
@@ -85,7 +85,7 @@ t_lex	*redirection_machine(t_parsing *cmd, t_lex *tokens)
 	else if (tokens->type == TOKEN_REDIR_OUT)
 		cmd->outfile = ft_strdup(next->value);
 	else if (tokens->type == TOKEN_APPEND_OUT)
-		cmd->append_outfile = ft_strdup(next->value);
+		cmd->append_out = ft_strdup(next->value);
 	else if (tokens->type == TOKEN_HEREDOC_IN)
 		cmd->heredoc_delim = ft_strdup(next->value);
 	return (next);
