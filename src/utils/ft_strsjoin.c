@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strsjoin.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 16:47:07 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/23 19:50:59 by obajja           ###   ########.fr       */
+/*   Updated: 2025/06/28 06:51:34 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 char	**ft_strsjoin(char **src, char *dest)
 {
 	size_t	i;
-    int     size;
+	int		size;
 	char	**cpy;
 
 	i = -1;
-    size = ft_strslen(src);
-    cpy = ft_calloc((size + 2), sizeof(char *));
+	size = ft_strslen(src);
+	cpy = ft_calloc((size + 2), sizeof(char *));
 	if (!cpy)
 		return (NULL);
 	while (src[++i])

@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 00:47:24 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/24 15:01:45 by obajja           ###   ########.fr       */
+/*   Updated: 2025/06/28 06:04:49 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void ft_env(char **envp)
+void	ft_env(char **envp)
 {
-    int i;
+	int	i;
 
-    i = -1;
-    while (envp[++i])
-        printf("%s\n",envp[i]);
+	i = -1;
+	while (envp[++i])
+		printf("%s\n", envp[i]);
 }

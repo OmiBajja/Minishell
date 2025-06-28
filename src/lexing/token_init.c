@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 15:57:19 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/19 20:52:29 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/06/28 15:55:37 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@ int	find_operator(const char *str)
 		return (TOKEN_UNKOWN);
 }
 
-t_lex *create_token(char *value, int type)
+t_lex	*create_token(char *value, int type)
 {
-	t_lex *token;
-	
+	t_lex	*token;
+
 	token = malloc(sizeof(t_lex));
 	if (!token)
 		return (NULL);
@@ -53,9 +53,9 @@ t_lex *create_token(char *value, int type)
 	return (token);
 }
 
-void add_to_list(t_lex **head, t_lex *new)
+void	add_to_list(t_lex **head, t_lex *new)
 {
-	t_lex *temp;
+	t_lex	*temp;
 
 	if (!*head)
 		*head = new;
@@ -68,15 +68,14 @@ void add_to_list(t_lex **head, t_lex *new)
 	}
 }
 
-void print_tokens(t_lex *tokens)
+void	print_tokens(t_lex *tokens)
 {
 	if (!tokens)
-		return;
-	
-	while (tokens) {
+		return ;
+	while (tokens)
+	{
 		if (tokens->value)
 			printf("Token: [%s] Type: %d\n", tokens->value, tokens->type);
-        tokens = tokens->next;
-    }
-	//fflush(stdout);
+		tokens = tokens->next;
+	}
 }

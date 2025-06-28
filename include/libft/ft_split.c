@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 18:43:20 by obajja            #+#    #+#             */
-/*   Updated: 2025/02/12 13:15:30 by obajja           ###   ########.fr       */
+/*   Updated: 2025/06/28 07:54:37 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	ft_countwords(char const *s, char c)
 	while (s[i])
 	{
 		if (s[i] == c && s[i + 1] != c && s[i + 1] != '\0')
-				j += 1;
+			j += 1;
 		i++;
 	}
 	return (j);
@@ -85,7 +85,7 @@ char	**ft_split(char const *s, char c)
 			i++;
 		tab[j] = ft_wordprinter(&s[i], c);
 		if (!tab[j])
-			return(ft_freestrs(tab), NULL);
+			return (ft_freestrs(tab), NULL);
 		j++;
 		while (s[i] && s[i] != c)
 			i++;
