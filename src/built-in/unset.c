@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 00:54:01 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/28 06:02:53 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/06/28 15:56:44 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ void	ft_unset(t_mini *mini, char *command)
 	j = -1;
 	size = ft_strslen(mini->env);
 	env_cpy = ft_calloc((size), sizeof(char *));
-	// if (!command)
-	// 	return (NULL);
 	while (mini->env[++j])
 	{
 		if (ft_strncmp(mini->env[j], command, ft_strlen(command)) == 0)

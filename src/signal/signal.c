@@ -6,16 +6,17 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:02:04 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/28 12:31:35 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/06/28 15:47:21 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 #include <signal.h>
 
-void	ctrlc_handler(void)
+static void	ctrlc_handler(int sig)
 {
-	g_sig = 130;
+	sig = 130;
+	g_sig = sig;
 	printf("\n");
 	rl_on_new_line();
 	rl_replace_line("", 0);

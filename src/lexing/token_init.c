@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 15:57:19 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/28 07:11:28 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/06/28 15:55:37 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,5 +78,4 @@ void	print_tokens(t_lex *tokens)
 			printf("Token: [%s] Type: %d\n", tokens->value, tokens->type);
 		tokens = tokens->next;
 	}
-	//fflush(stdout);
 }

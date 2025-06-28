@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 15:56:51 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/28 07:01:20 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/06/28 15:56:13 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,6 @@ int	is_extendable(char *input)
 	{
 		if (input[i] == '\'')
 			counter *= -1;
-		//printf("Input[i]:%c\tCOunter:%d\n",input[i],counter);
 		if (input[i] == '$' && counter == 1)
 			return (i + 1);
 		i++;

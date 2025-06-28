@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 10:21:17 by pafranci          #+#    #+#             */
-/*   Updated: 2025/06/28 12:27:12 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/06/28 15:56:25 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	setup_input(t_child *child, t_parsing *cmd)
 void	setup_output(t_child *child, t_parsing *cmd)
 {
 	int	fd;
+
 	if (child->i == child->cmd_count - 1)
 	{
 		if (cmd->append_out)

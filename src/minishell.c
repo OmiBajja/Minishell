@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:02:04 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/28 07:47:01 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/06/28 15:49:35 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	input_handler(char *input, t_mini *mini)
 	}
 	print_tokens(tokens);
 	parser = token_parser(input, tokens);
-	//print_all_commands(parser);
 	exec_handler(parser, mini->env, mini);
 	free_parse(parser);
 	free_tokens(tokens);
