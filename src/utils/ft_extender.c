@@ -3,26 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   ft_extender.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 15:56:51 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/24 16:05:40 by obajja           ###   ########.fr       */
+/*   Updated: 2025/06/28 07:01:20 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-char *input_extender(char *input, char *replace, char *word, int stop)
+char	*input_extender(char *input, char *replace, char *word, int stop)
 {
-	int i;
-	int j;
-	int len;
-	char *extended;
+	int		i;
+	int		j;
+	int		len;
+	char	*extended;
 
 	i = -1;
 	j = -1;
 	len = ft_strlen(input) - (ft_strlen(word) + 1) + ft_strlen(replace) + 1;
-	extended = malloc (len * sizeof(char));
+	extended = malloc(len * sizeof(char));
 	if (!extended)
 		return (NULL);
 	while (++i < stop)
@@ -36,34 +36,34 @@ char *input_extender(char *input, char *replace, char *word, int stop)
 	return (extended);
 }
 
-char *env_fetcher(char *word, char **env)
+char	*env_fetcher(char *word, char **env)
 {
-	int i;
-	int len;
-	char *replace;
-	
+	int		i;
+	int		len;
+	char	*replace;
+
 	i = 0;
 	len = ft_strlen(word);
 	while (env[i])
-	{	
+	{
 		if (ft_strncmp(env[i], word, len) == 0 && env[i][len] == '=')
-			break;
+			break ;
 		i++;
 	}
 	if (!env[i])
-		return (ft_calloc(1,1));
+		return (ft_calloc(1, 1));
 	replace = ft_strdup(&env[i][len + 1]);
 	if (!replace)
 		return (NULL);
 	return (replace);
 }
 
-char *word_assigner(char *input)
+char	*word_assigner(char *input)
 {
-	char *word;
-	int j;
-	int len;
-	int i;
+	char	*word;
+	int		j;
+	int		len;
+	int		i;
 
 	i = 0;
 	j = 0;
@@ -84,7 +84,7 @@ char *word_assigner(char *input)
 int	is_extendable(char *input)
 {
 	int	i;
-	int counter;
+	int	counter;
 
 	counter = 1;
 	i = 0;
@@ -100,13 +100,13 @@ int	is_extendable(char *input)
 	return (-1);
 }
 
-char *ft_extender(char *input, char **env)
+char	*ft_extender(char *input, char **env)
 {
-	int	i;
-	char *word;
-	char *extended;
-	char *replace;
-	
+	int		i;
+	char	*word;
+	char	*extended;
+	char	*replace;
+
 	i = is_extendable(input);
 	if (i == -1)
 		return (NULL);
@@ -115,9 +115,9 @@ char *ft_extender(char *input, char **env)
 		return (NULL);
 	replace = env_fetcher(word, env);
 	if (!replace)
-		return (free(word),NULL);
+		return (free(word), NULL);
 	extended = input_extender(input, replace, word, i - 1);
 	if (!extended)
-		return (free(word),free(replace),NULL);
-	return(free(word),free(replace),extended);
+		return (free(word), free(replace), NULL);
+	return (free(word), free(replace), extended);
 }

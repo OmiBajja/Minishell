@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putstr_pf.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 18:43:08 by obajja            #+#    #+#             */
-/*   Updated: 2024/11/25 23:17:03 by obajja           ###   ########.fr       */
+/*   Updated: 2025/06/28 08:01:31 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_putstr_pf(char *s)
 	int	i;
 
 	if (s == NULL)
-	{	
+	{
 		ft_putstr_pf("(null)");
 		return (6);
 	}

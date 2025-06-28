@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_str.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 19:52:55 by obajja            #+#    #+#             */
-/*   Updated: 2025/04/09 19:54:45 by obajja           ###   ########.fr       */
+/*   Updated: 2025/06/28 07:59:48 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ char	**ft_split_str(char *str, char *charset)
 		while (str[i] && ft_check_char(str[i], charset))
 			i++;
 		if (str[i] && !ft_check_char(str[i], charset))
-		{	
+		{
 			risotto[j] = ft_word_printer(&str[i], charset);
 			if (!risotto[j++])
 				ft_freestrs(risotto);

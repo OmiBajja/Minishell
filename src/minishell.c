@@ -3,76 +3,76 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:02:04 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/10 18:05:15 by pafranci         ###   ########.fr       */ 
+/*   Updated: 2025/06/28 07:47:01 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-int     g_sig = 0;
+int	g_sig = 0;
 
-void input_handler(char *input, t_mini *mini)
+void	input_handler(char *input, t_mini *mini)
 {
-    t_lex *tokens;
-	t_parsing *parser;
-    
-    tokens = lexing(input, mini->env);
-    if (!tokens)
-    {
-        printf("Something's wrong\n");
-        return;
-    }
-    print_tokens(tokens);
+	t_lex		*tokens;
+	t_parsing	*parser;
+
+	tokens = lexing(input, mini->env);
+	if (!tokens)
+	{
+		printf("Something's wrong\n");
+		return ;
+	}
+	print_tokens(tokens);
 	parser = token_parser(input, tokens);
 	//print_all_commands(parser);
 	exec_handler(parser, mini->env, mini);
-    free_parse(parser);
-    free_tokens(tokens);
+	free_parse(parser);
+	free_tokens(tokens);
 }
 
-int mini_handler(t_mini *mini)
+int	mini_handler(t_mini *mini)
 {
-    char        *input;
+	char		*input;
 
-    while (42)
-    {
-        input = readline(BRED "MinisHell :" RESET_COLOR);
-        if (!input)
-        {
-            if (mini->env)
-                ft_freestrs(mini->env);
-            if (mini)
-	        {
-                free(mini);
-                mini = NULL;
-	        }
-	        printf("exit\n");
-	        exit(EXIT_SUCCESS);
-        }
-        input_handler(input,mini);
-        add_history(input);
-        free(input);
-        input = NULL;
-    }
-    return (EXIT_SUCCESS);
+	while (42)
+	{
+		input = readline(BRED "MinisHell :" RESET_COLOR);
+		if (!input)
+		{
+			if (mini->env)
+				ft_freestrs(mini->env);
+			if (mini)
+			{
+				free(mini);
+				mini = NULL;
+			}
+			printf("exit\n");
+			exit(EXIT_SUCCESS);
+		}
+		input_handler(input, mini);
+		add_history(input);
+		free(input);
+		input = NULL;
+	}
+	return (EXIT_SUCCESS);
 }
 
-int main(int argc, char **argv, char **envp)
+int	main(int argc, char **argv, char **envp)
 {
-    t_mini  *mini;
+	t_mini	*mini;
 
-    (void)argc;
-    (void)argv;
-    mini = ft_calloc(1, sizeof(t_mini));
-    mini->env = ft_strsndup(envp, ft_strslen(envp));
-    if (!mini->env)
-        return (EXIT_FAILURE);
-    ft_shllvl(mini);
-    mini->status = 0;
-    signal_handling();
-    mini_handler(mini);
-    return (EXIT_SUCCESS);
+	(void)argc;
+	(void)argv;
+	mini = ft_calloc(1, sizeof(t_mini));
+	mini->env = ft_strsndup(envp, ft_strslen(envp));
+	if (!mini->env)
+		return (EXIT_FAILURE);
+	ft_shllvl(mini);
+	mini->status = 0;
+	signal_handling();
+	mini_handler(mini);
+	return (EXIT_SUCCESS);
 }

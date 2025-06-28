@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 12:00:16 by obajja            #+#    #+#             */
-/*   Updated: 2025/01/14 19:22:16 by obajja           ###   ########.fr       */
+/*   Updated: 2025/06/28 07:54:07 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <stdlib.h>
 
 static int	ft_sender(char s, va_list lst)
-{	
+{
 	int	count;
 	int	i;
 
@@ -58,14 +58,14 @@ int	ft_printf(const char *str, ...)
 		if (str[i] == '%' && str[i + 1])
 		{
 			count += ft_sender(str[i + 1], lst);
-				i += 2;
+			i += 2;
 		}
 		else
 		{
 			ft_putchar_fd(str[i], 1);
 			count += 1;
 			i++;
-		}	
+		}
 	}
 	va_end(lst);
 	return (count);

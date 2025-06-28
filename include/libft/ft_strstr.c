@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 12:01:25 by obajja            #+#    #+#             */
-/*   Updated: 2025/05/08 15:47:35 by obajja           ###   ########.fr       */
+/*   Updated: 2025/06/28 08:00:49 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*ft_strstr(char *str, char *to_find)
 	{
 		while (str[i + j] == to_find[j])
 		{
-		j++;
+			j++;
 			if (to_find[j] == '\0')
 				return (&str[i]);
 		}

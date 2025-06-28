@@ -6,13 +6,13 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 10:53:13 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/26 18:36:04 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/06/28 07:15:34 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-char *word_lexer(char *input, int *start, char **env)
+char	*word_lexer(char *input, int *start, char **env)
 {
 	int		i;
 	int		j;
@@ -21,13 +21,13 @@ char *word_lexer(char *input, int *start, char **env)
 	i = *start;
 	j = *start;
 	if (input[i] == '"' || input[i] == '\'')
-		return(quote_handler(input, start, env));
+		return (quote_handler(input, start, env));
 	while (input[i])
 	{
 		if (input[i] == '"' || input[i] == '\'')
-			break;
+			break ;
 		else if (operator_check(&input[i]) || ft_is_whitespace(input[i]))
-			break;
+			break ;
 		i++;
 	}
 	*start = i;
@@ -35,12 +35,13 @@ char *word_lexer(char *input, int *start, char **env)
 		return (NULL);
 	result = ft_strndup(&input[j], i - j);
 	if (is_extendable(result) != -1)
-	result = ft_extender(result, env);
+		result = ft_extender(result, env);
 	return (result);
 }
-t_lex *lexing (char *input, char **env)
+
+t_lex	*lexing(char *input, char **env)
 {
-	t_lex 	*tokens;
+	t_lex	*tokens;
 	char	*operator;
 	char	*word;
 	int		i;
@@ -71,15 +72,15 @@ t_lex *lexing (char *input, char **env)
 	return (tokens);
 }
 
-void free_tokens(t_lex *tokens)
+void	free_tokens(t_lex *tokens)
 {
-    t_lex *tmp;
+	t_lex	*tmp;
 
-    while (tokens)
-    {
-        tmp = tokens->next;
-        free(tokens->value);
-        free(tokens);
-        tokens = tmp;
-    }
+	while (tokens)
+	{
+		tmp = tokens->next;
+		free(tokens->value);
+		free(tokens);
+		tokens = tmp;
+	}
 }
