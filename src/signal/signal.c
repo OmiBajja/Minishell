@@ -3,20 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:02:04 by obajja            #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/06/28 15:47:21 by pafranci         ###   ########.fr       */
+=======
+/*   Updated: 2025/06/28 16:26:02 by obajja           ###   ########.fr       */
+>>>>>>> 5864b4a (norminetted lexing and fixed bug on signal)
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 #include <signal.h>
 
+<<<<<<< HEAD
 static void	ctrlc_handler(int sig)
 {
 	sig = 130;
 	g_sig = sig;
+=======
+void	ctrlc_handler(int sig)
+{
+	sig = 130;
+    g_sig = sig;
+>>>>>>> 5864b4a (norminetted lexing and fixed bug on signal)
 	printf("\n");
 	rl_on_new_line();
 	rl_replace_line("", 0);

@@ -3,14 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   lexing.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 10:53:13 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/28 07:15:34 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/06/28 16:25:21 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+
+int	operator_handler(int op_len, t_lex	*tokens, char *input, int i)
+{
+	char	*operator;
+
+	operator = ft_strndup(&input[i], op_len);
+	add_to_list(&tokens, create_token(operator, find_operator(operator)));
+	return (op_len);
+}
 
 char	*word_lexer(char *input, int *start, char **env)
 {
@@ -42,7 +51,6 @@ char	*word_lexer(char *input, int *start, char **env)
 t_lex	*lexing(char *input, char **env)
 {
 	t_lex	*tokens;
-	char	*operator;
 	char	*word;
 	int		i;
 	int		op_len;
@@ -55,11 +63,7 @@ t_lex	*lexing(char *input, char **env)
 			i++;
 		op_len = operator_check(&input[i]);
 		if (op_len)
-		{
-			operator = ft_strndup(&input[i], op_len);
-			add_to_list(&tokens, create_token(operator, find_operator(operator)));
-			i += op_len;
-		}
+			i += operator_handler(op_len, tokens, input, i);
 		else
 		{
 			word = word_lexer(input, &i, env);
