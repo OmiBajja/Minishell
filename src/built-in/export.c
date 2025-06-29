@@ -3,35 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 00:47:38 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/28 05:54:42 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/06/29 19:29:50 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	print_and_free(char **env_sorted, char **export_list)
+void	print_and_free(char **export_list)
 {
 	int	i;
 
 	i = -1;
-	while (export_list[++i])
-		printf("%s\n", export_list[i]);
-	if (env_sorted)
-	{
-		ft_freestrs(env_sorted);
-		env_sorted = NULL;
-	}
 	if (export_list)
 	{
+		while (export_list[++i])
+			printf("%s\n", export_list[i]);
 		ft_freestrs(export_list);
 		export_list = NULL;
 	}
 }
 
-void	ft_export_expand(char **env_sorted)
+char	**ft_export_expand(char **env_sorted)
 {
 	char	**new_env;
 	int		export_j;
@@ -55,10 +50,11 @@ void	ft_export_expand(char **env_sorted)
 			new_env[i][++export_j] = env_sorted[i][j];
 		new_env[i][++export_j] = '"';
 	}
-	print_and_free(env_sorted, new_env);
+	free(env_sorted);
+	return (new_env);
 }
 
-void	ft_env_sort(t_mini *mini)
+char	**ft_env_sort(char **export_list)
 {
 	char	**env_export;
 	char	*s;	
@@ -66,7 +62,7 @@ void	ft_env_sort(t_mini *mini)
 	int		f;
 
 	f = -1;
-	env_export = ft_strsndup(mini->env, ft_strslen(mini->env));
+	env_export = ft_strsndup(export_list, ft_strslen(export_list));
 	while (++f <= ft_strslen(env_export))
 	{
 		i = -1;
@@ -82,20 +78,40 @@ void	ft_env_sort(t_mini *mini)
 		i = 1;
 	}
 	i = -1;
-	ft_export_expand(env_export);
+	return (env_export);
 }
 
 void	ft_export(t_mini *mini, char **command)
 {
 	char	**new_env;
+	char	**exp_sorted;
 
 	new_env = NULL;
+	if (!mini->exp_dup)
+		mini->exp_dup = ft_strsndup(mini->env, ft_strslen(mini->env));
 	if (command[1])
 	{
-		new_env = ft_strsjoin(mini->env, command[1]);
-		ft_freestrs(mini->env);
-		mini->env = new_env;
+		if (!ft_strchr(command[1], '='))
+		{
+			new_env = ft_strsjoin(mini->exp_dup, command[1]);
+			ft_freestrs(mini->exp_dup);
+			mini->exp_dup = new_env;
+		}
+		else
+		{
+			new_env = ft_strsjoin(mini->env, command[1]);
+			ft_freestrs(mini->env);
+			mini->env = new_env;
+			new_env = ft_strsjoin(mini->exp_dup, command[1]);
+			ft_freestrs(mini->exp_dup);
+			mini->exp_dup = new_env;
+		}
 	}
 	else
-		ft_env_sort(mini);
+	{
+		mini->export = NULL;
+		exp_sorted = ft_env_sort(mini->exp_dup);
+		exp_sorted = ft_export_expand(exp_sorted);
+		print_and_free(exp_sorted);
+	}
 }
