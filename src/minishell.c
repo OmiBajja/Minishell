@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:02:04 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/28 15:49:35 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/06/29 14:26:53 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	input_handler(char *input, t_mini *mini)
 		printf("Something's wrong\n");
 		return ;
 	}
-	print_tokens(tokens);
 	parser = token_parser(input, tokens);
 	exec_handler(parser, mini->env, mini);
 	free_parse(parser);
