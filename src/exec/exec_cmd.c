@@ -6,21 +6,11 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 18:48:20 by pafranci          #+#    #+#             */
-/*   Updated: 2025/06/29 14:17:19 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/06/29 14:47:44 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-
-/*static char	**get_cmd_tab(const char *cmd)
-{
-	char	**cmd_tab;
-
-	cmd_tab = ft_split_pau(cmd, ' ');
-	if (!cmd_tab)
-		perror_exit();
-	return (cmd_tab);
-}*/
 
 char	*find_cmd_in_pahts(const char *cmd, char **env_paths_tab)
 {
@@ -48,7 +38,7 @@ static char	*get_full_cmd(char **cmd_tab, const char *paths)
 	char	*full_cmd;
 	char	**env_paths_tab;
 
-	if (is_needle_in_haystack(cmd_tab[0], "/"))
+	if (ft_strstr(cmd_tab[0], "/"))
 	{
 		if (access(cmd_tab[0], F_OK | X_OK) == 0)
 			return (cmd_tab[0]);
