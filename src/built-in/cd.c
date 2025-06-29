@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 05:55:38 by pafranci          #+#    #+#             */
-/*   Updated: 2025/06/28 06:40:57 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/06/29 10:09:59 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,9 @@ static void	ft_replace_env(char ***env, const char *key, const char *value)
 	char	*new_pwd;
 	char	**new_env;
 	char	*temp;
+	bool	assigned;
 
+	assigned = false;
 	new_pwd = ft_strjoin(key, "=");
 	temp = new_pwd;
 	new_pwd = ft_strjoin(new_pwd, value);
@@ -47,20 +49,27 @@ static void	ft_replace_env(char ***env, const char *key, const char *value)
 		{
 			free((*env)[i]);
 			(*env)[i] = new_pwd;
+			assigned = true;
 			return ;
 		}
 		i++;
 	}
-	new_env = ft_strsjoin(*env, new_pwd);
-	ft_freestrs(*env);
-	*env = new_env;
-	free(new_pwd);
+	if (!assigned)
+	{
+		new_env = ft_strsjoin(*env, new_pwd);
+		ft_freestrs(*env);
+		*env = new_env;
+	}
+	else
+		free(new_pwd);
 }
 
 static char	*ft_cd_get_target(t_mini *mini, char **args)
 {
 	char	*target;
 
+	if (!args || !args[0])
+		return (NULL);
 	if (!args[1])
 	{
 		target = ft_get_env_val(mini->env, "HOME");

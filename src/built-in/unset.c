@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 00:54:01 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/28 15:56:44 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/06/29 10:11:29 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,10 @@ void	ft_unset(t_mini *mini, char *command)
 		{
 			env_cpy[++i] = ft_strdup(mini->env[j]);
 			if (!env_cpy[i])
+			{
 				ft_freestrs(env_cpy);
+				return ;
+			}
 		}
 	}
 	ft_freestrs(mini->env);

@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:40:03 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/28 09:23:19 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/06/29 09:21:13 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ t_parsing	*create_parse(void)
 
 void	command_machine(t_parsing *cmd, t_lex *token)
 {
+	if (!token || !token->value)
+		return ;
 	if (!cmd->cmd)
 	{
 		cmd->cmd = ft_strdup(token->value);
@@ -74,6 +76,8 @@ t_lex	*redirection_machine(t_parsing *cmd, t_lex *tokens)
 {
 	t_lex	*next;
 
+	if (!tokens)
+		return (NULL);
 	next = tokens->next;
 	if (next == NULL || next->type != TOKEN_COMMAND)
 	{

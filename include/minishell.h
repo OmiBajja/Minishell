@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:02:13 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/28 12:22:49 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/06/28 16:45:07 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ typedef struct s_mini
 	t_parsing	*data;
 }	t_mini;
 
-typedef struct	s_child
+typedef struct s_child
 {
 	int			i;
 	int			infile_fd;
@@ -115,7 +115,7 @@ void		setup_output(t_child *child, t_parsing *cmd);
 void		exec_cmd(char const *cmd, char const *paths, char **env);
 
 //=== Pipex Helpers ===//
-void		cleanup_pipex(int infile_fd, int **pipes, int cmd_count, pid_t *pid);
+void		free_pipex(int infile_fd, int **pipes, int cmd_count, pid_t *pid);
 t_parsing	*get_nth_node(t_parsing *head, int n);
 void		wait_for_children(pid_t *pid, int cmd_count);
 
