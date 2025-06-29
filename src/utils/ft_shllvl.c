@@ -6,7 +6,7 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 14:53:05 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/29 12:01:09 by obajja           ###   ########.fr       */
+/*   Updated: 2025/06/29 14:59:31 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_shllvl(t_mini *mini)
 	j = -1;
 	while (mini->env[++j])
 	{
-		if (ft_strncmp(mini->env[j], "SHLVL", ft_strlen("SHLVL") + 1) == 0)
+		if (ft_strncmp(mini->env[j], "SHLVL=", ft_strlen("SHLVL=")) == 0)
 			mini->env[j][6] += 1;
 	}
 }

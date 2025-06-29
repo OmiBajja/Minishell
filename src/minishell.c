@@ -6,13 +6,28 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:02:04 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/29 14:26:53 by obajja           ###   ########.fr       */
+/*   Updated: 2025/06/29 14:59:00 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
 int	g_sig = 0;
+
+char	**default_env(void)
+{
+	char	**env;
+	char	cwd[1024];
+
+	env = ft_calloc(4, sizeof(char*));
+	if (!env)
+		return (NULL);
+	getcwd(cwd, sizeof(cwd));
+	env[0] = ft_strdup(cwd);
+	env[1] = ft_strdup("SHLVL=1");
+	env[2] = ft_strdup("PATH=/usr/bin");
+	return (env);
+}
 
 void	input_handler(char *input, t_mini *mini)
 {
@@ -65,9 +80,14 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	mini = ft_calloc(1, sizeof(t_mini));
-	mini->env = ft_strsndup(envp, ft_strslen(envp));
-	if (!mini->env)
-		return (EXIT_FAILURE);
+	if (envp && envp[0])
+	{
+		mini->env = ft_strsndup(envp, ft_strslen(envp));
+		if (!mini->env)
+			return (EXIT_FAILURE);
+	}
+	else
+		mini->env = default_env();
 	ft_shllvl(mini);
 	mini->status = 0;
 	signal_handling();
