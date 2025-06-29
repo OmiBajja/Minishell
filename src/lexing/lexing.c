@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 10:53:13 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/29 09:22:12 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/06/29 15:45:20 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ t_lex	*lexing(char *input, char **env)
 	{
 		while (ft_is_whitespace(input[i]))
 			i++;
+		if (!input[i])
+			break ;
 		op_len = operator_check(&input[i]);
 		if (op_len)
 			i += operator_handler(op_len, tokens, input, i);
