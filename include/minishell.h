@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:02:13 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/28 16:45:07 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/06/29 14:16:27 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ void		close_pipes(int **pipes, int n);
 void		child_process(t_child *child);
 void		setup_input(t_child *child, t_parsing *cmd);
 void		setup_output(t_child *child, t_parsing *cmd);
-void		exec_cmd(char const *cmd, char const *paths, char **env);
+void		exec_cmd(char **cmd_args, char const *paths, char **env);
 
 //=== Pipex Helpers ===//
 void		free_pipex(int infile_fd, int **pipes, int cmd_count, pid_t *pid);

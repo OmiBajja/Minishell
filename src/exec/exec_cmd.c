@@ -6,13 +6,13 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 18:48:20 by pafranci          #+#    #+#             */
-/*   Updated: 2025/06/29 10:16:53 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/06/29 14:17:19 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static char	**get_cmd_tab(const char *cmd)
+/*static char	**get_cmd_tab(const char *cmd)
 {
 	char	**cmd_tab;
 
@@ -20,7 +20,7 @@ static char	**get_cmd_tab(const char *cmd)
 	if (!cmd_tab)
 		perror_exit();
 	return (cmd_tab);
-}
+}*/
 
 char	*find_cmd_in_pahts(const char *cmd, char **env_paths_tab)
 {
@@ -64,34 +64,21 @@ static char	*get_full_cmd(char **cmd_tab, const char *paths)
 	return (command_not_found_exit(cmd_tab), NULL);
 }
 
-void	exec_cmd(char const *cmd, char const *paths, char **env)
+void	exec_cmd(char **cmd_args, char const *paths, char **env)
 {
 	char	*full_cmd;
-	char	**cmd_tab;
 
-	if (!cmd)
+	if (!cmd_args || !cmd_args[0])
 	{
 		write(2, "'': command not found\n", 22);
 		exit(127);
 	}
-	cmd_tab = get_cmd_tab(cmd);
-	if (!cmd_tab || !cmd_tab[0])
-	{
-		write(2, "'': command not found\n", 22);
-		if (cmd_tab)
-			free_tab(cmd_tab);
-		exit(127);
-	}
-	full_cmd = get_full_cmd(cmd_tab, paths);
+	full_cmd = get_full_cmd(cmd_args, paths);
 	if (!full_cmd)
-	{
-		free_tab(cmd_tab);
 		perror_exit();
-	}
-	if (execve(full_cmd, cmd_tab, env) == -1)
+	if (execve(full_cmd, cmd_args, env) == -1)
 	{
 		free(full_cmd);
-		free_tab(cmd_tab);
 		perror_exit();
 	}
 }
