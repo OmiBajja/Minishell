@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 19:53:35 by pafranci          #+#    #+#             */
-/*   Updated: 2025/06/28 10:31:09 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/06/29 09:17:17 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,32 @@
 
 static bool	is_builtin(const char *cmd)
 {
-	return (!strcmp(cmd, "cd")
-		|| !strcmp(cmd, "echo")
-		|| !strcmp(cmd, "env")
-		|| !strcmp(cmd, "exit")
-		|| !strcmp(cmd, "export")
-		|| !strcmp(cmd, "pwd")
-		|| !strcmp(cmd, "unset"));
+	return (!ft_strcmp(cmd, "cd")
+		|| !ft_strcmp(cmd, "echo")
+		|| !ft_strcmp(cmd, "env")
+		|| !ft_strcmp(cmd, "exit")
+		|| !ft_strcmp(cmd, "export")
+		|| !ft_strcmp(cmd, "pwd")
+		|| !ft_strcmp(cmd, "unset"));
 }
 
 static void	exec_builtin(t_parsing *node, t_mini *mini)
 {
-	if (!strcmp(node->cmd, "cd"))
+	if (!node->cmd)
+		return ;
+	if (!ft_strcmp(node->cmd, "cd"))
 		ft_cd(mini, node->args);
-	else if (!strcmp(node->cmd, "export"))
+	else if (!ft_strcmp(node->cmd, "export"))
 		ft_export(mini, node->args);
-	else if (!strcmp(node->cmd, "unset"))
+	else if (!ft_strcmp(node->cmd, "unset"))
 		ft_unset(mini, node->args[1]);
-	else if (!strcmp(node->cmd, "echo"))
+	else if (!ft_strcmp(node->cmd, "echo"))
 		ft_echo(&node->args[1]);
-	else if (!strcmp(node->cmd, "env"))
+	else if (!ft_strcmp(node->cmd, "env"))
 		ft_env(mini->env);
-	else if (!strcmp(node->cmd, "exit"))
+	else if (!ft_strcmp(node->cmd, "exit"))
 		ft_exit(mini, node->args);
-	else if (!strcmp(node->cmd, "pwd"))
+	else if (!ft_strcmp(node->cmd, "pwd"))
 		ft_pwd(mini->env);
 }
 
@@ -45,11 +47,14 @@ static void	setup_builtin_redirections(t_parsing *node)
 {
 	int	fd;
 
-	fd = open(node->infile, O_RDONLY);
-	if (node->infile && fd >= 0)
+	if (node->infile)
 	{
-		dup2(fd, STDIN_FILENO);
-		close(fd);
+		fd = open(node->infile, O_RDONLY);
+		if (fd >= 0)
+		{
+			dup2(fd, STDIN_FILENO);
+			close(fd);
+		}
 	}
 	if (node->append_out || node->outfile)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexing.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 10:53:13 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/28 16:25:21 by obajja           ###   ########.fr       */
+/*   Updated: 2025/06/29 09:22:12 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ t_lex	*lexing(char *input, char **env)
 
 	i = 0;
 	tokens = NULL;
+	if (!input)
+		return (NULL);
 	while (input[i])
 	{
 		while (ft_is_whitespace(input[i]))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 16:48:50 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/24 16:58:49 by obajja           ###   ########.fr       */
+/*   Updated: 2025/06/29 09:24:22 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,7 +176,7 @@ size_t				ft_strlcpy(char *dst, const char *src, size_t size);
 int					ft_strncmp(const char *str1, const char *str2, int n);
 
 /* Compare deux chaînes */
-int					ft_strcmp(char *str1, char *str2);
+int					ft_strcmp(const char *str1, const char *str2);
 
 /* Supprime des caractères au début et à la fin d'une chaîne */
 char				*ft_strtrim(char const *s1, char const *s2);

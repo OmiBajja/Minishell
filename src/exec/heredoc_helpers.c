@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 09:16:35 by pafranci          #+#    #+#             */
-/*   Updated: 2025/06/28 12:26:42 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/06/29 09:23:01 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ char	*handle_heredoc(const char *delim)
 	char	*filename;
 
 	filename = ft_strdup("/tmp/.minishell_heredoc");
+	if (!filename)
+		return (NULL);
 	fd = open(filename, O_CREAT | O_WRONLY | O_TRUNC, 0600);
 	if (fd < 0)
 	{
@@ -48,15 +50,15 @@ char	*prep_heredoc_get_infile(t_parsing *head, int *cmd_count)
 
 	node = head;
 	infile = NULL;
-	cmd_count = 0;
+	*cmd_count = 0;
 	while (node)
 	{
-		(*cmd_count)++;
 		if (node->heredoc_delim)
 			node->heredoc_file = handle_heredoc(node->heredoc_delim);
 		if (node->infile && !infile && !node->heredoc_file)
 			infile = node->infile;
 		node = node->next;
+		(*cmd_count)++;
 	}
 	if (infile)
 		return (infile);

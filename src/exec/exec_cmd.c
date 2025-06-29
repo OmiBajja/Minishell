@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 18:48:20 by pafranci          #+#    #+#             */
-/*   Updated: 2025/05/29 02:21:19 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/06/29 10:16:53 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,17 @@ void	exec_cmd(char const *cmd, char const *paths, char **env)
 	char	*full_cmd;
 	char	**cmd_tab;
 
-	cmd_tab = get_cmd_tab(cmd);
-	if (cmd_tab[0] == NULL)
+	if (!cmd)
 	{
 		write(2, "'': command not found\n", 22);
-		free_tab(cmd_tab);
+		exit(127);
+	}
+	cmd_tab = get_cmd_tab(cmd);
+	if (!cmd_tab || !cmd_tab[0])
+	{
+		write(2, "'': command not found\n", 22);
+		if (cmd_tab)
+			free_tab(cmd_tab);
 		exit(127);
 	}
 	full_cmd = get_full_cmd(cmd_tab, paths);

@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 13:24:19 by pafranci          #+#    #+#             */
-/*   Updated: 2025/06/28 12:25:51 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/06/29 09:11:38 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	pipex(char *infile, t_parsing *cmds, int cmd_count, char **env)
 	t_child	*child;
 
 	child = ft_calloc(1, sizeof(t_child));
+	if (!infile)
+		perror_exit();
 	child->infile_fd = open(infile, O_RDONLY);
 	if (child->infile_fd < 0)
 		perror_exit();
@@ -38,7 +40,8 @@ void	pipex(char *infile, t_parsing *cmds, int cmd_count, char **env)
 			child_process(child);
 	}
 	wait_for_children(pid, cmd_count);
-	cleanup_pipex(child->infile_fd, child->pipes, cmd_count, pid);
+	free_pipex(child->infile_fd, child->pipes, cmd_count, pid);
+	free(child);
 }
 
 int	**create_pipes(int n)
