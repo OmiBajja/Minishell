@@ -6,7 +6,7 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:02:04 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/29 14:59:00 by obajja           ###   ########.fr       */
+/*   Updated: 2025/06/30 19:10:46 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,17 @@ char	**default_env(void)
 
 void	input_handler(char *input, t_mini *mini)
 {
-	t_lex		*tokens;
-	t_parsing	*parser;
 
-	tokens = lexing(input, mini->env);
-	if (!tokens)
+	mini->lex = lexing(input, mini->env);
+	if (!mini->lex)
 	{
 		printf("Something's wrong\n");
 		return ;
 	}
-	parser = token_parser(input, tokens);
-	exec_handler(parser, mini->env, mini);
-	free_parse(parser);
-	free_tokens(tokens);
+	mini->data = token_parser(input, mini->lex);
+	exec_handler(mini->data, mini->env, mini);
+	free_parse(mini->data);
+	free_tokens(mini->lex);
 }
 
 int	mini_handler(t_mini *mini)
@@ -55,13 +53,7 @@ int	mini_handler(t_mini *mini)
 		input = readline(BRED "MinisHell :" RESET_COLOR);
 		if (!input)
 		{
-			if (mini->env)
-				ft_freestrs(mini->env);
-			if (mini)
-			{
-				free(mini);
-				mini = NULL;
-			}
+			mini_cleaner(mini);
 			printf("exit\n");
 			exit(EXIT_SUCCESS);
 		}
