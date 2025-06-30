@@ -6,7 +6,7 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:02:13 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/30 18:55:26 by obajja           ###   ########.fr       */
+/*   Updated: 2025/06/30 19:05:24 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ typedef struct s_mini
 	char		**env;
 	int			status;
 	t_parsing	*data;
+	t_lex		*lex;
 	char		**export;
 	char		**exp_dup;
 }	t_mini;

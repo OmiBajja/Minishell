@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 00:47:31 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/28 05:48:21 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/06/30 19:10:52 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,7 @@
 
 void	exiting(t_mini *mini, int exit_val)
 {
-	if (mini->env)
-		ft_freestrs(mini->env);
-	if (mini)
-	{
-		free(mini);
-		mini = NULL;
-	}
+	mini_cleaner(mini);
 	exit(exit_val);
 }
 
