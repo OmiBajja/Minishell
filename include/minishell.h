@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:02:13 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/29 14:16:27 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/06/30 13:45:00 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ typedef struct s_mini
 	char		**env;
 	int			status;
 	t_parsing	*data;
+	char		**export;
+	char		**exp_dup;
 }	t_mini;
 
 typedef struct s_child
