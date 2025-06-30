@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 19:53:35 by pafranci          #+#    #+#             */
-/*   Updated: 2025/06/30 18:05:24 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/06/30 20:44:36 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,6 @@ void	exec_handler(t_parsing *head, char **envp, t_mini *mini)
 		return ;
 	}
 	infile = prep_heredoc_get_infile(head, &cmd_count);
-	pipex(infile, head, cmd_count, envp);
+	pipex(infile, head, cmd_count, envp, mini);
 	cleanup_heredoc(head);
 }

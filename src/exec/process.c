@@ -6,13 +6,13 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 13:24:19 by pafranci          #+#    #+#             */
-/*   Updated: 2025/06/29 14:09:24 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/06/30 20:43:21 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	pipex(char *infile, t_parsing *cmds, int cmd_count, char **env)
+void	pipex(char *infile, t_parsing *cmds, int cmd_count, char **env, t_mini *mini)
 {
 	pid_t	*pid;
 	t_child	*child;
@@ -39,7 +39,7 @@ void	pipex(char *infile, t_parsing *cmds, int cmd_count, char **env)
 		if (pid[child->i] == 0)
 			child_process(child);
 	}
-	wait_for_children(pid, cmd_count);
+	wait_for_children(pid, cmd_count, mini);
 	free_pipex(child->infile_fd, child->pipes, cmd_count, pid);
 	free(child);
 }
