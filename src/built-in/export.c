@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 00:47:38 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/30 18:19:24 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/06/30 18:29:31 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ char	**ft_env_sort(char **export_list)
 	return (env_export);
 }
 
-void	ft_export(t_mini *mini, char **command)
+int	ft_export(t_mini *mini, char **command)
 {
 	char	**new_env;
 	char	**exp_sorted;

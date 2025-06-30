@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 00:54:01 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/30 18:21:06 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/06/30 18:29:38 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	**ft_cut_env(char **list, char *command, char **copy)
 	return (copy);
 }
 
-void	ft_unset(t_mini *mini, char *command)
+int	ft_unset(t_mini *mini, char *command)
 {
 	int		size;
 	char	**env_cpy;
