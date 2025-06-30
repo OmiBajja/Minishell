@@ -6,7 +6,7 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 00:47:31 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/30 19:10:52 by obajja           ###   ########.fr       */
+/*   Updated: 2025/06/30 20:17:30 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 
 void	exiting(t_mini *mini, int exit_val)
 {
+	if (mini->data)
+		free_parse(mini->data);
+	if (mini->lex)
+		free_tokens(mini->lex);
 	mini_cleaner(mini);
 	exit(exit_val);
 }
@@ -33,6 +37,8 @@ int	num_check(char *str)
 
 void	ft_exit(t_mini *mini, char **args)
 {
+	int	exit_code;
+
 	printf("exit\n");
 	if (args[1])
 	{
@@ -47,7 +53,10 @@ void	ft_exit(t_mini *mini, char **args)
 			return ;
 		}
 		if (!args[2])
-			exiting(mini, ft_atoi(args[1]));
+		{
+			exit_code = ft_atoi(args[1]) % 256;
+			exiting(mini, exit_code);
+		}
 	}
 	else
 		exiting(mini, mini->status);

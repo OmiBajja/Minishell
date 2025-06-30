@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_extender.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 15:56:51 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/28 15:56:13 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/06/30 20:27:01 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*input_extender(char *input, char *replace, char *word, int stop)
 	i = -1;
 	j = -1;
 	len = ft_strlen(input) - (ft_strlen(word) + 1) + ft_strlen(replace) + 1;
-	extended = malloc(len * sizeof(char));
+	extended = ft_calloc(len, sizeof(char));
 	if (!extended)
 		return (NULL);
 	while (++i < stop)
@@ -70,7 +70,7 @@ char	*word_assigner(char *input)
 	word = NULL;
 	while (input[i] && !ft_is_whitespace(input[i]) && input[i] != '"')
 		i++;
-	word = malloc ((i + 1) * sizeof(char));
+	word = ft_calloc ((i + 1), sizeof(char));
 	if (!word)
 		return (NULL);
 	len = i - 1;

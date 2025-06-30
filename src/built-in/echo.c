@@ -6,7 +6,7 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 00:47:17 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/29 19:23:37 by obajja           ###   ########.fr       */
+/*   Updated: 2025/06/30 20:55:45 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,12 +72,17 @@ void	ft_echo(char **inputs)
 	int		i;
 
 	i = 0;
-	nl = is_newline(inputs);
-	if (nl == 1 && inputs[1])
-		i = where_print(inputs);
-	else if (nl == 1 && !inputs[1])
+	if (!inputs[1])
+	{
+		printf("\n");
 		return ;
-	result = ft_strscomp(&inputs[i]);
+	}
+	nl = is_newline(&inputs[1]);
+	if (nl == 1 && inputs[2])
+		i = where_print(&inputs[1]);
+	else if (nl == 1 && !inputs[2])
+		return ;
+	result = ft_strscomp(&inputs[i + 1]);
 	if (nl == 0)
 		printf("%s\n", result);
 	else

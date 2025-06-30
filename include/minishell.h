@@ -6,7 +6,7 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:02:13 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/30 19:05:24 by obajja           ###   ########.fr       */
+/*   Updated: 2025/06/30 20:11:25 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,6 +155,7 @@ void		perror_exit(void);
 void		command_not_found_exit(char **cmd_tab);
 void		invalid_usage_exit(int ac);
 void		mini_cleaner(t_mini *mini);
+void		free_null(char *to_free);
 
 
 //=== Quote & Env Expansion Handling ===//

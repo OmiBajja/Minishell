@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexing.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 10:53:13 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/29 15:48:31 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/06/30 20:11:40 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,19 @@ void	free_tokens(t_lex *tokens)
 
 	while (tokens)
 	{
-		tmp = tokens->next;
-		free(tokens->value);
-		free(tokens);
-		tokens = tmp;
+		if (tokens->value)
+			free_null(tokens->value);
+		if (tokens->next)
+		{
+			tmp = tokens->next;
+			free(tokens);
+			tokens = tmp;
+		}
+		else
+		{
+			free(tokens);
+			break ;
+		}
 	}
+	tokens = NULL;
 }

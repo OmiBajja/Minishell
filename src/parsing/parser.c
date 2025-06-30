@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 00:48:21 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/28 07:19:31 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/06/30 19:45:56 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,6 @@ t_parsing	*token_parser(char *input, t_lex *tokens)
 			node = node->next;
 		}
 	}
+	node->next = NULL;
 	return (head);
 }

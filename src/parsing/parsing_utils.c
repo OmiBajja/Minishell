@@ -3,14 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 20:47:04 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/28 07:26:40 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/06/30 20:34:53 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+
+void	free_null(char *to_free)
+{
+	if (to_free)
+	{
+		free(to_free);
+		to_free = NULL;
+	}
+}
 
 void	print_command(t_parsing *cmd)
 {
@@ -57,17 +66,17 @@ void	free_parse(t_parsing *parse)
 
 	while (parse)
 	{
-		tmp = parse->next;
 		if (parse->cmd)
-			free(parse->cmd);
+			free_null(parse->cmd);
 		if (parse->args)
 			ft_freestrs(parse->args);
 		if (parse->infile)
-			free(parse->infile);
+			free_null(parse->infile);
 		if (parse->outfile)
-			free(parse->outfile);
-		if (parse)
-			free(parse);
+			free_null(parse->outfile);
+		tmp = parse->next;
+		free(parse);
 		parse = tmp;
 	}
+	parse = NULL;
 }

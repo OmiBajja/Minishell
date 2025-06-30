@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 13:24:19 by pafranci          #+#    #+#             */
-/*   Updated: 2025/06/29 14:09:24 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/06/30 20:26:20 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	pipex(char *infile, t_parsing *cmds, int cmd_count, char **env)
 	child->cmd_count = cmd_count;
 	child->env = env;
 	child->pipes = create_pipes(cmd_count - 1);
-	pid = malloc(sizeof(pid_t) * cmd_count);
+	pid = ft_calloc(sizeof(pid_t), cmd_count);
 	if (!pid)
 		perror_exit();
 	child->i = -1;
@@ -49,13 +49,13 @@ int	**create_pipes(int n)
 	int	**pipes;
 	int	i;
 
-	pipes = malloc(n * sizeof (int *));
+	pipes = ft_calloc(n, sizeof (int *));
 	if (!pipes)
 		return (perror_exit(), NULL);
 	i = 0;
 	while (i < n)
 	{
-		pipes[i] = malloc(2 * sizeof (int));
+		pipes[i] = ft_calloc(2, sizeof (int));
 		if (!pipes[i])
 			perror_exit();
 		if (pipe(pipes[i]) < 0)

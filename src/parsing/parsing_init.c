@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_init.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:40:03 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/29 09:21:13 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/06/30 20:24:43 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	**new_args(char **args, char *new_arg)
 	i = 0;
 	if (!args)
 	{
-		all_args = malloc(sizeof(char *) * 2);
+		all_args = ft_calloc(sizeof(char *), 2);
 		if (!all_args)
 			return (NULL);
 		all_args[0] = ft_strdup(new_arg);
@@ -29,7 +29,7 @@ char	**new_args(char **args, char *new_arg)
 	}
 	while (args[i])
 		i++;
-	all_args = malloc (sizeof(char *) * (i + 2));
+	all_args = ft_calloc (sizeof(char *), (i + 2));
 	if (!all_args)
 		return (NULL);
 	i = -1;
@@ -45,7 +45,7 @@ t_parsing	*create_parse(void)
 {
 	t_parsing	*parse;
 
-	parse = malloc(sizeof(t_parsing));
+	parse = ft_calloc(sizeof(t_parsing), 1);
 	if (!parse)
 		return (NULL);
 	parse->outfile = NULL;
