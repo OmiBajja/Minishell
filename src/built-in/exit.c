@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 00:47:31 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/28 05:48:21 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/06/30 18:16:13 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	num_check(char *str)
 	return (0);
 }
 
-void	ft_exit(t_mini *mini, char **args)
+int	ft_exit(t_mini *mini, char **args)
 {
 	printf("exit\n");
 	if (args[1])
@@ -50,7 +50,7 @@ void	ft_exit(t_mini *mini, char **args)
 		if (args[2])
 		{
 			printf("Minishell: exit: too many arguments\n");
-			return ;
+			return (1);
 		}
 		if (!args[2])
 			exiting(mini, ft_atoi(args[1]));

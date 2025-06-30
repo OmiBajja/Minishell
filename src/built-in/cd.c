@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 05:55:38 by pafranci          #+#    #+#             */
-/*   Updated: 2025/06/29 10:09:59 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/06/30 18:08:03 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,20 +95,20 @@ static int	ft_cd_do(t_mini *mini, const char *target, const char *old_pwd)
 	if (chdir(target) != 0)
 	{
 		perror("cd");
-		return (0);
+		return (1);
 	}
 	if (!getcwd(cwd, sizeof(cwd)))
 	{
 		perror("cd");
-		return (0);
+		return (1);
 	}
 	if (old_pwd)
 		ft_replace_env(&mini->env, "OLDPWD", old_pwd);
 	ft_replace_env(&mini->env, "PWD", cwd);
-	return (1);
+	return (0);
 }
 
-void	ft_cd(t_mini *mini, char **args)
+int	ft_cd(t_mini *mini, char **args)
 {
 	char	*target;
 	char	*old_pwd;
@@ -120,52 +120,8 @@ void	ft_cd(t_mini *mini, char **args)
 			printf("cd: %s not set\n", "OLDPWD");
 		else
 			printf("cd: %s not set\n", "HOME");
-		return ;
+		return (1);
 	}
 	old_pwd = ft_get_env_val(mini->env, "PWD");
-	if (!ft_cd_do(mini, target, old_pwd))
-		return ;
+	return (ft_cd_do(mini, target, old_pwd));
 }
-
-/*void	ft_cd(t_mini *mini, char **args)
-{
-	char	*target;
-	char	cwd[1024];
-	char	*old_pwd;
-
-	if (!args[1])
-	{
-		target = ft_get_env_val(mini->env, "HOME");
-		if (!target)
-		{
-			printf("cd: HOME not set\n");
-			return ;
-		}
-	}
-	else if (strcmp(args[1], "-") == 0)
-	{
-		target = ft_get_env_val(mini->env, "OLDPWD");
-		if (!target)
-		{
-			printf("cd: OLDPWD not set\n");
-			return ;
-		}
-		printf("%s\n", target);
-	}
-	else
-		target = args[1];
-	old_pwd = ft_get_env_val(mini->env, "PWD");
-	if (chdir(target) != 0)
-	{
-		perror ("cd");
-		return ;
-	}
-	if (!getcwd(cwd, sizeof(cwd)))
-	{
-		perror("cd");
-		return ;
-	}
-	if (old_pwd)
-		ft_replace_env(&mini->env, "OLDPWD", old_pwd);
-	ft_replace_env(&mini->env, "PWD", cwd);
-}*/

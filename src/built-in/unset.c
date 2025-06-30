@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 00:54:01 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/29 21:45:39 by obajja           ###   ########.fr       */
+/*   Updated: 2025/06/30 18:21:06 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,15 @@ void	ft_unset(t_mini *mini, char *command)
 	size = ft_strslen(mini->env);
 	env_cpy = ft_calloc((size + 1), sizeof(char *));
 	if (!env_cpy)
-		return ;
+		return (1);
 	size = ft_strslen(mini->exp_dup);
 	exp_cpy = ft_calloc((size + 1), sizeof(char *));
 	if (!exp_cpy)
 	{
 		free(env_cpy);
-		return ;
+		return (1);
 	}
 	mini->exp_dup = ft_cut_env(mini->exp_dup, command, exp_cpy);
 	mini->env = ft_cut_env(mini->env, command, env_cpy);
+	return (0);
 }

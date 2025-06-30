@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 19:53:35 by pafranci          #+#    #+#             */
-/*   Updated: 2025/06/29 09:17:17 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/06/30 18:05:24 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,19 +28,19 @@ static void	exec_builtin(t_parsing *node, t_mini *mini)
 	if (!node->cmd)
 		return ;
 	if (!ft_strcmp(node->cmd, "cd"))
-		ft_cd(mini, node->args);
+		mini->status = ft_cd(mini, node->args);
 	else if (!ft_strcmp(node->cmd, "export"))
-		ft_export(mini, node->args);
+		mini->status = ft_export(mini, node->args);
 	else if (!ft_strcmp(node->cmd, "unset"))
-		ft_unset(mini, node->args[1]);
+		mini->status = ft_unset(mini, node->args[1]);
 	else if (!ft_strcmp(node->cmd, "echo"))
-		ft_echo(&node->args[1]);
+		mini->status = ft_echo(&node->args[1]);
 	else if (!ft_strcmp(node->cmd, "env"))
-		ft_env(mini->env);
+		mini->status = ft_env(mini->env);
 	else if (!ft_strcmp(node->cmd, "exit"))
-		ft_exit(mini, node->args);
+		mini->status = ft_exit(mini, node->args);
 	else if (!ft_strcmp(node->cmd, "pwd"))
-		ft_pwd(mini->env);
+		mini->status = ft_pwd(mini->env);
 }
 
 static void	setup_builtin_redirections(t_parsing *node)

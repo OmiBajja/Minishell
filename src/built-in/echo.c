@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 00:47:17 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/29 19:23:37 by obajja           ###   ########.fr       */
+/*   Updated: 2025/06/30 18:09:54 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	is_newline(char **inputs)
 
 }
 
-void	ft_echo(char **inputs)
+int	ft_echo(char **inputs)
 {
 	char	*result;
 	int		nl;
@@ -76,11 +76,12 @@ void	ft_echo(char **inputs)
 	if (nl == 1 && inputs[1])
 		i = where_print(inputs);
 	else if (nl == 1 && !inputs[1])
-		return ;
+		return (1);
 	result = ft_strscomp(&inputs[i]);
 	if (nl == 0)
 		printf("%s\n", result);
 	else
 		printf("%s", result);
 	free(result);
+	return (0);
 }
