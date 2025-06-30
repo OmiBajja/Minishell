@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   string_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 02:41:25 by pafranci          #+#    #+#             */
-/*   Updated: 2025/05/29 02:05:42 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/06/30 20:27:41 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 
 	len_s1 = ft_strlen(s1);
 	len_s2 = ft_strlen(s2);
-	res = (char *)malloc(((len_s1 + len_s2) + 1) * sizeof(char));
+	res = (char *)ft_calloc(((len_s1 + len_s2) + 1), sizeof(char));
 	if (!res)
 		return (NULL);
 	i = 0;
@@ -57,16 +57,16 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 
 	if (start >= (unsigned int)ft_strlen(s))
 	{
-		sub_s = (char *)malloc(sizeof(char));
+		sub_s = (char *)ft_calloc(sizeof(char), 1);
 		if (!sub_s)
 			return (NULL);
 		sub_s[0] = '\0';
 		return (sub_s);
 	}
 	if ((start + len) >= (unsigned int)ft_strlen(s))
-		sub_s = (char *)malloc(((ft_strlen(s) - start) + 1) * sizeof (char));
+		sub_s = (char *)ft_calloc(((ft_strlen(s) - start) + 1), sizeof (char));
 	else
-		sub_s = (char *)malloc((len + 1) * sizeof(char));
+		sub_s = (char *)ft_calloc((len + 1), sizeof(char));
 	if (!sub_s)
 		return (NULL);
 	i = 0;

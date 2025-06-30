@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 18:43:20 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/28 07:54:37 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/06/30 19:56:06 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,11 @@ void	ft_freestrs(char **tab)
 	while (tab[i])
 	{
 		free(tab[i]);
+		tab[i] = NULL;
 		i++;
 	}
 	free (tab);
+	tab = NULL;
 	return ;
 }
 

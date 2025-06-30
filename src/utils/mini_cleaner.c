@@ -6,7 +6,7 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 16:10:12 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/30 19:08:06 by obajja           ###   ########.fr       */
+/*   Updated: 2025/06/30 20:18:49 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,6 @@ void	mini_cleaner(t_mini *mini)
 		ft_freestrs(mini->exp_dup);
 		mini->exp_dup = NULL;
 	}
-	if (mini->data)
-		free_parse(mini->data);
-	if (mini->lex)
-		free_tokens(mini->lex);
 	if (mini)
 	{
 		free(mini);

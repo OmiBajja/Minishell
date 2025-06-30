@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 11:04:08 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/28 07:02:28 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/06/30 20:28:38 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	*ft_strndup(char *str, size_t size)
 {
 	char	*new;
 
-	new = malloc(size + 1);
+	new = ft_calloc(size + 1, 1);
 	if (!new)
 		return (NULL);
 	ft_memcpy(new, str, size);
