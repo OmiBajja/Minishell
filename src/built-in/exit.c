@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 00:47:31 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/30 18:16:13 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/06/30 18:28:21 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,5 @@ int	ft_exit(t_mini *mini, char **args)
 	}
 	else
 		exiting(mini, mini->status);
+	return (0);
 }
