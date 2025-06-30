@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:02:13 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/30 13:45:00 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/06/30 18:55:26 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,8 @@ void		free_tab(char **tab);
 void		perror_exit(void);
 void		command_not_found_exit(char **cmd_tab);
 void		invalid_usage_exit(int ac);
+void		mini_cleaner(t_mini *mini);
+
 
 //=== Quote & Env Expansion Handling ===//
 char		*ft_extender(char *input, char **env);

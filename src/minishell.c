@@ -6,7 +6,7 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:02:04 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/29 14:59:00 by obajja           ###   ########.fr       */
+/*   Updated: 2025/06/30 18:54:34 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,7 @@ int	mini_handler(t_mini *mini)
 		input = readline(BRED "MinisHell :" RESET_COLOR);
 		if (!input)
 		{
-			if (mini->env)
-				ft_freestrs(mini->env);
-			if (mini)
-			{
-				free(mini);
-				mini = NULL;
-			}
+			mini_cleaner(mini);
 			printf("exit\n");
 			exit(EXIT_SUCCESS);
 		}
