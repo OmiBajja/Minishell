@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:02:13 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/30 13:45:00 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/06/30 18:26:50 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,13 +99,13 @@ void		signal_handling(void);
 void		exec_handler(t_parsing *head, char **envp, t_mini *mini);
 
 //=== Built-in Commands ===//
-void		ft_cd(t_mini *mini, char **args);
-void		ft_echo(char **input);
-void		ft_env(char **envp);
-void		ft_pwd(char **env);
-void		ft_export(t_mini *mini, char **command);
-void		ft_unset(t_mini *mini, char *command);
-void		ft_exit(t_mini *mini, char **args);
+int			ft_cd(t_mini *mini, char **args);
+int			ft_echo(char **input);
+int			ft_env(char **envp);
+int			ft_pwd(char **env);
+int			ft_export(t_mini *mini, char **command);
+int			ft_unset(t_mini *mini, char *command);
+int			ft_exit(t_mini *mini, char **args);
 
 //=== Execution & Pipes ===//
 void		pipex(char *infile, t_parsing *cmds, int cmd_count, char **env);
