@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 00:54:01 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/30 18:57:13 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/01 15:21:49 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char	**ft_cut_env(char **list, char *command, char **copy)
 	return (copy);
 }
 
-void	ft_unset(t_mini *mini, char *command)
+int	ft_unset(t_mini *mini, char *command)
 {
 	int		size;
 	char	**env_cpy;
@@ -59,18 +59,19 @@ void	ft_unset(t_mini *mini, char *command)
 	if (!mini->exp_dup)
 		mini->exp_dup = ft_strsndup(mini->env, ft_strslen(mini->env));
 	if (!is_it_in_env(mini->exp_dup, command))
-		return ;
+		return (0);
 	size = ft_strslen(mini->env);
 	env_cpy = ft_calloc((size + 1), sizeof(char *));
 	if (!env_cpy)
-		return ;
+		return (1);
 	size = ft_strslen(mini->exp_dup);
 	exp_cpy = ft_calloc((size + 1), sizeof(char *));
 	if (!exp_cpy)
 	{
 		ft_freestrs(env_cpy);
-		return ;
+		return (1);
 	}
 	mini->exp_dup = ft_cut_env(mini->exp_dup, command, exp_cpy);
 	mini->env = ft_cut_env(mini->env, command, env_cpy);
+	return (0);
 }

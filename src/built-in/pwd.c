@@ -6,17 +6,18 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 00:53:56 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/28 06:03:46 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/06/30 18:17:21 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	ft_pwd(char **envp)
+int	ft_pwd(char **envp)
 {
 	char	cwd[1024];
 
 	(void)envp;
 	getcwd(cwd, sizeof(cwd));
 	printf("%s\n", cwd);
+	return (0);
 }

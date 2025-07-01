@@ -6,17 +6,18 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 00:47:24 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/28 06:04:49 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/06/30 18:10:26 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	ft_env(char **envp)
+int	ft_env(char **envp)
 {
 	int	i;
 
 	i = -1;
 	while (envp[++i])
 		printf("%s\n", envp[i]);
+	return (0);
 }

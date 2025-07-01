@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 00:47:38 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/01 13:57:56 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/01 15:17:38 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ char	**ft_env_sort(char **export_list)
 	return (env_export);
 }
 
-void	ft_export(t_mini *mini, char **command)
+int	ft_export(t_mini *mini, char **command)
 {
 	char	**new_env;
 	char	**new_exp;
@@ -115,4 +115,5 @@ void	ft_export(t_mini *mini, char **command)
 		exp_sorted = ft_export_expand(mini->exp_dup);
 		print_and_free(exp_sorted);
 	}
+	return (0);
 }

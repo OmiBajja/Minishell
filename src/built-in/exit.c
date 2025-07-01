@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 00:47:31 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/30 20:17:30 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/01 15:17:54 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	num_check(char *str)
 	return (0);
 }
 
-void	ft_exit(t_mini *mini, char **args)
+int	ft_exit(t_mini *mini, char **args)
 {
 	int	exit_code;
 
@@ -50,7 +50,7 @@ void	ft_exit(t_mini *mini, char **args)
 		if (args[2])
 		{
 			printf("Minishell: exit: too many arguments\n");
-			return ;
+			return (1);
 		}
 		if (!args[2])
 		{
@@ -60,4 +60,5 @@ void	ft_exit(t_mini *mini, char **args)
 	}
 	else
 		exiting(mini, mini->status);
+	return (0);
 }

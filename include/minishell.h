@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:02:13 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/30 20:11:25 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/01 15:15:35 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,16 +100,16 @@ void		signal_handling(void);
 void		exec_handler(t_parsing *head, char **envp, t_mini *mini);
 
 //=== Built-in Commands ===//
-void		ft_cd(t_mini *mini, char **args);
-void		ft_echo(char **input);
-void		ft_env(char **envp);
-void		ft_pwd(char **env);
-void		ft_export(t_mini *mini, char **command);
-void		ft_unset(t_mini *mini, char *command);
-void		ft_exit(t_mini *mini, char **args);
+int			ft_cd(t_mini *mini, char **args);
+int			ft_echo(char **input);
+int			ft_env(char **envp);
+int			ft_pwd(char **env);
+int			ft_export(t_mini *mini, char **command);
+int			ft_unset(t_mini *mini, char *command);
+int			ft_exit(t_mini *mini, char **args);
 
 //=== Execution & Pipes ===//
-void		pipex(char *infile, t_parsing *cmds, int cmd_count, char **env);
+void		pipex(char *infile, t_parsing *cmds, int cmd_count, char **env, t_mini *mini);
 int			**create_pipes(int n);
 void		close_pipes(int **pipes, int n);
 void		child_process(t_child *child);
@@ -120,7 +120,7 @@ void		exec_cmd(char **cmd_args, char const *paths, char **env);
 //=== Pipex Helpers ===//
 void		free_pipex(int infile_fd, int **pipes, int cmd_count, pid_t *pid);
 t_parsing	*get_nth_node(t_parsing *head, int n);
-void		wait_for_children(pid_t *pid, int cmd_count);
+void		wait_for_children(pid_t *pid, int cmd_count, t_mini *mini);
 
 //=== Heredoc Helpers ===//
 char		*handle_heredoc(const char *delim);

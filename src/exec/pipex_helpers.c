@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 13:48:41 by pafranci          #+#    #+#             */
-/*   Updated: 2025/06/29 11:09:39 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/01 15:13:12 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,32 @@ void	free_pipex(int infile_fd, int **pipes, int cmd_count, pid_t *pid)
 	free(pid);
 }
 
-void	wait_for_children(pid_t *pid, int cmd_count)
+void	wait_for_children(pid_t *pid, int cmd_count, t_mini *mini)
 {
-	int	i;
+	int		waited;
+	int		status;
+	int		sig;
+	pid_t	wpid;
 
-	i = 0;
-	while (i < cmd_count)
+	waited = 0;
+	while (waited < cmd_count)
 	{
-		waitpid(pid[i], NULL, 0);
-		i++;
+		wpid = wait(&status);
+		if (wpid == -1)
+			break ;
+		waited++;
+		if (wpid == pid[cmd_count - 1])
+		{
+			if (WIFEXITED(status))
+				mini->status = WEXITSTATUS(status);
+			else if (WIFSIGNALED(status))
+			{
+				sig = WTERMSIG(status);
+				mini->status = 128 + sig;
+				if (sig == SIGINT || sig == SIGQUIT)
+					write(STDOUT_FILENO, "\n", 1);
+			}
+		}
 	}
 }
 
