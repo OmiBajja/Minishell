@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_extender.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 15:56:51 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/01 16:40:42 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/01 17:33:48 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,11 @@ static char	*env_fetcher(char *word, char **env, t_mini *mini)
 	char	*replace;
 
 	if (ft_strcmp(word, "?") == 0)
-		return (ft_itoa(mini->status));
+	{
+		replace = ft_itoa(mini->status + g_sig);
+		g_sig = 0;
+		return (replace);
+	}
 	i = 0;
 	len = ft_strlen(word);
 	while (env[i])
