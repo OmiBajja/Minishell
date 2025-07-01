@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_handling.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 14:38:41 by pafranci          #+#    #+#             */
-/*   Updated: 2025/05/29 00:20:36 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/01 19:16:56 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,21 @@ void	perror_exit(void)
 	exit(EXIT_FAILURE);
 }
 
-void	command_not_found_exit(char **cmd_tab)
+void	command_not_found_exit(char **cmd_tab, t_mini *mini, t_child *child)
 {
-	write(2, cmd_tab[0], ft_strlen(cmd_tab[0]));
-	write(2, ": command not found\n", 20);
-	free_tab(cmd_tab);
-	exit(127);
+    write(2, cmd_tab[0], ft_strlen(cmd_tab[0]));
+    write(2, ": command not found\n", 20);
+    if (mini->data)
+        free_parse(mini->data);
+    if (mini->lex)
+        free_tokens(mini->lex);
+    if (child)
+    {
+        free_pipex(child->infile_fd, child->pipes, child->cmd_count, child->pid);
+        free(child);
+    }
+    mini_cleaner(mini);
+    exit(127);
 }
 
 void	invalid_usage_exit(int ac)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:02:13 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/01 16:39:31 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/01 19:15:27 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ typedef struct s_child
 	int			infile_fd;
 	int			cmd_count;
 	int			**pipes;
+	pid_t		*pid;
 	t_parsing	*cmds;
 	char		**env;
 }	t_child;
@@ -112,10 +113,10 @@ int			ft_exit(t_mini *mini, char **args);
 void		pipex(char *infile, t_parsing *cmds, int cmd_count, char **env, t_mini *mini);
 int			**create_pipes(int n);
 void		close_pipes(int **pipes, int n);
-void		child_process(t_child *child);
+void		child_process(t_child *child, t_mini *mini);
 void		setup_input(t_child *child, t_parsing *cmd);
 void		setup_output(t_child *child, t_parsing *cmd);
-void		exec_cmd(char **cmd_args, char const *paths, char **env);
+void		exec_cmd(char **cmd_args, char const *paths, char **env, t_mini *mini, t_child *child);
 
 //=== Pipex Helpers ===//
 void		free_pipex(int infile_fd, int **pipes, int cmd_count, pid_t *pid);
@@ -152,7 +153,7 @@ char		*ft_strscomp(char **src);
 //=== Memory & Error Handling ===//
 void		free_tab(char **tab);
 void		perror_exit(void);
-void		command_not_found_exit(char **cmd_tab);
+void		command_not_found_exit(char **cmd_tab, t_mini *mini, t_child *child);
 void		invalid_usage_exit(int ac);
 void		mini_cleaner(t_mini *mini);
 void		free_null(char *to_free);

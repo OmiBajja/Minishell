@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 13:24:19 by pafranci          #+#    #+#             */
-/*   Updated: 2025/07/01 15:12:44 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/01 19:16:22 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	pipex(char *infile, t_parsing *cmds, int cmd_count, char **env, t_mini *mini)
 {
-	pid_t				*pid;
 	t_child				*child;
 	struct sigaction	default_action;
 
@@ -28,8 +27,8 @@ void	pipex(char *infile, t_parsing *cmds, int cmd_count, char **env, t_mini *min
 	child->cmd_count = cmd_count;
 	child->env = env;
 	child->pipes = create_pipes(cmd_count - 1);
-	pid = ft_calloc(sizeof(pid_t), cmd_count);
-	if (!pid)
+	child->pid = ft_calloc(sizeof(pid_t), cmd_count);
+	if (!child->pid)
 		perror_exit();
 	sigemptyset(&default_action.sa_mask);
 	default_action.sa_handler = SIG_DFL;
@@ -39,15 +38,15 @@ void	pipex(char *infile, t_parsing *cmds, int cmd_count, char **env, t_mini *min
 	child->i = -1;
 	while (++(child->i) < cmd_count)
 	{
-		pid[child->i] = fork();
-		if (pid[child->i] < 0)
+		child->pid[child->i] = fork();
+		if (child->pid[child->i] < 0)
 			perror_exit();
-		if (pid[child->i] == 0)
-			child_process(child);
+		if (child->pid[child->i] == 0)
+			child_process(child, mini);
 	}
 	close_pipes(child->pipes, cmd_count - 1);
-	wait_for_children(pid, cmd_count, mini);
-	free_pipex(child->infile_fd, child->pipes, cmd_count, pid);
+	wait_for_children(child->pid, cmd_count, mini);
+	free_pipex(child->infile_fd, child->pipes, cmd_count, child->pid);
 	free(child);
 	signal_handling();
 }
@@ -86,7 +85,7 @@ void	close_pipes(int **pipes, int n)
 	}
 }
 
-void	child_process(t_child *child)
+void	child_process(t_child *child, t_mini *mini)
 {
 	t_parsing	*cmd;
 
@@ -97,5 +96,5 @@ void	child_process(t_child *child)
 	setup_output(child, cmd);
 	close(child->infile_fd);
 	close_pipes(child->pipes, child->cmd_count - 1);
-	exec_cmd(cmd->args, find_env_paths(child->env), child->env);
+	exec_cmd(cmd->args, find_env_paths(child->env), child->env, mini, child);
 }
