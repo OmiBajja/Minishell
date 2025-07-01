@@ -6,16 +6,30 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 00:47:17 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/30 20:55:45 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/01 10:34:03 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
+void	printer(char *to_print, int	nl)
+{
+	int	i;
+
+	i = -1;
+	while (to_print[++i])
+	{
+		if (to_print[i] != '\\')
+			printf("%c", to_print[i]);
+	}
+	if (nl == 0)
+		printf("\n");
+}
+
 int	where_print(char **inputs)
 {
 	int	i;
-	int j;
+	int	j;
 
 	i = 0;
 	j = -1;
@@ -25,7 +39,7 @@ int	where_print(char **inputs)
 	while (inputs[++i])
 	{
 		if (!inputs[i][1])
-			return(i);
+			return (i);
 		if ((inputs[i][0] && inputs[i][0] != '-')
 		|| (inputs[i][1] && inputs[i][1] != 'n'))
 			return (i);
@@ -47,7 +61,7 @@ int	is_newline(char **inputs)
 	i = 0;
 	j = 0;
 	if (!inputs[i][1])
-		return(0);
+		return (0);
 	if ((inputs[i][0] && inputs[i][0] != '-')
 		|| (inputs[i][1] && inputs[i][1] != 'n'))
 		return (0);
@@ -83,9 +97,6 @@ void	ft_echo(char **inputs)
 	else if (nl == 1 && !inputs[2])
 		return ;
 	result = ft_strscomp(&inputs[i + 1]);
-	if (nl == 0)
-		printf("%s\n", result);
-	else
-		printf("%s", result);
+	printer(result, nl);
 	free(result);
 }
