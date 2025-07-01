@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 13:48:41 by pafranci          #+#    #+#             */
-/*   Updated: 2025/06/30 20:45:41 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/01 12:01:33 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,23 +30,51 @@ void	free_pipex(int infile_fd, int **pipes, int cmd_count, pid_t *pid)
 
 void	wait_for_children(pid_t *pid, int cmd_count, t_mini *mini)
 {
-	int	i;
-	int	status;
+	int		waited;
+	int		status;
+	int		sig;
+	pid_t	wpid;
 
-	i = 0;
-	while (i < cmd_count)
+	waited = 0;
+	while (waited < cmd_count)
 	{
+		wpid = wait(&status);
+		if (wpid == -1)
+			break ;
+		waited++;
+		if (wpid == pid[cmd_count - 1])
+		{
+			if (WIFEXITED(status))
+				mini->status = WEXITSTATUS(status);
+			else if (WIFSIGNALED(status))
+			{
+				sig = WTERMSIG(status);
+				mini->status = 128 + sig;
+				if (sig == SIGINT || sig == SIGQUIT)
+					write(STDOUT_FILENO, "\n", 1);
+			}
+		}
+	}
+}
+/*
+		}
 		waitpid(pid[i], &status, 0);
 		if (i == cmd_count - 1)
 		{
 			if (WIFEXITED(status))
 				mini->status = WEXITSTATUS(status);
 			else if (WIFSIGNALED(status))
-				mini->status = 128 + WTERMSIG(status);
+			{
+				sig = WTERMSIG(status);
+				mini->status = 128 + sig;
+				if (sig == SIGINT || sig == SIGQUIT)
+					write(STDOUT_FILENO, "\n", 1);
+			}
 		}
 		i++;
 	}
 }
+*/
 
 t_parsing	*get_nth_node(t_parsing *head, int n)
 {
