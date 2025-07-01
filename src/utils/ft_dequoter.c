@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_dequoter.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 17:43:05 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/28 06:54:15 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/01 10:23:40 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,12 @@ char	*ft_dequoter(char *quote)
 	int		size;
 	char	*result;
 
-	j = -1;
 	i = 0;
+	j = -1;
 	size = ft_strlen(quote);
-	result = ft_calloc(size - 1, 1);
+	result = ft_calloc(size, 1);
+	if (!result)
+		return (free(quote), NULL);
 	while (++j < size)
 		result[j] = quote[++i];
 	free(quote);
