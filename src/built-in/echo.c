@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 00:47:17 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/01 15:21:09 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/01 15:31:59 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	ft_echo(char **inputs)
 	int		i;
 
 	i = 0;
-	if (!inputs[1])
+	if (!inputs[0] || !inputs[1])
 	{
 		printf("\n");
 		return (1);
