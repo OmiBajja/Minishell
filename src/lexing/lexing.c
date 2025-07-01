@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexing.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 10:53:13 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/30 20:11:40 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/01 16:37:35 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	operator_handler(int op_len, t_lex	*tokens, char *input, int i)
 	return (op_len);
 }
 
-char	*word_lexer(char *input, int *start, char **env)
+char	*word_lexer(char *input, int *start, char **env, t_mini *mini)
 {
 	int		i;
 	int		j;
@@ -44,11 +44,11 @@ char	*word_lexer(char *input, int *start, char **env)
 		return (NULL);
 	result = ft_strndup(&input[j], i - j);
 	if (is_extendable(result) != -1)
-		result = ft_extender(result, env);
+		result = ft_extender(result, env, mini);
 	return (result);
 }
 
-t_lex	*lexing(char *input, char **env)
+t_lex	*lexing(char *input, char **env, t_mini *mini)
 {
 	t_lex	*tokens;
 	char	*word;
@@ -70,7 +70,7 @@ t_lex	*lexing(char *input, char **env)
 			i += operator_handler(op_len, tokens, input, i);
 		else
 		{
-			word = word_lexer(input, &i, env);
+			word = word_lexer(input, &i, env, mini);
 			if (word)
 				add_to_list(&tokens, create_token(word, TOKEN_COMMAND));
 			else

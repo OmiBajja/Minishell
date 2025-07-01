@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:02:13 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/01 15:15:35 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/01 16:39:31 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,10 @@ typedef struct s_child
 }	t_child;
 
 //=== Lexer Functions ===//
-t_lex		*lexing(char *input, char **env);
+t_lex		*lexing(char *input, char **env, t_mini *mini);
 t_lex		*create_token(char *value, int type);
 void		add_to_list(t_lex **head, t_lex *new);
-char		*word_lexer(char *input, int *start, char **env);
+char		*word_lexer(char *input, int *start, char **env, t_mini *mini);
 void		print_tokens(t_lex *tokens);
 void		free_tokens(t_lex *tokens);
 
@@ -159,7 +159,7 @@ void		free_null(char *to_free);
 
 
 //=== Quote & Env Expansion Handling ===//
-char		*ft_extender(char *input, char **env);
+char		*ft_extender(char *input, char **env, t_mini *mini);
 int			is_extendable(char *input);
 int			ft_quotechecker(char *input);
 char		*ft_dequoter(char *input);

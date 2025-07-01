@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:02:04 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/30 20:18:45 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/01 16:37:59 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	**default_env(void)
 void	input_handler(char *input, t_mini *mini)
 {
 
-	mini->lex = lexing(input, mini->env);
+	mini->lex = lexing(input, mini->env, mini);
 	if (!mini->lex)
 	{
 		printf("Something's wrong\n");

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_extender.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 15:56:51 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/01 13:23:16 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/01 16:40:42 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,14 @@ char	*input_extender(char *input, char *replace, char *word, int stop)
 	return (extended);
 }
 
-char	*env_fetcher(char *word, char **env)
+static char	*env_fetcher(char *word, char **env, t_mini *mini)
 {
 	int		i;
 	int		len;
 	char	*replace;
 
+	if (ft_strcmp(word, "?") == 0)
+		return (ft_itoa(mini->status));
 	i = 0;
 	len = ft_strlen(word);
 	while (env[i])
@@ -99,7 +101,7 @@ int	is_extendable(char *input)
 	return (-1);
 }
 
-char	*ft_extender(char *input, char **env)
+char	*ft_extender(char *input, char **env, t_mini *mini)
 {
 	int		i;
 	char	*word;
@@ -112,7 +114,7 @@ char	*ft_extender(char *input, char **env)
 	word = word_assigner(&input[i]);
 	if (!word)
 		return (NULL);
-	replace = env_fetcher(word, env);
+	replace = env_fetcher(word, env, mini);
 	if (!replace)
 		return (free(word), NULL);
 	extended = input_extender(input, replace, word, i - 1);

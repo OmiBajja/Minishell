@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 11:30:23 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/28 07:18:09 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/01 16:34:54 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char	*double_quote_handler(char *input, int *index, char **env)
 			if (!quote)
 				return (NULL);
 			if (is_extendable(quote) != -1)
-				quote = ft_extender(quote, env);
+				quote = ft_extender(quote, env, NULL);
 			quote = ft_dequoter(quote);
 			*index = fin + 1;
 			return (quote);
