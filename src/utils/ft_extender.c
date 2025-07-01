@@ -6,7 +6,7 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 15:56:51 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/30 20:27:01 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/01 13:23:16 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int	is_extendable(char *input)
 	{
 		if (input[i] == '\'')
 			counter *= -1;
-		if (input[i] == '$' && counter == 1)
+		if (input[i] == '$' && input[i + 1] && counter == 1)
 			return (i + 1);
 		i++;
 	}

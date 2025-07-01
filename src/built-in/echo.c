@@ -6,7 +6,7 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 00:47:17 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/01 10:34:03 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/01 11:36:26 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	is_newline(char **inputs)
 
 	i = 0;
 	j = 0;
-	if (!inputs[i][1])
+	if (!inputs[i][0] || !inputs[i][1])
 		return (0);
 	if ((inputs[i][0] && inputs[i][0] != '-')
 		|| (inputs[i][1] && inputs[i][1] != 'n'))
