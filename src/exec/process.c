@@ -6,51 +6,11 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 13:24:19 by pafranci          #+#    #+#             */
-/*   Updated: 2025/07/01 15:12:44 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/02 18:09:26 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-
-void	pipex(char *infile, t_parsing *cmds, int cmd_count, char **env, t_mini *mini)
-{
-	pid_t				*pid;
-	t_child				*child;
-	struct sigaction	default_action;
-
-	child = ft_calloc(1, sizeof(t_child));
-	if (!infile)
-		perror_exit();
-	child->infile_fd = open(infile, O_RDONLY);
-	if (child->infile_fd < 0)
-		perror_exit();
-	child->cmds = cmds;
-	child->cmd_count = cmd_count;
-	child->env = env;
-	child->pipes = create_pipes(cmd_count - 1);
-	pid = ft_calloc(sizeof(pid_t), cmd_count);
-	if (!pid)
-		perror_exit();
-	sigemptyset(&default_action.sa_mask);
-	default_action.sa_handler = SIG_DFL;
-	default_action.sa_flags = 0;
-	signal(SIGINT, SIG_IGN);
-	signal(SIGQUIT, SIG_IGN);
-	child->i = -1;
-	while (++(child->i) < cmd_count)
-	{
-		pid[child->i] = fork();
-		if (pid[child->i] < 0)
-			perror_exit();
-		if (pid[child->i] == 0)
-			child_process(child);
-	}
-	close_pipes(child->pipes, cmd_count - 1);
-	wait_for_children(pid, cmd_count, mini);
-	free_pipex(child->infile_fd, child->pipes, cmd_count, pid);
-	free(child);
-	signal_handling();
-}
 
 int	**create_pipes(int n)
 {

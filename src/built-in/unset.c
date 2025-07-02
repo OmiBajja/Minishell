@@ -6,13 +6,13 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 00:54:01 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/01 15:21:49 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/02 13:57:01 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-int		is_it_in_env(char **exp_list, char *to_find)
+int	is_it_in_env(char **exp_list, char *to_find)
 {
 	int		i;
 

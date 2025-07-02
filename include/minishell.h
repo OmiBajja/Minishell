@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:02:13 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/01 16:39:31 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/02 19:23:33 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,12 @@ typedef struct s_mini
 	char		**exp_dup;
 }	t_mini;
 
+typedef struct s_mini_env
+{
+	t_mini	*mini;
+	char	**env;
+}	t_mini_env;
+
 typedef struct s_child
 {
 	int			i;
@@ -73,6 +79,17 @@ typedef struct s_child
 	t_parsing	*cmds;
 	char		**env;
 }	t_child;
+
+typedef struct s_pipex
+{
+	char		*infile;
+	t_parsing	*cmds;
+	int			cmd_count;
+	char		**env;
+	t_mini		*mini;
+	pid_t		*pid;
+	t_child		*child;
+}	t_pipex;
 
 //=== Lexer Functions ===//
 t_lex		*lexing(char *input, char **env, t_mini *mini);
@@ -109,7 +126,7 @@ int			ft_unset(t_mini *mini, char *command);
 int			ft_exit(t_mini *mini, char **args);
 
 //=== Execution & Pipes ===//
-void		pipex(char *infile, t_parsing *cmds, int cmd_count, char **env, t_mini *mini);
+void		pipex(t_pipex *pipex);
 int			**create_pipes(int n);
 void		close_pipes(int **pipes, int n);
 void		child_process(t_child *child);
@@ -130,6 +147,7 @@ void		cleanup_heredoc(t_parsing *head);
 //=== Environment Helpers ===//
 char		*find_env_paths(char **env);
 char		*find_cmd_in_pahts(const char *cmd, char **env_paths_tab);
+void		ft_replace_env(char ***env, const char *key, const char *value);
 void		ft_shllvl(t_mini *mini);
 
 //=== String & Utility Functions ===//
@@ -156,7 +174,6 @@ void		command_not_found_exit(char **cmd_tab);
 void		invalid_usage_exit(int ac);
 void		mini_cleaner(t_mini *mini);
 void		free_null(char *to_free);
-
 
 //=== Quote & Env Expansion Handling ===//
 char		*ft_extender(char *input, char **env, t_mini *mini);

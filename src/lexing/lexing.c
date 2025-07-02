@@ -6,13 +6,13 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 10:53:13 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/01 16:37:35 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/02 18:54:18 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-int	operator_handler(int op_len, t_lex	*tokens, char *input, int i)
+int	operator_handler(int op_len, t_lex *tokens, char *input, int i)
 {
 	char	*operator;
 
@@ -48,34 +48,47 @@ char	*word_lexer(char *input, int *start, char **env, t_mini *mini)
 	return (result);
 }
 
+static int	handle_input(t_lex **tokens,
+						char *input,
+						int *i,
+						t_mini_env *mini_env)
+{
+	int		op_len;
+	char	*word;
+
+	op_len = operator_check(&input[*i]);
+	if (op_len)
+		*i = operator_handler(op_len, *tokens, input, *i);
+	else
+	{
+		word = word_lexer(input, i, mini_env->env, mini_env->mini);
+		if (!word)
+			return (0);
+		add_to_list(tokens, create_token(word, TOKEN_COMMAND));
+	}
+	return (1);
+}
+
 t_lex	*lexing(char *input, char **env, t_mini *mini)
 {
-	t_lex	*tokens;
-	char	*word;
-	int		i;
-	int		op_len;
+	t_lex		*tokens;
+	int			i;
+	t_mini_env	mini_env;
 
-	i = 0;
-	tokens = NULL;
 	if (!input)
 		return (NULL);
+	mini_env.env = env;
+	mini_env.mini = mini;
+	tokens = NULL;
+	i = 0;
 	while (input[i])
 	{
 		while (ft_is_whitespace(input[i]))
 			i++;
 		if (!input[i])
 			break ;
-		op_len = operator_check(&input[i]);
-		if (op_len)
-			i += operator_handler(op_len, tokens, input, i);
-		else
-		{
-			word = word_lexer(input, &i, env, mini);
-			if (word)
-				add_to_list(&tokens, create_token(word, TOKEN_COMMAND));
-			else
-				return (NULL);
-		}
+		if (!handle_input(&tokens, input, &i, &mini_env))
+			return (NULL);
 	}
 	return (tokens);
 }

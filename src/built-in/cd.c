@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 05:55:38 by pafranci          #+#    #+#             */
-/*   Updated: 2025/06/30 18:08:03 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/02 19:22:34 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,42 +26,6 @@ static char	*ft_get_env_val(char **env, const char *key)
 		i++;
 	}
 	return (NULL);
-}
-
-static void	ft_replace_env(char ***env, const char *key, const char *value)
-{
-	int		i;
-	char	*new_pwd;
-	char	**new_env;
-	char	*temp;
-	bool	assigned;
-
-	assigned = false;
-	new_pwd = ft_strjoin(key, "=");
-	temp = new_pwd;
-	new_pwd = ft_strjoin(new_pwd, value);
-	free(temp);
-	i = 0;
-	while ((*env)[i])
-	{
-		if (ft_strncmp((*env)[i], key, ft_strlen(key)) == 0 &&
-			(*env)[i][ft_strlen(key)] == '=')
-		{
-			free((*env)[i]);
-			(*env)[i] = new_pwd;
-			assigned = true;
-			return ;
-		}
-		i++;
-	}
-	if (!assigned)
-	{
-		new_env = ft_strsjoin(*env, new_pwd);
-		ft_freestrs(*env);
-		*env = new_env;
-	}
-	else
-		free(new_pwd);
 }
 
 static char	*ft_cd_get_target(t_mini *mini, char **args)
