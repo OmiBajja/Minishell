@@ -6,7 +6,7 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 00:48:21 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/02 23:07:21 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/03 00:02:53 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static t_lex	*pipe_handler(t_parsing **node, t_lex *tokens, t_parsing *head)
 	return (tokens);
 }
 
-t_parsing	*token_parser(t_lex *tokens, t_parsing    *head, t_parsing *node)
+t_parsing	*token_parser(t_lex *tokens, t_parsing *head, t_parsing *node)
 {
 	if (!tokens)
 		return (NULL);

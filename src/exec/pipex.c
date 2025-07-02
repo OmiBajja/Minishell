@@ -6,7 +6,7 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 18:09:51 by pafranci          #+#    #+#             */
-/*   Updated: 2025/07/02 23:55:01 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/03 00:03:57 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ static void	end_pipex(t_pipex *p)
 {
 	close_pipes(p->child->pipes, p->cmd_count - 1);
 	wait_for_children(p->child->pid, p->cmd_count, p->mini);
-	free_pipex(p->child->infile_fd, p->child->pipes, p->cmd_count, p->child->pid);
+	free_pipex(p->child->infile_fd, p->child->pipes,
+		p->cmd_count, p->child->pid);
 	free(p->child);
 }
 
