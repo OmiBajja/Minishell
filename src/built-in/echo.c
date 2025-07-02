@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 00:47:17 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/01 15:31:59 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/02 14:00:25 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	printer(char *to_print, int	nl)
+void	printer(char *to_print, int nl)
 {
 	int	i;
 
@@ -75,8 +75,6 @@ int	is_newline(char **inputs)
 		}
 		return (1);
 	}
-
-
 }
 
 int	ft_echo(char **inputs)

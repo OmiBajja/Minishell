@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 09:16:35 by pafranci          #+#    #+#             */
-/*   Updated: 2025/06/29 09:23:01 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/02 18:56:16 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,7 @@ char	*handle_heredoc(const char *delim)
 		return (NULL);
 	fd = open(filename, O_CREAT | O_WRONLY | O_TRUNC, 0600);
 	if (fd < 0)
-	{
-		perror("heredoc");
-		return (NULL);
-	}
+		return (perror("heredoc"), NULL);
 	while (42)
 	{
 		line = readline("> ");

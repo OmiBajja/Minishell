@@ -6,7 +6,7 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:02:04 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/02 12:03:13 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/02 14:01:29 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	**default_env(void)
 	char	**env;
 	char	cwd[1024];
 
-	env = ft_calloc(4, sizeof(char*));
+	env = ft_calloc(4, sizeof(char *));
 	if (!env)
 		return (NULL);
 	getcwd(cwd, sizeof(cwd));
@@ -31,7 +31,6 @@ char	**default_env(void)
 
 void	input_handler(char *input, t_mini *mini)
 {
-
 	mini->lex = lexing(input, mini->env, mini);
 	if (!mini->lex)
 	{

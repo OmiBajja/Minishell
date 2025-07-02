@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handler.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 19:53:35 by pafranci          #+#    #+#             */
-/*   Updated: 2025/07/01 16:00:03 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/02 18:06:05 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,15 +87,17 @@ static void	exec_single_builtin(t_parsing *head, t_mini *mini)
 
 void	exec_handler(t_parsing *head, char **envp, t_mini *mini)
 {
-	int		cmd_count;
-	char	*infile;
+	t_pipex	p;
 
 	if (head->next == NULL && is_builtin(head->cmd))
 	{
 		exec_single_builtin(head, mini);
 		return ;
 	}
-	infile = prep_heredoc_get_infile(head, &cmd_count);
-	pipex(infile, head, cmd_count, envp, mini);
+	p.infile = prep_heredoc_get_infile(head, &p.cmd_count);
+	p.cmds = head;
+	p.env = envp;
+	p.mini = mini;
+	pipex(&p);
 	cleanup_heredoc(head);
 }
