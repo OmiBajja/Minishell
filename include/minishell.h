@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:02:13 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/02 19:23:33 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/02 23:49:07 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,23 +72,24 @@ typedef struct s_mini_env
 
 typedef struct s_child
 {
-	int			i;
+	t_parsing	*cmds;
+	pid_t		*pid;
 	int			infile_fd;
 	int			cmd_count;
 	int			**pipes;
-	t_parsing	*cmds;
 	char		**env;
+	int			i;
 }	t_child;
 
 typedef struct s_pipex
 {
-	char		*infile;
 	t_parsing	*cmds;
-	int			cmd_count;
-	char		**env;
 	t_mini		*mini;
 	pid_t		*pid;
 	t_child		*child;
+	char		*infile;
+	int			cmd_count;
+	char		**env;
 }	t_pipex;
 
 //=== Lexer Functions ===//
@@ -100,7 +101,7 @@ void		print_tokens(t_lex *tokens);
 void		free_tokens(t_lex *tokens);
 
 //=== Parser Functions ===//
-t_parsing	*token_parser(char *input, t_lex *tokens);
+t_parsing	*token_parser(t_lex *tokens, t_parsing    *head, t_parsing *node);
 t_parsing	*create_parse(void);
 
 void		parser(char *input, t_mini *mini);
@@ -129,10 +130,11 @@ int			ft_exit(t_mini *mini, char **args);
 void		pipex(t_pipex *pipex);
 int			**create_pipes(int n);
 void		close_pipes(int **pipes, int n);
-void		child_process(t_child *child);
+void		child_process(t_child *child, t_mini *mini);
 void		setup_input(t_child *child, t_parsing *cmd);
 void		setup_output(t_child *child, t_parsing *cmd);
-void		exec_cmd(char **cmd_args, char const *paths, char **env);
+void		exec_cmd(char **cmd_args, char const *paths, char **env, 
+				t_mini *mini, t_child *child);
 
 //=== Pipex Helpers ===//
 void		free_pipex(int infile_fd, int **pipes, int cmd_count, pid_t *pid);
@@ -170,7 +172,7 @@ char		*ft_strscomp(char **src);
 //=== Memory & Error Handling ===//
 void		free_tab(char **tab);
 void		perror_exit(void);
-void		command_not_found_exit(char **cmd_tab);
+void		command_not_found_exit(char **cmd_tab, t_mini *mini, t_child *child);
 void		invalid_usage_exit(int ac);
 void		mini_cleaner(t_mini *mini);
 void		free_null(char *to_free);

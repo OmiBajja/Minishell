@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 18:09:51 by pafranci          #+#    #+#             */
-/*   Updated: 2025/07/02 18:13:42 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/02 23:55:01 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ static void	setup_pipex(t_pipex *pipex)
 	pipex->child->cmd_count = pipex->cmd_count;
 	pipex->child->env = pipex->env;
 	pipex->child->pipes = create_pipes(pipex->cmd_count - 1);
-	pipex->pid = ft_calloc(sizeof(pid_t), pipex->cmd_count);
-	if (!pipex->pid)
+	pipex->child->pid = ft_calloc(sizeof(pid_t), pipex->cmd_count);
+	if (!pipex->child->pid)
 		perror_exit();
 	signal(SIGINT, SIG_IGN);
 	signal(SIGQUIT, SIG_IGN);
@@ -41,19 +41,19 @@ static void	fork_children(t_pipex *pipex)
 	pipex->child->i = -1;
 	while (++(pipex->child->i) < pipex->cmd_count)
 	{
-		pipex->pid[pipex->child->i] = fork();
-		if (pipex->pid[pipex->child->i] < 0)
+		pipex->child->pid[pipex->child->i] = fork();
+		if (pipex->child->pid[pipex->child->i] < 0)
 			perror_exit();
-		if (pipex->pid[pipex->child->i] == 0)
-			child_process(pipex->child);
+		if (pipex->child->pid[pipex->child->i] == 0)
+			child_process(pipex->child, pipex->mini);
 	}
 }
 
 static void	end_pipex(t_pipex *p)
 {
 	close_pipes(p->child->pipes, p->cmd_count - 1);
-	wait_for_children(p->pid, p->cmd_count, p->mini);
-	free_pipex(p->child->infile_fd, p->child->pipes, p->cmd_count, p->pid);
+	wait_for_children(p->child->pid, p->cmd_count, p->mini);
+	free_pipex(p->child->infile_fd, p->child->pipes, p->cmd_count, p->child->pid);
 	free(p->child);
 }
 

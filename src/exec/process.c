@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 13:24:19 by pafranci          #+#    #+#             */
-/*   Updated: 2025/07/02 18:09:26 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/02 23:51:14 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	close_pipes(int **pipes, int n)
 	}
 }
 
-void	child_process(t_child *child)
+void	child_process(t_child *child, t_mini *mini)
 {
 	t_parsing	*cmd;
 
@@ -57,5 +57,5 @@ void	child_process(t_child *child)
 	setup_output(child, cmd);
 	close(child->infile_fd);
 	close_pipes(child->pipes, child->cmd_count - 1);
-	exec_cmd(cmd->args, find_env_paths(child->env), child->env);
+	exec_cmd(cmd->args, find_env_paths(child->env), child->env, mini, child);
 }

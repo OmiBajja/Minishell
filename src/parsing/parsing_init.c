@@ -6,7 +6,7 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:40:03 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/30 20:24:43 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/02 23:16:51 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,8 @@ t_lex	*command_processor(t_parsing *cmd, t_lex *tokens)
 			|| tokens->type == TOKEN_APPEND_OUT
 			|| tokens->type == TOKEN_HEREDOC_IN)
 			tokens = redirection_machine(cmd, tokens);
+		if (tokens == NULL)
+			return (NULL);
 		tokens = tokens->next;
 	}
 	return (tokens);

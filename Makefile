@@ -18,7 +18,7 @@ LIBFT_DIR    = $(INC_DIR)/libft
 
 # Source files list grouped by directory
 MAIN_SRC     = minishell.c
-EXEC_SRC	 = exec/error_handling.c exec/exec_cmd.c exec/ft_split.c exec/handler.c exec/pipex_helpers.c exec/process.c exec/string_utils.c exec/heredoc_helpers.c exec/setup_redir.c
+EXEC_SRC	 = exec/error_handling.c exec/exec_cmd.c exec/ft_split.c exec/handler.c exec/pipex_helpers.c exec/process.c exec/string_utils.c exec/heredoc_helpers.c exec/setup_redir.c exec/pipex.c
 LEXER_SRC    = lexing/lexing.c lexing/token_init.c lexing/quote_handler.c
 PARSER_SRC   = parsing/parser.c parsing/parsing_init.c parsing/parsing_utils.c
 SIGNAL_SRC   = signal/signal.c
