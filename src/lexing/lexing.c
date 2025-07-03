@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexing.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 10:53:13 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/03 15:30:10 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/03 17:52:24 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,30 +17,31 @@ char	*operator_handler(int op_len, char *input, int i)
 	return (ft_strndup(&input[i], op_len));
 }
 
-char	*word_lexer(char *input, int *start, char **env, t_mini *mini)
+char	*word_lexer(char *input, int *start, t_mini *mini)
 {
 	int		i;
-	int		j;
 	char	*result;
+	char	*quotes;
+	char	*temp;
 
 	i = *start;
-	j = *start;
-	if (input[i] == '"' || input[i] == '\'')
-		return (quote_handler(input, start, env));
-	while (input[i])
+	result = ft_strdup("");
+	if (!result)
+		return (NULL);
+	while (input[i] && !operator_check(&input[i])
+		&&!ft_is_whitespace(input[i]))
 	{
-		if (input[i] == '"' || input[i] == '\'')
-			break ;
-		else if (operator_check(&input[i]) || ft_is_whitespace(input[i]))
-			break ;
-		i++;
+		quotes = word_handler(input, &i, mini);
+		if (!quotes)
+			return (free (result), NULL);
+		temp = ft_strjoin(result, quotes);
+		if (!temp)
+			return (free (result), free (quotes), NULL);
+		free (result);
+		free (quotes);
+		result = temp;
 	}
 	*start = i;
-	if (i == j)
-		return (NULL);
-	result = ft_strndup(&input[j], i - j);
-	if (is_extendable(result) != -1)
-		result = ft_extender(result, env, mini);
 	return (result);
 }
 
@@ -59,7 +60,7 @@ static int	handle_word(t_lex **tokens, char *input, int *i, t_mini *mini)
 {
 	char	*word;
 
-	word = word_lexer(input, i, mini->env, mini);
+	word = word_lexer(input, i, mini);
 	if (word)
 	{
 		add_to_list(tokens, create_token(word, TOKEN_COMMAND));
@@ -71,8 +72,8 @@ static int	handle_word(t_lex **tokens, char *input, int *i, t_mini *mini)
 t_lex	*lexing(char *input, t_mini *mini)
 {
 	t_lex	*tokens;
-	int		i;
 	int		op_len;
+	int		i;
 
 	i = 0;
 	tokens = NULL;

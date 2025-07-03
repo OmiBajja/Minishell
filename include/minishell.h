@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:02:13 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/03 15:25:55 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/03 17:50:20 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,9 @@ typedef struct s_pipex
 t_lex		*lexing(char *input, t_mini *mini);
 t_lex		*create_token(char *value, int type);
 void		add_to_list(t_lex **head, t_lex *new);
-char		*word_lexer(char *input, int *start, char **env, t_mini *mini);
+char		*word_lexer(char *input, int *start, t_mini *mini);
+char		*unquote_handler(char *input, int *i, t_mini *mini);
+char		*word_handler(char *input, int *i, t_mini *mini);
 void		print_tokens(t_lex *tokens);
 void		free_tokens(t_lex *tokens);
 
