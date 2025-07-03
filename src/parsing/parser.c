@@ -6,7 +6,7 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 00:48:21 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/03 00:02:53 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/03 14:57:39 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ t_parsing	*token_parser(t_lex *tokens, t_parsing *head, t_parsing *node)
 		if (tokens == NULL)
 			break ;
 		if (tokens && tokens->type == TOKEN_PIPE)
-			pipe_handler(&node, tokens, head);
+			tokens = pipe_handler(&node, tokens, head);
 	}
 	node->next = NULL;
 	return (head);

@@ -6,7 +6,7 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 13:24:19 by pafranci          #+#    #+#             */
-/*   Updated: 2025/07/02 23:51:14 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/03 14:32:28 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,5 @@ void	child_process(t_child *child, t_mini *mini)
 	setup_output(child, cmd);
 	close(child->infile_fd);
 	close_pipes(child->pipes, child->cmd_count - 1);
-	exec_cmd(cmd->args, find_env_paths(child->env), child->env, mini, child);
+	exec_cmd(cmd->args, find_env_paths(child->env), mini, child);
 }
