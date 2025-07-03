@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_cleaner.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 16:10:12 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/30 20:18:49 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/03 15:13:28 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,19 @@ void	mini_cleaner(t_mini *mini)
 	{
 		free(mini);
 		mini = NULL;
+	}
+}
+
+void	free_tokens(t_lex *tokens)
+{
+	t_lex	*tmp;
+
+	while (tokens != NULL)
+	{
+		tmp = tokens->next;
+		if (tokens->value)
+			free(tokens->value);
+		free(tokens);
+		tokens = tmp;
 	}
 }

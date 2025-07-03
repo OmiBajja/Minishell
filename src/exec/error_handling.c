@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_handling.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 14:38:41 by pafranci          #+#    #+#             */
-/*   Updated: 2025/07/03 00:04:22 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/03 15:12:14 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	perror_exit(void)
 	exit(EXIT_FAILURE);
 }
 
-void	command_not_found_exit(char **cmd_tab, t_mini *mini, t_child *child)
+void	cmd_not_found_exit(char **cmd_tab, t_mini *mini, t_child *child)
 {
 	write(2, cmd_tab[0], ft_strlen(cmd_tab[0]));
 	write(2, ": command not found\n", 20);

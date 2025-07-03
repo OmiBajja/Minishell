@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:02:13 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/02 23:59:36 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/03 15:25:55 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ typedef struct s_pipex
 }	t_pipex;
 
 //=== Lexer Functions ===//
-t_lex		*lexing(char *input, char **env, t_mini *mini);
+t_lex		*lexing(char *input, t_mini *mini);
 t_lex		*create_token(char *value, int type);
 void		add_to_list(t_lex **head, t_lex *new);
 char		*word_lexer(char *input, int *start, char **env, t_mini *mini);
@@ -101,7 +101,7 @@ void		print_tokens(t_lex *tokens);
 void		free_tokens(t_lex *tokens);
 
 //=== Parser Functions ===//
-t_parsing	*token_parser(t_lex *tokens, t_parsing    *head, t_parsing *node);
+t_parsing	*token_parser(t_lex *tokens, t_parsing *head, t_parsing *node);
 t_parsing	*create_parse(void);
 
 void		parser(char *input, t_mini *mini);
@@ -133,7 +133,7 @@ void		close_pipes(int **pipes, int n);
 void		child_process(t_child *child, t_mini *mini);
 void		setup_input(t_child *child, t_parsing *cmd);
 void		setup_output(t_child *child, t_parsing *cmd);
-void		exec_cmd(char **cmd_args, char const *paths, 
+void		exec_cmd(char **cmd_args, char const *paths,
 				t_mini *mini, t_child *child);
 
 //=== Pipex Helpers ===//
@@ -155,7 +155,7 @@ void		ft_shllvl(t_mini *mini);
 //=== String & Utility Functions ===//
 char		**ft_split_str_mini(char *str, char *charset, t_mini *mini);
 int			ft_is_whitespace(int str);
-char		*ft_strndup(char *str, size_t size);
+char		*ft_strndup(const char *str, size_t size);
 int			operator_check(const char *input);
 int			find_operator(const char *str);
 
@@ -172,7 +172,7 @@ char		*ft_strscomp(char **src);
 //=== Memory & Error Handling ===//
 void		free_tab(char **tab);
 void		perror_exit(void);
-void		command_not_found_exit(char **cmd_tab, t_mini *mini, t_child *child);
+void		cmd_not_found_exit(char **cmd_tab, t_mini *mini, t_child *child);
 void		invalid_usage_exit(int ac);
 void		mini_cleaner(t_mini *mini);
 void		free_null(char *to_free);

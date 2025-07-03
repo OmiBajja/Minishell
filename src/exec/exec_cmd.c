@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 18:48:20 by pafranci          #+#    #+#             */
-/*   Updated: 2025/07/03 00:00:15 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/03 15:12:14 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static char	*get_full_cmd(char **cmd_tab, const char *paths, t_mini *mini,
 	{
 		if (access(cmd_tab[0], F_OK | X_OK) == 0)
 			return (cmd_tab[0]);
-		command_not_found_exit(cmd_tab, mini, child);
+		cmd_not_found_exit(cmd_tab, mini, child);
 	}
 	env_paths_tab = ft_split_pau(paths, ':');
 	if (!env_paths_tab)
@@ -52,7 +52,7 @@ static char	*get_full_cmd(char **cmd_tab, const char *paths, t_mini *mini,
 	free_tab(env_paths_tab);
 	if (full_cmd)
 		return (full_cmd);
-	return (command_not_found_exit(cmd_tab, mini, child), NULL);
+	return (cmd_not_found_exit(cmd_tab, mini, child), NULL);
 }
 
 void	exec_cmd(char **cmd_args, char const *paths, t_mini *mini,
