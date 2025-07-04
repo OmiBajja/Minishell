@@ -6,7 +6,7 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 17:49:14 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/03 17:52:03 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/04 14:35:20 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ char	*unquote_handler(char *input, int *i, t_mini *mini)
 	result = ft_strndup(&input[start], *i - start);
 	if (!result)
 		return (NULL);
-	if (is_extendable(result) != -1)
+	if (is_extendable(result, 0) != -1)
 	{
-		temp = ft_extender(result, mini->env, mini);
+		temp = ft_extender(result, mini->env, mini, 0);
 		if (!temp)
 			return (free (result), NULL);
 		free (result);

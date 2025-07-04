@@ -6,7 +6,7 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 15:56:51 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/01 17:33:48 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/04 16:04:58 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,13 @@ char	*word_assigner(char *input)
 	i = 0;
 	j = 0;
 	word = NULL;
-	while (input[i] && !ft_is_whitespace(input[i]) && input[i] != '"')
-		i++;
+	if (ft_isdigit(input[0]) || input[0] == '?')
+		i = 1;
+	else
+	{
+		while (ft_isalnum(input[i]) || input[i] == '_')
+			i++;
+	}
 	word = ft_calloc ((i + 1), sizeof(char));
 	if (!word)
 		return (NULL);
@@ -87,7 +92,7 @@ char	*word_assigner(char *input)
 	return (word);
 }
 
-int	is_extendable(char *input)
+int	is_extendable(char *input, int quotes)
 {
 	int	i;
 	int	counter;
@@ -96,23 +101,28 @@ int	is_extendable(char *input)
 	i = 0;
 	while (input[i])
 	{
-		if (input[i] == '\'')
+		if (input[i] == '\'' && quotes == 0)
 			counter *= -1;
-		if (input[i] == '$' && input[i + 1] && counter == 1)
+		if (input[i] == '$' && input[i + 1] && counter == 1
+			&& (ft_isalnum(input[i + 1]) || input[i + 1] == '_'
+				|| input[i + 1] == '?'))
 			return (i + 1);
 		i++;
 	}
 	return (-1);
 }
 
-char	*ft_extender(char *input, char **env, t_mini *mini)
+char	*ft_extender(char *input, char **env, t_mini *mini, int quotes)
 {
 	int		i;
 	char	*word;
 	char	*extended;
 	char	*replace;
 
-	i = is_extendable(input);
+	extended = ft_strdup(input);
+	if (!extended)
+		return (NULL);
+	i = is_extendable(input, quotes);
 	if (i == -1)
 		return (NULL);
 	word = word_assigner(&input[i]);

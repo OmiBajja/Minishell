@@ -6,7 +6,7 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:02:13 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/03 17:50:20 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/04 14:35:05 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,8 +180,8 @@ void		mini_cleaner(t_mini *mini);
 void		free_null(char *to_free);
 
 //=== Quote & Env Expansion Handling ===//
-char		*ft_extender(char *input, char **env, t_mini *mini);
-int			is_extendable(char *input);
+char		*ft_extender(char *input, char **env, t_mini *mini, int quotes);
+int			is_extendable(char *input, int quotes);
 int			ft_quotechecker(char *input);
 char		*ft_dequoter(char *input);
 char		*quote_handler(char *input, int *index, char **env);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quote_handler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 11:30:23 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/01 16:34:54 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/04 14:35:29 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ char	*double_quote_handler(char *input, int *index, char **env)
 			quote = ft_strndup(&input[*index], fin - *index);
 			if (!quote)
 				return (NULL);
-			if (is_extendable(quote) != -1)
-				quote = ft_extender(quote, env, NULL);
+			if (is_extendable(quote, 1) != -1)
+				quote = ft_extender(quote, env, NULL, 1);
 			quote = ft_dequoter(quote);
 			*index = fin + 1;
 			return (quote);
