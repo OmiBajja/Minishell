@@ -6,7 +6,7 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 15:56:51 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/04 16:04:58 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/05 18:03:25 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,9 +119,6 @@ char	*ft_extender(char *input, char **env, t_mini *mini, int quotes)
 	char	*extended;
 	char	*replace;
 
-	extended = ft_strdup(input);
-	if (!extended)
-		return (NULL);
 	i = is_extendable(input, quotes);
 	if (i == -1)
 		return (NULL);
@@ -134,5 +131,12 @@ char	*ft_extender(char *input, char **env, t_mini *mini, int quotes)
 	extended = input_extender(input, replace, word, i - 1);
 	if (!extended)
 		return (free(word), free(replace), NULL);
+	if (is_extendable(extended, 0) != -1)
+	{
+		free (word);
+		word = ft_extender(extended, env, mini, 0);
+		free (extended);
+		extended = ft_strdup(word);
+	}
 	return (free(word), free(replace), extended);
 }
