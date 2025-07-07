@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 05:55:38 by pafranci          #+#    #+#             */
-/*   Updated: 2025/07/02 19:22:34 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/07 11:59:51 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static int	ft_cd_do(t_mini *mini, const char *target, const char *old_pwd)
 
 	if (chdir(target) != 0)
 	{
-		perror("cd");
+		printf("cd: %s: No such file or directory\n",target);
 		return (1);
 	}
 	if (!getcwd(cwd, sizeof(cwd)))
