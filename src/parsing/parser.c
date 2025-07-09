@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 00:48:21 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/03 14:57:39 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/08 15:17:43 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,7 @@ t_parsing	*token_parser(t_lex *tokens, t_parsing *head, t_parsing *node)
 			head = node;
 		}
 		tokens = command_processor(node, tokens);
-		if (node->cmd == NULL && node->infile == NULL && node->outfile == NULL
-			&& node->append_out == NULL && node->heredoc_delim == NULL)
+		if (node->cmd == NULL && node->redirs == NULL)
 			return (free_parse(head), NULL);
 		if (tokens == NULL)
 			break ;

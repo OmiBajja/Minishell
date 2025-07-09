@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 20:47:04 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/30 20:34:53 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/08 15:31:55 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,6 @@ void	print_command(t_parsing *cmd)
 	else
 		printf("(null)");
 	printf("\n");
-	if (cmd->infile)
-		printf("Infile: %s\n", cmd->infile);
-	if (cmd->outfile)
-		printf("Outfile: %s\n", cmd->outfile);
 	printf("================\n\n");
 }
 
@@ -63,6 +59,8 @@ void	print_all_commands(t_parsing *head)
 void	free_parse(t_parsing *parse)
 {
 	t_parsing	*tmp;
+	t_redir		*r;
+	t_redir		*next;
 
 	while (parse)
 	{
@@ -70,11 +68,16 @@ void	free_parse(t_parsing *parse)
 			free_null(parse->cmd);
 		if (parse->args)
 			ft_freestrs(parse->args);
-		if (parse->infile)
-			free_null(parse->infile);
-		if (parse->outfile)
-			free_null(parse->outfile);
 		tmp = parse->next;
+		r = parse->redirs;
+		while (r)
+		{
+			next = r->next;
+			if (r->file)
+				free(r->file);
+			free(r);
+			r = next;
+		}
 		free(parse);
 		parse = tmp;
 	}

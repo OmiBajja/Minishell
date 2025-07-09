@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 18:09:51 by pafranci          #+#    #+#             */
-/*   Updated: 2025/07/03 00:03:57 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/08 13:42:49 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,9 @@
 static void	setup_pipex(t_pipex *pipex)
 {
 	pipex->child = ft_calloc(1, sizeof(t_child));
-	if (!pipex->infile)
+	if (!pipex->child)
 		perror_exit();
-	pipex->child->infile_fd = open(pipex->infile, O_RDONLY);
-	if (pipex->child->infile_fd < 0)
-		perror_exit();
+	pipex->child->infile_path = pipex->infile;
 	pipex->child->cmds = pipex->cmds;
 	pipex->child->cmd_count = pipex->cmd_count;
 	pipex->child->env = pipex->env;
@@ -53,8 +51,7 @@ static void	end_pipex(t_pipex *p)
 {
 	close_pipes(p->child->pipes, p->cmd_count - 1);
 	wait_for_children(p->child->pid, p->cmd_count, p->mini);
-	free_pipex(p->child->infile_fd, p->child->pipes,
-		p->cmd_count, p->child->pid);
+	free_pipex(p->child->pipes, p->cmd_count, p->child->pid);
 	free(p->child);
 }
 

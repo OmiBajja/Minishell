@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 13:24:19 by pafranci          #+#    #+#             */
-/*   Updated: 2025/07/03 14:32:28 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/08 14:41:03 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,7 @@ void	child_process(t_child *child, t_mini *mini)
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
 	cmd = get_nth_node(child->cmds, child->i);
-	setup_input(child, cmd);
-	setup_output(child, cmd);
-	close(child->infile_fd);
+	apply_redirs(child, cmd);
 	close_pipes(child->pipes, child->cmd_count - 1);
 	exec_cmd(cmd->args, find_env_paths(child->env), mini, child);
 }

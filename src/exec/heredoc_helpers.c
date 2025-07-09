@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 09:16:35 by pafranci          #+#    #+#             */
-/*   Updated: 2025/07/02 18:56:16 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/08 18:05:03 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,35 +43,47 @@ char	*handle_heredoc(const char *delim)
 char	*prep_heredoc_get_infile(t_parsing *head, int *cmd_count)
 {
 	t_parsing	*node;
-	char		*infile;
+	t_redir		*r;
+	int			count;
+	char		*tmp;
 
 	node = head;
-	infile = NULL;
-	*cmd_count = 0;
+	count = 0;
 	while (node)
 	{
-		if (node->heredoc_delim)
-			node->heredoc_file = handle_heredoc(node->heredoc_delim);
-		if (node->infile && !infile && !node->heredoc_file)
-			infile = node->infile;
+		r = node->redirs;
+		while (r)
+		{
+			if (r->type == TOKEN_HEREDOC_IN)
+			{
+				tmp = handle_heredoc(r->file);
+				free(r->file);
+				r->file = tmp;
+			}
+			r = r->next;
+		}
 		node = node->next;
-		(*cmd_count)++;
+		count++;
 	}
-	if (infile)
-		return (infile);
-	else
-		return ("/dev/stdin");
+	*cmd_count = count;
+	return ("/dev/stdin");
 }
 
 void	cleanup_heredoc(t_parsing *head)
 {
 	t_parsing	*node;
+	t_redir		*r;
 
 	node = head;
 	while (node)
 	{
-		if (node->heredoc_file)
-			unlink(node->heredoc_file);
+		r = node->redirs;
+		while (r)
+		{
+			if (r->type == TOKEN_HEREDOC_IN)
+				unlink(r->file);
+			r = r->next;
+		}
 		node = node->next;
 	}
 }
