@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 00:47:38 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/02 19:16:32 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/09 18:31:55 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,9 @@ int	ft_export(t_mini *mini, char **command)
 		mini->exp_dup = ft_strsndup(mini->env, ft_strslen(mini->env));
 	if (command[1])
 	{
-		if (!ft_strchr(command[1], '='))
+		if (ft_export_checker(command[1]) == 1)
+			return (1);
+		else if (!ft_strchr(command[1], '='))
 		{
 			new_env = ft_strsjoin(mini->exp_dup, command[1]);
 			ft_freestrs(mini->exp_dup);

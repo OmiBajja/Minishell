@@ -6,7 +6,7 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:02:04 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/04 12:53:54 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/09 17:44:01 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,7 @@ void	input_handler(char *input, t_mini *mini)
 {
 	mini->lex = lexing(input, mini);
 	if (!mini->lex)
-	{
-		printf("Something's wrong\n");
 		return ;
-	}
 	mini->data = token_parser(mini->lex, NULL, NULL);
 	if (!mini->data)
 	{
