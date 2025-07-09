@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:02:13 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/03 17:50:20 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/08 18:03:29 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,16 @@ typedef struct s_lex
 	struct s_lex	*next;
 }	t_lex;
 
+typedef struct s_redir
+{
+	int				type;
+	char			*file;
+	struct s_redir	*next;
+}	t_redir;
+
 typedef struct s_parsing
 {
-	char				*outfile;
-	char				*append_out;
-	char				*infile;
-	char				*heredoc_delim;
-	char				*heredoc_file;
+	struct s_redir		*redirs;
 	char				*cmd;
 	char				**args;
 	t_lex				*lex;
@@ -64,17 +67,11 @@ typedef struct s_mini
 	char		**exp_dup;
 }	t_mini;
 
-typedef struct s_mini_env
-{
-	t_mini	*mini;
-	char	**env;
-}	t_mini_env;
-
 typedef struct s_child
 {
 	t_parsing	*cmds;
 	pid_t		*pid;
-	int			infile_fd;
+	char		*infile_path;
 	int			cmd_count;
 	int			**pipes;
 	char		**env;
@@ -110,6 +107,7 @@ void		parser(char *input, t_mini *mini);
 char		**new_args(char **args, char *new_arg);
 t_lex		*command_processor(t_parsing *cmd, t_lex *tokens);
 t_lex		*redirection_machine(t_parsing *cmd, t_lex *tokens);
+void		append_redir(t_parsing *cmd, int type, char *file);
 void		command_machine(t_parsing *cmd, t_lex *token);
 void		print_all_commands(t_parsing *head);
 void		free_parse(t_parsing *parse);
@@ -133,13 +131,13 @@ void		pipex(t_pipex *pipex);
 int			**create_pipes(int n);
 void		close_pipes(int **pipes, int n);
 void		child_process(t_child *child, t_mini *mini);
-void		setup_input(t_child *child, t_parsing *cmd);
-void		setup_output(t_child *child, t_parsing *cmd);
+void		setup_redirs_list(t_redir *r);
+void		apply_redirs(t_child *child, t_parsing *cmd);
 void		exec_cmd(char **cmd_args, char const *paths,
 				t_mini *mini, t_child *child);
 
 //=== Pipex Helpers ===//
-void		free_pipex(int infile_fd, int **pipes, int cmd_count, pid_t *pid);
+void		free_pipex(int **pipes, int cmd_count, pid_t *pid);
 t_parsing	*get_nth_node(t_parsing *head, int n);
 void		wait_for_children(pid_t *pid, int cmd_count, t_mini *mini);
 
@@ -155,7 +153,6 @@ void		ft_replace_env(char ***env, const char *key, const char *value);
 void		ft_shllvl(t_mini *mini);
 
 //=== String & Utility Functions ===//
-char		**ft_split_str_mini(char *str, char *charset, t_mini *mini);
 int			ft_is_whitespace(int str);
 char		*ft_strndup(const char *str, size_t size);
 int			operator_check(const char *input);

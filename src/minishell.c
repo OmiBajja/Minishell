@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:02:04 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/03 15:25:50 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/04 12:53:54 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	mini_handler(t_mini *mini)
 
 	while (42)
 	{
-		input = readline(BRED "MinisHell :" RESET_COLOR);
+		input = readline("minishell :");
 		if (!input)
 		{
 			mini_cleaner(mini);

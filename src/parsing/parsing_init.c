@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_init.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:40:03 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/02 23:16:51 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/08 15:19:14 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,7 @@ t_parsing	*create_parse(void)
 	parse = ft_calloc(sizeof(t_parsing), 1);
 	if (!parse)
 		return (NULL);
-	parse->outfile = NULL;
-	parse->append_out = NULL;
-	parse->infile = NULL;
-	parse->heredoc_delim = NULL;
-	parse->heredoc_file = NULL;
+	parse->redirs = NULL;
 	parse->cmd = NULL;
 	parse->args = NULL;
 	parse->next = NULL;
@@ -84,14 +80,11 @@ t_lex	*redirection_machine(t_parsing *cmd, t_lex *tokens)
 		printf("Broski where the filename at?\n");
 		return (NULL);
 	}
-	if (tokens->type == TOKEN_REDIR_IN)
-		cmd->infile = ft_strdup(next->value);
-	else if (tokens->type == TOKEN_REDIR_OUT)
-		cmd->outfile = ft_strdup(next->value);
-	else if (tokens->type == TOKEN_APPEND_OUT)
-		cmd->append_out = ft_strdup(next->value);
-	else if (tokens->type == TOKEN_HEREDOC_IN)
-		cmd->heredoc_delim = ft_strdup(next->value);
+	if (tokens->type == TOKEN_REDIR_IN
+		|| tokens->type == TOKEN_HEREDOC_IN
+		|| tokens->type == TOKEN_REDIR_OUT
+		|| tokens->type == TOKEN_APPEND_OUT)
+			append_redir(cmd, tokens->type, next->value);
 	return (next);
 }
 

@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 14:38:41 by pafranci          #+#    #+#             */
-/*   Updated: 2025/07/03 15:12:14 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/08 13:42:23 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,7 @@ void	cmd_not_found_exit(char **cmd_tab, t_mini *mini, t_child *child)
 		free_tokens(mini->lex);
 	if (child)
 	{
-		free_pipex(child->infile_fd, child->pipes,
-			child->cmd_count, child->pid);
+		free_pipex(child->pipes, child->cmd_count, child->pid);
 		free(child);
 	}
 	mini_cleaner(mini);

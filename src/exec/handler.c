@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 19:53:35 by pafranci          #+#    #+#             */
-/*   Updated: 2025/07/02 18:06:05 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/08 14:49:41 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,33 +43,6 @@ static void	exec_builtin(t_parsing *node, t_mini *mini)
 		mini->status = ft_pwd(mini->env);
 }
 
-static void	setup_builtin_redirections(t_parsing *node)
-{
-	int	fd;
-
-	if (node->infile)
-	{
-		fd = open(node->infile, O_RDONLY);
-		if (fd >= 0)
-		{
-			dup2(fd, STDIN_FILENO);
-			close(fd);
-		}
-	}
-	if (node->append_out || node->outfile)
-	{
-		if (node->append_out)
-			fd = open(node->append_out, O_CREAT | O_WRONLY | O_APPEND, 0644);
-		else
-			fd = open(node->outfile, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-		if (fd >= 0)
-		{
-			dup2(fd, STDOUT_FILENO);
-			close(fd);
-		}
-	}
-}
-
 static void	exec_single_builtin(t_parsing *head, t_mini *mini)
 {
 	int	saved_in;
@@ -77,8 +50,9 @@ static void	exec_single_builtin(t_parsing *head, t_mini *mini)
 
 	saved_in = dup(STDIN_FILENO);
 	saved_out = dup(STDOUT_FILENO);
-	setup_builtin_redirections(head);
+	setup_redirs_list(head->redirs);
 	exec_builtin(head, mini);
+	fflush(stdout);
 	dup2(saved_in, STDIN_FILENO);
 	dup2(saved_out, STDOUT_FILENO);
 	close(saved_in);
