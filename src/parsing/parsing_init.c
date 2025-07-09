@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:40:03 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/08 15:19:14 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/09 12:34:16 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ t_lex	*redirection_machine(t_parsing *cmd, t_lex *tokens)
 		|| tokens->type == TOKEN_HEREDOC_IN
 		|| tokens->type == TOKEN_REDIR_OUT
 		|| tokens->type == TOKEN_APPEND_OUT)
-			append_redir(cmd, tokens->type, next->value);
+		append_redir(cmd, tokens->type, next->value);
 	return (next);
 }
 

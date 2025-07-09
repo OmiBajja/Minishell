@@ -6,11 +6,27 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 10:21:17 by pafranci          #+#    #+#             */
-/*   Updated: 2025/07/08 18:27:14 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/09 13:03:13 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+
+static void	apply_pipe_redirs(t_child *child)
+{
+	if (child->cmd_count <= 1)
+		return ;
+	if (child->i > 0)
+	{
+		if (dup2(child->pipes[child->i - 1][0], STDIN_FILENO) < 0)
+			perror_exit();
+	}
+	if (child->i < child->cmd_count - 1)
+	{
+		if (dup2(child->pipes[child->i][1], STDOUT_FILENO) < 0)
+			perror_exit();
+	}
+}
 
 void	setup_redirs_list(t_redir *r)
 {
@@ -38,40 +54,22 @@ void	setup_redirs_list(t_redir *r)
 	}
 }
 
-void	apply_redirs(t_child *child, t_parsing *cmd)
+static void	apply_default_infile(t_child *child, t_parsing *cmd)
 {
 	int	fd;
-	int	i;
-	int	**pipes;
-	int	cmd_count;
 
-	i = child->i;
-	cmd_count = child->cmd_count;
-	pipes = child->pipes;
-	if (cmd_count > 1)
-	{
-		if (i > 0)
-		{
-			if (dup2(pipes[i - 1][0], STDIN_FILENO) < 0)
-				perror_exit();
-		}
-		if (i < cmd_count - 1)
-		{
-			if (dup2(pipes[i][1], STDOUT_FILENO) < 0)
-				perror_exit();
-		}
-	}
+	if (child->i != 0 || cmd->redirs != NULL)
+		return ;
+	fd = open(child->infile_path, O_RDONLY);
+	if (fd < 0)
+		perror_exit();
+	dup2(fd, STDIN_FILENO);
+	close(fd);
+}
+
+void	apply_redirs(t_child *child, t_parsing *cmd)
+{
+	apply_pipe_redirs(child);
 	setup_redirs_list(cmd->redirs);
-	if (i == 0 && !cmd->redirs)
-	{
-		fd = open(child->infile_path, O_RDONLY);
-		if (fd < 0)
-		{
-			perror(child->infile_path);
-			exit(1);
-		}
-		dup2(fd, STDIN_FILENO);
-		close(fd);
-	}
-	
+	apply_default_infile(child, cmd);
 }
