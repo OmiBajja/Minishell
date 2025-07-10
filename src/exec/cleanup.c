@@ -6,13 +6,13 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 16:05:48 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/10 16:07:58 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/10 16:59:42 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void    child_cleaner(t_child *child, t_mini *mini)
+void	child_cleaner(t_child *child, t_mini *mini)
 {
 	if (mini->data)
 		free_parse(mini->data);

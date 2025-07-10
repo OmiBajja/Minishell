@@ -6,7 +6,7 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 18:48:20 by pafranci          #+#    #+#             */
-/*   Updated: 2025/07/10 16:55:01 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/10 16:59:23 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static char	*get_full_cmd(char **cmd_tab, const char *paths, t_mini *mini,
 void	exec_cmd(char **cmd_args, char const *paths, t_mini *mini,
 		t_child *child)
 {
-	char	*full_cmd;
+	char		*full_cmd;
 	struct stat	buf;
 
 	if (!cmd_args || !cmd_args[0])
