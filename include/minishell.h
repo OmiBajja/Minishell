@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:02:13 by obajja            #+#    #+#             */
 /*   Updated: 2025/07/10 19:53:19 by obajja           ###   ########.fr       */
@@ -132,7 +132,7 @@ void		pipex(t_pipex *pipex);
 int			**create_pipes(int n);
 void		close_pipes(int **pipes, int n);
 void		child_process(t_child *child, t_mini *mini);
-void		setup_redirs_list(t_redir *r);
+int			setup_redirs_list(t_redir *r);
 void		apply_redirs(t_child *child, t_parsing *cmd);
 void		exec_cmd(char **cmd_args, char const *paths,
 				t_mini *mini, t_child *child);
@@ -143,8 +143,8 @@ t_parsing	*get_nth_node(t_parsing *head, int n);
 void		wait_for_children(pid_t *pid, int cmd_count, t_mini *mini);
 
 //=== Heredoc Helpers ===//
-char		*handle_heredoc(const char *delim);
-char		*prep_heredoc_get_infile(t_parsing *head, int *cmd_count);
+char		*handle_heredoc(const char *delim, t_mini *mini);
+char		*prep_heredoc_get_infile(t_parsing *head, int *cmd_count, t_mini *mini);
 void		cleanup_heredoc(t_parsing *head);
 
 //=== Environment Helpers ===//

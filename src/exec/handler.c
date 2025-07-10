@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handler.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 19:53:35 by pafranci          #+#    #+#             */
-/*   Updated: 2025/07/09 18:10:32 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/10 21:03:47 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,34 @@ static void	exec_single_builtin(t_parsing *head, t_mini *mini)
 
 	saved_in = dup(STDIN_FILENO);
 	saved_out = dup(STDOUT_FILENO);
-	setup_redirs_list(head->redirs);
+	if (setup_redirs_list(head->redirs) != 0)
+	{
+		mini->status = 1;
+		dup2(saved_in, STDIN_FILENO);
+		dup2(saved_out, STDOUT_FILENO);
+		close(saved_in);
+		close(saved_out);
+		return ;
+	}
 	exec_builtin(head, mini);
 	fflush(stdout);
+	dup2(saved_in, STDIN_FILENO);
+	dup2(saved_out, STDOUT_FILENO);
+	close(saved_in);
+	close(saved_out);
+}
+
+static void	no_cmd_redir(t_parsing *head, t_mini *mini)
+{
+	int	saved_in;
+	int	saved_out;
+
+	saved_in = dup(STDIN_FILENO);
+	saved_out = dup(STDOUT_FILENO);
+	if (setup_redirs_list(head->redirs) < 0)
+		mini->status = 1;
+	else
+		mini->status = 0;
 	dup2(saved_in, STDIN_FILENO);
 	dup2(saved_out, STDOUT_FILENO);
 	close(saved_in);
@@ -63,12 +88,17 @@ void	exec_handler(t_parsing *head, char **envp, t_mini *mini)
 {
 	t_pipex	p;
 
+	if (head && head->cmd == NULL && head->redirs)
+	{
+		no_cmd_redir(head, mini);
+		return ;
+	}
 	if (head->next == NULL && is_builtin(head->cmd))
 	{
 		exec_single_builtin(head, mini);
 		return ;
 	}
-	p.infile = prep_heredoc_get_infile(head, &p.cmd_count);
+	p.infile = prep_heredoc_get_infile(head, &p.cmd_count, mini);
 	p.cmds = head;
 	p.env = envp;
 	p.mini = mini;
