@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:02:13 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/10 17:23:13 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/10 19:38:18 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,8 +143,8 @@ t_parsing	*get_nth_node(t_parsing *head, int n);
 void		wait_for_children(pid_t *pid, int cmd_count, t_mini *mini);
 
 //=== Heredoc Helpers ===//
-char		*handle_heredoc(const char *delim);
-char		*prep_heredoc_get_infile(t_parsing *head, int *cmd_count);
+char		*handle_heredoc(const char *delim, t_mini *mini);
+char		*prep_heredoc_get_infile(t_parsing *head, int *cmd_count, t_mini *mini);
 void		cleanup_heredoc(t_parsing *head);
 
 //=== Environment Helpers ===//

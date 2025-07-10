@@ -6,13 +6,13 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 09:16:35 by pafranci          #+#    #+#             */
-/*   Updated: 2025/07/08 18:05:03 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/10 19:43:35 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-char	*handle_heredoc(const char *delim)
+char	*handle_heredoc(const char *delim, t_mini *mini)
 {
 	char	*line;
 	int		fd;
@@ -32,6 +32,8 @@ char	*handle_heredoc(const char *delim)
 			free(line);
 			break ;
 		}
+		if (is_extendable(line, 0) != -1)
+			line = ft_extender(line, mini->env, mini, 0);		
 		write(fd, line, ft_strlen(line));
 		write(fd, "\n", 1);
 		free(line);
@@ -40,7 +42,7 @@ char	*handle_heredoc(const char *delim)
 	return (filename);
 }
 
-char	*prep_heredoc_get_infile(t_parsing *head, int *cmd_count)
+char	*prep_heredoc_get_infile(t_parsing *head, int *cmd_count, t_mini *mini)
 {
 	t_parsing	*node;
 	t_redir		*r;
@@ -56,7 +58,7 @@ char	*prep_heredoc_get_infile(t_parsing *head, int *cmd_count)
 		{
 			if (r->type == TOKEN_HEREDOC_IN)
 			{
-				tmp = handle_heredoc(r->file);
+				tmp = handle_heredoc(r->file, mini);
 				free(r->file);
 				r->file = tmp;
 			}
