@@ -6,7 +6,7 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:02:13 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/10 16:53:14 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/10 19:53:19 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,7 @@ char		*find_cmd_in_pahts(const char *cmd, char **env_paths_tab);
 void		ft_replace_env(char ***env, const char *key, const char *value);
 void		ft_shllvl(t_mini *mini);
 int			ft_export_checker(char *str);
+char		*status_code(t_mini *mini);
 
 //=== String & Utility Functions ===//
 int			ft_is_whitespace(int str);

@@ -6,7 +6,7 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 15:56:51 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/05 18:03:25 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/10 17:22:53 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,7 @@ static char	*env_fetcher(char *word, char **env, t_mini *mini)
 	char	*replace;
 
 	if (ft_strcmp(word, "?") == 0)
-	{
-		replace = ft_itoa(mini->status + g_sig);
-		g_sig = 0;
-		return (replace);
-	}
+		return (status_code(mini));
 	i = 0;
 	len = ft_strlen(word);
 	while (env[i])
