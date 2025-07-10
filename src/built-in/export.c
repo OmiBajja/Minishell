@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 00:47:38 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/09 18:31:55 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/09 19:19:02 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int	ft_export(t_mini *mini, char **command)
 	char	**new_env;
 	char	**exp_sorted;
 
-	new_env = NULL;
+	//new_env = NULL;
 	if (!mini->exp_dup)
 		mini->exp_dup = ft_strsndup(mini->env, ft_strslen(mini->env));
 	if (command[1])
@@ -117,7 +117,7 @@ int	ft_export(t_mini *mini, char **command)
 	}
 	else
 	{
-		mini->export = NULL;
+		//mini->export = NULL;
 		mini->exp_dup = ft_env_sort(mini->exp_dup);
 		exp_sorted = ft_export_expand(mini->exp_dup);
 		print_and_free(exp_sorted);

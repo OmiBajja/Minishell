@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:02:13 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/09 18:46:07 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/09 18:57:37 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,7 @@ char		*find_env_paths(char **env);
 char		*find_cmd_in_pahts(const char *cmd, char **env_paths_tab);
 void		ft_replace_env(char ***env, const char *key, const char *value);
 void		ft_shllvl(t_mini *mini);
-int 		ft_export_checker (char *str);
+int			ft_export_checker(char *str);
 
 //=== String & Utility Functions ===//
 int			ft_is_whitespace(int str);

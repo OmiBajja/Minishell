@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 18:48:20 by pafranci          #+#    #+#             */
-/*   Updated: 2025/07/03 15:12:14 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/09 19:36:11 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,13 @@ void	exec_cmd(char **cmd_args, char const *paths, t_mini *mini,
 		perror_exit();
 	if (execve(full_cmd, cmd_args, mini->env) == -1)
 	{
+		if (errno == EISDIR)
+		{
+			write(2, full_cmd, ft_strlen(full_cmd));
+			write(2, ": Is a directory\n", 17);
+			free(full_cmd);
+			exit(126);
+		}
 		free(full_cmd);
 		perror_exit();
 	}
