@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 18:48:20 by pafranci          #+#    #+#             */
-/*   Updated: 2025/07/10 15:55:27 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/10 16:55:01 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	exec_cmd(char **cmd_args, char const *paths, t_mini *mini,
 		perror_exit();
 	if (execve(full_cmd, cmd_args, mini->env) == -1)
 	{
-		free(full_cmd);
+		child_cleaner(child, mini);
 		perror_exit();
 	}
 }
