@@ -6,13 +6,13 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 18:25:10 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/09 19:20:30 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/10 15:05:02 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-int	ft_export_checker (char *str)
+int	ft_export_checker(char *str)
 {
 	int	i;
 
