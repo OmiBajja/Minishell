@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 00:47:31 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/09 19:00:30 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/10 21:56:33 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,13 @@ int	ft_exit(t_mini *mini, char **args)
 	{
 		if (num_check(args[1]) == 1)
 		{
-			ft_putstr_fd(" numeric argument required\n", 2);
+			ft_printf_fd(2, "Minishell: exit: %s: numeric argument required\n",
+				args[1]);
 			exiting(mini, 2);
 		}
 		if (args[2])
 		{
-			ft_putstr_fd(" too many arguments\n", 2);
+			ft_printf_fd(2, "Minishell: exit: too many arguments\n");
 			return (1);
 		}
 		if (!args[2])

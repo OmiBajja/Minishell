@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:02:13 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/10 19:53:19 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/10 21:48:59 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,8 @@ void		wait_for_children(pid_t *pid, int cmd_count, t_mini *mini);
 
 //=== Heredoc Helpers ===//
 char		*handle_heredoc(const char *delim, t_mini *mini);
-char		*prep_heredoc_get_infile(t_parsing *head, int *cmd_count, t_mini *mini);
+char		*prep_heredoc_get_infile(t_parsing *head,
+				int *cmd_count, t_mini *mini);
 void		cleanup_heredoc(t_parsing *head);
 
 //=== Environment Helpers ===//

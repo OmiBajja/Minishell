@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_helpers.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 09:16:35 by pafranci          #+#    #+#             */
-/*   Updated: 2025/07/10 19:43:35 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/10 21:49:23 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	*handle_heredoc(const char *delim, t_mini *mini)
 			break ;
 		}
 		if (is_extendable(line, 0) != -1)
-			line = ft_extender(line, mini->env, mini, 0);		
+			line = ft_extender(line, mini->env, mini, 0);
 		write(fd, line, ft_strlen(line));
 		write(fd, "\n", 1);
 		free(line);

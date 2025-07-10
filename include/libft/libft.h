@@ -6,7 +6,7 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 16:48:50 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/10 20:17:08 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/10 21:42:05 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,12 @@ char				*ft_itoa_long(long long n);
 /* Affiche un caractère (version pour ft_printf) */
 int					ft_putchar_pf(char c);
 
+int					ft_putchar_pfd(int fd, char c);
+
 /* Affiche une chaîne (version pour ft_printf) */
 int					ft_putstr_pf(char *s);
+
+int					ft_putstr_pfd(int fd, char *s);
 
 /* Remplit une zone mémoire avec une valeur donnée */
 void				*ft_memset(void *str, int a, size_t n);
@@ -219,8 +223,12 @@ t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 /* Version personnalisée de printf */
 int					ft_printf(const char *str, ...);
 
+int					ft_printf_fd(int fd, const char *str, ...);
+
 /* Affiche une adresse mémoire (pour ft_printf) */
 int					ft_printadress(unsigned long ptr);
+
+int					ft_printadress_fd(int fd, unsigned long ptr);
 
 /* Affiche un caractère (pour ft_printf) */
 int					ft_putchar_pf(char c);
@@ -228,17 +236,27 @@ int					ft_putchar_pf(char c);
 /* Affiche une chaîne (pour ft_printf) */
 int					ft_putstr_pf(char *s);
 
+int					ft_putstr_pfd(int fd, char *s);
+
 /* Affiche un nombre non signé (pour ft_printf) */
 int					ft_putnbr_upf(unsigned int n, int *count);
+
+int					ft_putnbr_upfd(int fd, unsigned int n, int *count);
 
 /* Affiche un nombre (pour ft_printf) */
 int					ft_putnbr_pf(int n, int *count);
 
+int					ft_putnbr_pfd(int fd, int n, int *count);
+
 /* Affiche un nombre en hexadécimal minuscule */
 int					ft_putnbrhexalow(unsigned int n, int *count);
 
+int					ft_putnbrhexalow_fd(int fd, unsigned int n, int *count);
+
 /* Affiche un nombre en hexadécimal majuscule */
 int					ft_putnbrhexaupp(unsigned int n, int *count);
+
+int					ft_putnbrhexaupp_fd(int fd, unsigned int n, int *count);
 
 /* Calcule le nombre de chaînes dans un tableau de chaînes */
 int					ft_strslen(char **str);
