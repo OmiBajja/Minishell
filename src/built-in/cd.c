@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 05:55:38 by pafranci          #+#    #+#             */
-/*   Updated: 2025/07/10 17:13:18 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/10 21:30:44 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,14 @@ int	ft_cd(t_mini *mini, char **args)
 {
 	char	*target;
 	char	*old_pwd;
+	int		arg_count;
 
-	if (args[2])
+	arg_count = 0;
+	while (args[arg_count])
+		arg_count++;
+	if (arg_count > 2)
 	{
-		ft_putstr_fd(" too many arguments\n", 2);
+		ft_putstr_fd("cd: too many arguments\n", 2);
 		return (1);
 	}
 	target = ft_cd_get_target(mini, args);
