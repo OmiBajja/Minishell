@@ -6,7 +6,7 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 11:30:23 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/04 14:35:29 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/09 18:46:40 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*single_quote_handler(char *input, int *index)
 	return (NULL);
 }
 
-char	*double_quote_handler(char *input, int *index, char **env)
+char	*double_quote_handler(char *input, int *index, char **env, t_mini *mini)
 {
 	char	*quote;
 	int		fin;
@@ -49,7 +49,7 @@ char	*double_quote_handler(char *input, int *index, char **env)
 			if (!quote)
 				return (NULL);
 			if (is_extendable(quote, 1) != -1)
-				quote = ft_extender(quote, env, NULL, 1);
+				quote = ft_extender(quote, env, mini, 1);
 			quote = ft_dequoter(quote);
 			*index = fin + 1;
 			return (quote);
@@ -60,13 +60,13 @@ char	*double_quote_handler(char *input, int *index, char **env)
 	return (NULL);
 }
 
-char	*quote_handler(char *input, int *index, char **env)
+char	*quote_handler(char *input, int *index, char **env, t_mini *mini)
 {
 	char	*quote;
 
 	if (input[*index] == '\'')
 		quote = single_quote_handler(input, index);
 	else if (input[*index] == '"')
-		quote = double_quote_handler(input, index, env);
+		quote = double_quote_handler(input, index, env, mini);
 	return (quote);
 }

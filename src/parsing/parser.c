@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 00:48:21 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/08 15:17:43 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/10 16:59:04 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ t_parsing	*token_parser(t_lex *tokens, t_parsing *head, t_parsing *node)
 			break ;
 		if (tokens && tokens->type == TOKEN_PIPE)
 			tokens = pipe_handler(&node, tokens, head);
+		if (!tokens)
+			return (NULL);
 	}
 	node->next = NULL;
 	return (head);

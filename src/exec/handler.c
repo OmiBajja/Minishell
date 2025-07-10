@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handler.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 19:53:35 by pafranci          #+#    #+#             */
-/*   Updated: 2025/07/08 14:49:41 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/09 18:10:32 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	exec_builtin(t_parsing *node, t_mini *mini)
 	else if (!ft_strcmp(node->cmd, "export"))
 		mini->status = ft_export(mini, node->args);
 	else if (!ft_strcmp(node->cmd, "unset"))
-		mini->status = ft_unset(mini, node->args[1]);
+		mini->status = ft_unset(mini, node->args);
 	else if (!ft_strcmp(node->cmd, "echo"))
 		mini->status = ft_echo(node->args);
 	else if (!ft_strcmp(node->cmd, "env"))

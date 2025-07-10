@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 00:47:24 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/02 19:33:56 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/09 18:04:44 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,12 @@ void	ft_replace_env(char ***envp, const char *key, const char *value)
 	temp = new_pwd;
 	new_pwd = ft_strjoin(new_pwd, value);
 	free(temp);
+	temp = NULL;
 	if (!try_replace(*envp, key, new_pwd))
 	{
 		new_env = ft_strsjoin(*envp, new_pwd);
 		ft_freestrs(*envp);
 		*envp = new_env;
-	}
-	else
 		free(new_pwd);
+	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:02:13 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/08 18:03:29 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/10 16:53:14 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 #include <string.h>
 #include <stdbool.h>
 #include <sys/wait.h>
+#include <sys/stat.h>
 
 //=== Token Types ===//
 #define TOKEN_UNKOWN     0
@@ -123,7 +124,7 @@ int			ft_echo(char **input);
 int			ft_env(char **envp);
 int			ft_pwd(char **env);
 int			ft_export(t_mini *mini, char **command);
-int			ft_unset(t_mini *mini, char *command);
+int			ft_unset(t_mini *mini, char **command);
 int			ft_exit(t_mini *mini, char **args);
 
 //=== Execution & Pipes ===//
@@ -151,6 +152,7 @@ char		*find_env_paths(char **env);
 char		*find_cmd_in_pahts(const char *cmd, char **env_paths_tab);
 void		ft_replace_env(char ***env, const char *key, const char *value);
 void		ft_shllvl(t_mini *mini);
+int			ft_export_checker(char *str);
 
 //=== String & Utility Functions ===//
 int			ft_is_whitespace(int str);
@@ -175,12 +177,13 @@ void		cmd_not_found_exit(char **cmd_tab, t_mini *mini, t_child *child);
 void		invalid_usage_exit(int ac);
 void		mini_cleaner(t_mini *mini);
 void		free_null(char *to_free);
+void		child_cleaner(t_child *child, t_mini *mini);
 
 //=== Quote & Env Expansion Handling ===//
 char		*ft_extender(char *input, char **env, t_mini *mini, int quotes);
 int			is_extendable(char *input, int quotes);
 int			ft_quotechecker(char *input);
 char		*ft_dequoter(char *input);
-char		*quote_handler(char *input, int *index, char **env);
+char		*quote_handler(char *input, int *index, char **env, t_mini *mini);
 
 extern int	g_sig;

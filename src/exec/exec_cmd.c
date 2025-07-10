@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 18:48:20 by pafranci          #+#    #+#             */
-/*   Updated: 2025/07/03 15:12:14 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/10 16:59:23 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ static char	*get_full_cmd(char **cmd_tab, const char *paths, t_mini *mini,
 void	exec_cmd(char **cmd_args, char const *paths, t_mini *mini,
 		t_child *child)
 {
-	char	*full_cmd;
+	char		*full_cmd;
+	struct stat	buf;
 
 	if (!cmd_args || !cmd_args[0])
 	{
@@ -66,11 +67,19 @@ void	exec_cmd(char **cmd_args, char const *paths, t_mini *mini,
 		exit(127);
 	}
 	full_cmd = get_full_cmd(cmd_args, paths, mini, child);
+	stat(full_cmd, &buf);
+	if (S_ISDIR(buf.st_mode))
+	{
+		write(2, full_cmd, ft_strlen(full_cmd));
+		write(2, ": Is a directory\n", 17);
+		free(full_cmd);
+		exit(126);
+	}
 	if (!full_cmd)
 		perror_exit();
 	if (execve(full_cmd, cmd_args, mini->env) == -1)
 	{
-		free(full_cmd);
+		child_cleaner(child, mini);
 		perror_exit();
 	}
 }

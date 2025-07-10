@@ -5,7 +5,7 @@ $(info Compiling Minishell 📟)
 endif
 
 NAME         = minishell
-CC           = gcc
+CC           = cc
 CFLAGS       = -Wall -Wextra -Werror -g3
 RM           = rm -f
 MAKEFLAGS   += --no-print-directory
@@ -18,11 +18,11 @@ LIBFT_DIR    = $(INC_DIR)/libft
 
 # Source files list grouped by directory
 MAIN_SRC     = minishell.c
-EXEC_SRC	 = exec/error_handling.c exec/exec_cmd.c exec/ft_split.c exec/handler.c exec/pipex_helpers.c exec/process.c exec/string_utils.c exec/heredoc_helpers.c exec/setup_redir.c exec/pipex.c
+EXEC_SRC	 = exec/error_handling.c exec/exec_cmd.c exec/ft_split.c exec/handler.c exec/pipex_helpers.c exec/process.c exec/string_utils.c exec/heredoc_helpers.c exec/setup_redir.c exec/pipex.c exec/cleanup.c
 LEXER_SRC    = lexing/lexing.c lexing/token_init.c lexing/quote_handler.c lexing/lexing_utils.c
 PARSER_SRC   = parsing/parser.c parsing/parsing_init.c parsing/parsing_utils.c parsing/parsing_redirs.c
 SIGNAL_SRC   = signal/signal.c
-UTILS_SRC    = utils/ft_strndup.c utils/ft_is_whitespace.c utils/ft_extender.c utils/ft_dequoter.c utils/ft_strsjoin.c utils/ft_strscomp.c utils/ft_shllvl.c utils/mini_cleaner.c
+UTILS_SRC    = utils/ft_strndup.c utils/ft_is_whitespace.c utils/ft_extender.c utils/ft_dequoter.c utils/ft_strsjoin.c utils/ft_strscomp.c utils/ft_shllvl.c utils/mini_cleaner.c utils/export_helpers.c
 BUILTIN_SRC	 = built-in/cd.c built-in/echo.c built-in/env.c built-in/exit.c built-in/export.c built-in/pwd.c built-in/unset.c
 
 # Combine all source files
@@ -84,3 +84,6 @@ fclean: clean
 re: fclean all
 
 .PHONY: all clean fclean re
+
+run: re
+	./minishell

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 05:55:38 by pafranci          #+#    #+#             */
-/*   Updated: 2025/07/10 15:01:53 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/10 17:13:18 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,11 @@ int	ft_cd(t_mini *mini, char **args)
 	char	*target;
 	char	*old_pwd;
 
+	if (args[2])
+	{
+		ft_putstr_fd(" too many arguments\n", 2);
+		return (1);
+	}
 	target = ft_cd_get_target(mini, args);
 	if (!target)
 	{
