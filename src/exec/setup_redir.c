@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 10:21:17 by pafranci          #+#    #+#             */
-/*   Updated: 2025/07/09 13:03:13 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/10 17:27:55 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	apply_pipe_redirs(t_child *child)
 	}
 }
 
-void	setup_redirs_list(t_redir *r)
+int	setup_redirs_list(t_redir *r)
 {
 	int		fd;
 
@@ -43,7 +43,7 @@ void	setup_redirs_list(t_redir *r)
 		if (fd < 0)
 		{
 			perror(r->file);
-			exit(1);
+			return (1);
 		}
 		if (r->type == TOKEN_REDIR_IN || r->type == TOKEN_HEREDOC_IN)
 			dup2(fd, STDIN_FILENO);
@@ -52,6 +52,7 @@ void	setup_redirs_list(t_redir *r)
 		close(fd);
 		r = r->next;
 	}
+	return (0);
 }
 
 static void	apply_default_infile(t_child *child, t_parsing *cmd)
@@ -70,6 +71,7 @@ static void	apply_default_infile(t_child *child, t_parsing *cmd)
 void	apply_redirs(t_child *child, t_parsing *cmd)
 {
 	apply_pipe_redirs(child);
-	setup_redirs_list(cmd->redirs);
+	if (setup_redirs_list(cmd->redirs) != 0)
+		exit(EXIT_FAILURE);
 	apply_default_infile(child, cmd);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handler.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 19:53:35 by pafranci          #+#    #+#             */
-/*   Updated: 2025/07/09 18:10:32 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/10 17:30:22 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,15 @@ static void	exec_single_builtin(t_parsing *head, t_mini *mini)
 
 	saved_in = dup(STDIN_FILENO);
 	saved_out = dup(STDOUT_FILENO);
-	setup_redirs_list(head->redirs);
+	if (setup_redirs_list(head->redirs) != 0)
+	{
+		mini->status = 1;
+		dup2(saved_in, STDIN_FILENO);
+		dup2(saved_out, STDOUT_FILENO);
+		close(saved_in);
+		close(saved_out);
+		return ;
+	}
 	exec_builtin(head, mini);
 	fflush(stdout);
 	dup2(saved_in, STDIN_FILENO);

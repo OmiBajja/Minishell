@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:02:13 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/10 16:53:14 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/10 17:23:13 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ void		pipex(t_pipex *pipex);
 int			**create_pipes(int n);
 void		close_pipes(int **pipes, int n);
 void		child_process(t_child *child, t_mini *mini);
-void		setup_redirs_list(t_redir *r);
+int			setup_redirs_list(t_redir *r);
 void		apply_redirs(t_child *child, t_parsing *cmd);
 void		exec_cmd(char **cmd_args, char const *paths,
 				t_mini *mini, t_child *child);
