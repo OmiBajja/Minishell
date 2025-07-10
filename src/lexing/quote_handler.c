@@ -6,7 +6,7 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 11:30:23 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/09 18:46:40 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/10 18:03:46 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ char	*single_quote_handler(char *input, int *index)
 char	*double_quote_handler(char *input, int *index, char **env, t_mini *mini)
 {
 	char	*quote;
+	char	*temp;
 	int		fin;
 
 	fin = *index;
@@ -45,19 +46,22 @@ char	*double_quote_handler(char *input, int *index, char **env, t_mini *mini)
 	{
 		if (input[fin] == '"')
 		{
-			quote = ft_strndup(&input[*index], fin - *index);
-			if (!quote)
+			temp = ft_strndup(&input[*index], fin - *index);
+			if (!temp)
 				return (NULL);
-			if (is_extendable(quote, 1) != -1)
-				quote = ft_extender(quote, env, mini, 1);
-			quote = ft_dequoter(quote);
+			if (is_extendable(temp, 1) != -1)
+			{
+				quote = ft_extender(temp, env, mini, 1);
+				free(temp);
+				temp = quote;
+			}
+			quote = ft_dequoter(temp);
 			*index = fin + 1;
 			return (quote);
 		}
 	}
 	*index = fin;
-	printf("You forgot quotes not cool\n");
-	return (NULL);
+	return (printf("You forgot quotes not cool\n"), NULL);
 }
 
 char	*quote_handler(char *input, int *index, char **env, t_mini *mini)

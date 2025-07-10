@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 16:48:50 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/29 09:24:22 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/10 20:17:08 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ void				ft_freestrs(char **tab);
 /* Convertit un entier en chaîne de caractères */
 char				*ft_itoa(int n);
 
+char				*ft_itoa_long(long long n);
+
 /* Affiche un caractère (version pour ft_printf) */
 int					ft_putchar_pf(char c);
 
@@ -105,6 +107,8 @@ char				*ft_substr(char const *s, unsigned int start, size_t len);
 
 /* Convertit une chaîne en entier */
 int					ft_atoi(const char *str);
+
+long long			ft_atoi_long(const char *str);
 
 /* Vérifie si le caractère est alphanumérique */
 int					ft_isalnum(int str);

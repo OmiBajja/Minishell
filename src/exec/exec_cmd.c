@@ -6,7 +6,7 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 18:48:20 by pafranci          #+#    #+#             */
-/*   Updated: 2025/07/10 16:59:23 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/10 17:40:10 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,9 @@ void	exec_cmd(char **cmd_args, char const *paths, t_mini *mini,
 	char		*full_cmd;
 	struct stat	buf;
 
-	if (!cmd_args || !cmd_args[0])
+	if (!cmd_args || !cmd_args[0] ||!*cmd_args[0])
 	{
-		write(2, "'': command not found\n", 22);
+		child_cleaner(child, mini);
 		exit(127);
 	}
 	full_cmd = get_full_cmd(cmd_args, paths, mini, child);
@@ -72,7 +72,7 @@ void	exec_cmd(char **cmd_args, char const *paths, t_mini *mini,
 	{
 		write(2, full_cmd, ft_strlen(full_cmd));
 		write(2, ": Is a directory\n", 17);
-		free(full_cmd);
+		child_cleaner(child, mini);
 		exit(126);
 	}
 	if (!full_cmd)
