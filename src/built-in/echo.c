@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 00:47:17 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/10 16:31:16 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/11 17:23:04 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int	ft_echo(char **inputs)
 	if (!inputs[0] || !inputs[1])
 	{
 		printf("\n");
-		return (1);
+		return (0);
 	}
 	nl = is_newline(&inputs[1]);
 	if (nl == 1 && inputs[2])

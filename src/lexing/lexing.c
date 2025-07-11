@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexing.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 10:53:13 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/03 17:52:24 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/11 17:25:05 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ static int	handle_word(t_lex **tokens, char *input, int *i, t_mini *mini)
 	word = word_lexer(input, i, mini);
 	if (word)
 	{
-		add_to_list(tokens, create_token(word, TOKEN_COMMAND));
+		if (ft_strncmp(word, "", 1))
+			add_to_list(tokens, create_token(word, TOKEN_COMMAND));
 		return (1);
 	}
 	return (0);
