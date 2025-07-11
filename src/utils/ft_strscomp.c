@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/13 21:49:46 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/28 06:57:13 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/11 23:11:41 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ char	*ft_strscomp(char **src)
 	i = -1;
 	size = ft_strsstrlen(src);
 	result = ft_calloc(size + 1, 1);
+	if (!result)
+		return (NULL);
 	while (src[++i])
 	{
 		ft_strlcat(result, src[i], size + 1);
