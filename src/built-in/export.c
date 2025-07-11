@@ -6,7 +6,7 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 00:47:38 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/11 17:59:08 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/11 21:48:51 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,15 +81,18 @@ char	**ft_env_sort(char **export_list)
 	return (env_export);
 }
 
-static void	add_to_exp(t_mini *mini, char *arg, int result)
+void	add_to_exp(t_mini *mini, char *arg, int result)
 {
 	char	**new_env;
 	char	**new_exp;
 
-	new_exp = ft_strsjoin(mini->exp_dup, arg);
-	ft_freestrs(mini->exp_dup);
-	mini->exp_dup = new_exp;
-	if (result == EXPORT_ADD_BOTH)
+	if (result == EXPORT_ADD_EXPORT || result == EXPORT_ADD_BOTH)
+	{
+		new_exp = ft_strsjoin(mini->exp_dup, arg);
+		ft_freestrs(mini->exp_dup);
+		mini->exp_dup = new_exp;
+	}
+	if (result == EXPORT_ADD_ENV || result == EXPORT_ADD_BOTH)
 	{
 		new_env = ft_strsjoin(mini->env, arg);
 		ft_freestrs(mini->env);
@@ -117,7 +120,7 @@ int	ft_export(t_mini *mini, char **command)
 			add_to_exp(mini, command[i], result);
 		}
 		else if (result == EXPORT_REPLACE)
-			replace_to_exp(mini, command[i]);
+			replace_to_exp(mini, command[i], -1);
 	}
 	return (0);
 }
