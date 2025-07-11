@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_helpers.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 09:16:35 by pafranci          #+#    #+#             */
-/*   Updated: 2025/07/10 21:49:23 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/11 16:53:06 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,7 @@ char	*handle_heredoc(const char *delim, t_mini *mini)
 		write(fd, "\n", 1);
 		free(line);
 	}
-	close(fd);
-	return (filename);
+	return (close(fd), filename);
 }
 
 char	*prep_heredoc_get_infile(t_parsing *head, int *cmd_count, t_mini *mini)

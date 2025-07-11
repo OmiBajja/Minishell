@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 18:48:20 by pafranci          #+#    #+#             */
-/*   Updated: 2025/07/10 17:40:10 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/11 16:51:21 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static char	*get_full_cmd(char **cmd_tab, const char *paths, t_mini *mini,
 
 	if (ft_strstr(cmd_tab[0], "/"))
 	{
-		if (access(cmd_tab[0], F_OK | X_OK) == 0)
+		if (access(cmd_tab[0], F_OK) == 0)
 			return (cmd_tab[0]);
 		cmd_not_found_exit(cmd_tab, mini, child);
 	}
@@ -53,6 +53,22 @@ static char	*get_full_cmd(char **cmd_tab, const char *paths, t_mini *mini,
 	if (full_cmd)
 		return (full_cmd);
 	return (cmd_not_found_exit(cmd_tab, mini, child), NULL);
+}
+
+static void	is_directory_exit(char *full_cmd, t_child *child, t_mini *mini)
+{
+	write(2, full_cmd, ft_strlen(full_cmd));
+	write(2, ": Is a directory\n", 17);
+	child_cleaner(child, mini);
+	exit(126);
+}
+
+static void	permission_denied_exit(char *full_cmd, t_child *child, t_mini *mini)
+{
+	write(2, full_cmd, ft_strlen(full_cmd));
+	write(2, ": Permission denied\n", 20);
+	child_cleaner(child, mini);
+	exit(126);
 }
 
 void	exec_cmd(char **cmd_args, char const *paths, t_mini *mini,
@@ -69,12 +85,9 @@ void	exec_cmd(char **cmd_args, char const *paths, t_mini *mini,
 	full_cmd = get_full_cmd(cmd_args, paths, mini, child);
 	stat(full_cmd, &buf);
 	if (S_ISDIR(buf.st_mode))
-	{
-		write(2, full_cmd, ft_strlen(full_cmd));
-		write(2, ": Is a directory\n", 17);
-		child_cleaner(child, mini);
-		exit(126);
-	}
+		is_directory_exit(full_cmd, child, mini);
+	else if (!(stat(full_cmd, &buf) == 0 && buf.st_mode & S_IXUSR))
+		permission_denied_exit(full_cmd, child, mini);
 	if (!full_cmd)
 		perror_exit();
 	if (execve(full_cmd, cmd_args, mini->env) == -1)
