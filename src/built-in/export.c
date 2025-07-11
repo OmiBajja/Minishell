@@ -74,9 +74,7 @@ char	**ft_env_sort(char **export_list)
 				env_export[i + 1] = s;
 			}
 		}
-		i = 1;
 	}
-	i = -1;
 	ft_freestrs(export_list);
 	return (env_export);
 }

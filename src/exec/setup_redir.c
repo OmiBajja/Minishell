@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   setup_redir.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 10:21:17 by pafranci          #+#    #+#             */
-/*   Updated: 2025/07/10 17:27:55 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/11 23:51:44 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	apply_pipe_redirs(t_child *child)
 	}
 }
 
-int	setup_redirs_list(t_redir *r)
+int	setup_redirs_list(t_redir *r, t_child *child, t_mini *mini)
 {
 	int		fd;
 
@@ -43,6 +43,7 @@ int	setup_redirs_list(t_redir *r)
 		if (fd < 0)
 		{
 			perror(r->file);
+			master_cleaner(mini, child);
 			return (1);
 		}
 		if (r->type == TOKEN_REDIR_IN || r->type == TOKEN_HEREDOC_IN)
@@ -68,10 +69,10 @@ static void	apply_default_infile(t_child *child, t_parsing *cmd)
 	close(fd);
 }
 
-void	apply_redirs(t_child *child, t_parsing *cmd)
+void	apply_redirs(t_child *child, t_parsing *cmd, t_mini *mini)
 {
 	apply_pipe_redirs(child);
-	if (setup_redirs_list(cmd->redirs) != 0)
+	if (setup_redirs_list(cmd->redirs, child, mini) != 0)
 		exit(EXIT_FAILURE);
 	apply_default_infile(child, cmd);
 }

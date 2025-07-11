@@ -6,7 +6,7 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 00:54:01 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/11 20:06:14 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/12 00:41:53 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	ft_unset(t_mini *mini, char **command)
 			return (1);
 		mini->env = ft_cut_prep(mini->env, command[i]);
 		if (!mini->env)
-			return (1);	
+			return (1);
 	}
 	return (0);
 }
