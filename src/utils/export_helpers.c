@@ -6,7 +6,7 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 18:25:10 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/11 18:05:47 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/11 21:48:18 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,10 @@ void	export_printer(t_mini *mini)
 	print_and_free(exp_sorted);
 }
 
-void	replace_to_exp(t_mini *mini, char *to_replace)
+void	replace_to_exp(t_mini *mini, char *to_replace, int equals_index)
 {
-	int	equals_index;
 	int	i;
 
-	equals_index = -1;
 	i = -1;
 	while (to_replace[++equals_index] != '=')
 		;
@@ -47,6 +45,8 @@ void	replace_to_exp(t_mini *mini, char *to_replace)
 			mini->env[i] = ft_strdup(to_replace);
 		}
 	}
+	if (!is_it_in_env(mini->env, ft_strndup(to_replace, equals_index)))
+		add_to_exp(mini, to_replace, EXPORT_ADD_ENV);
 	i = -1;
 	while (mini->exp_dup[++i])
 	{
