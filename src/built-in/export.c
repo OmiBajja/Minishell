@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 00:47:38 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/10 15:08:13 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/11 17:59:08 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,44 +81,43 @@ char	**ft_env_sort(char **export_list)
 	return (env_export);
 }
 
-static void	add_to_exp(t_mini *mini, char *arg)
+static void	add_to_exp(t_mini *mini, char *arg, int result)
 {
 	char	**new_env;
 	char	**new_exp;
 
-	new_env = ft_strsjoin(mini->env, arg);
-	ft_freestrs(mini->env);
-	mini->env = new_env;
 	new_exp = ft_strsjoin(mini->exp_dup, arg);
 	ft_freestrs(mini->exp_dup);
 	mini->exp_dup = new_exp;
+	if (result == EXPORT_ADD_BOTH)
+	{
+		new_env = ft_strsjoin(mini->env, arg);
+		ft_freestrs(mini->env);
+		mini->env = new_env;
+	}
 }
 
 int	ft_export(t_mini *mini, char **command)
 {
-	char	**new_env;
-	char	**exp_sorted;
+	int		result;
+	int		i;
 
+	i = 0;
 	if (!mini->exp_dup)
 		mini->exp_dup = ft_strsndup(mini->env, ft_strslen(mini->env));
-	if (command[1])
+	if (!command[1])
+		export_printer(mini);
+	while (command[++i])
 	{
-		if (ft_export_checker(command[1]) == 1)
+		if (ft_export_checker(command[i]) == 1)
 			return (1);
-		else if (!ft_strchr(command[1], '='))
+		result = is_to_add_replace(mini->exp_dup, command[i]);
+		if (result == EXPORT_ADD_BOTH || result == EXPORT_ADD_EXPORT)
 		{
-			new_env = ft_strsjoin(mini->exp_dup, command[1]);
-			ft_freestrs(mini->exp_dup);
-			mini->exp_dup = new_env;
+			add_to_exp(mini, command[i], result);
 		}
-		else
-			add_to_exp(mini, command[1]);
-	}
-	else
-	{
-		mini->exp_dup = ft_env_sort(mini->exp_dup);
-		exp_sorted = ft_export_expand(mini->exp_dup);
-		print_and_free(exp_sorted);
+		else if (result == EXPORT_REPLACE)
+			replace_to_exp(mini, command[i]);
 	}
 	return (0);
 }

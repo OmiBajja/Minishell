@@ -6,7 +6,7 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:02:13 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/10 21:48:59 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/11 17:51:05 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,17 @@
 #include <sys/stat.h>
 
 //=== Token Types ===//
-#define TOKEN_UNKOWN     0
-#define TOKEN_COMMAND    1
-#define TOKEN_PIPE       2
-#define TOKEN_REDIR_IN   3
-#define TOKEN_REDIR_OUT  4
-#define TOKEN_HEREDOC_IN 5
-#define TOKEN_APPEND_OUT 6
+#define TOKEN_UNKOWN     	0
+#define TOKEN_COMMAND    	1
+#define TOKEN_PIPE       	2
+#define TOKEN_REDIR_IN   	3
+#define TOKEN_REDIR_OUT  	4
+#define TOKEN_HEREDOC_IN 	5
+#define TOKEN_APPEND_OUT 	6
+#define EXPORT_IGNORE		50
+#define EXPORT_REPLACE		51
+#define EXPORT_ADD_BOTH		52
+#define EXPORT_ADD_EXPORT	53
 
 //=== Struct Definitions ===//
 typedef struct s_lex
@@ -154,6 +158,12 @@ char		*find_cmd_in_pahts(const char *cmd, char **env_paths_tab);
 void		ft_replace_env(char ***env, const char *key, const char *value);
 void		ft_shllvl(t_mini *mini);
 int			ft_export_checker(char *str);
+char		**ft_export_expand(char **env_sorted);
+char		**ft_env_sort(char **export_list);
+void		print_and_free(char **export_list);
+void		export_printer(t_mini *mini);
+int			is_to_add_replace(char **env, char *word);
+void		replace_to_exp(t_mini *mini, char *to_replace);
 char		*status_code(t_mini *mini);
 
 //=== String & Utility Functions ===//
