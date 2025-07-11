@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 00:47:38 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/11 21:48:51 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/12 00:49:24 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,15 @@ char	**ft_export_expand(char **env_sorted)
 
 	i = -1;
 	new_env = ft_calloc(ft_strslen(env_sorted) + 1, sizeof(char *));
+	if (!new_env)
+		return (NULL);
 	while (env_sorted[++i])
 	{
 		j = -1;
 		export_j = 6;
 		new_env[i] = ft_calloc(ft_strlen(env_sorted[i]) + 10, sizeof(char));
+		if (!new_env[i])
+			return (NULL);
 		ft_strlcpy(new_env[i], "export ", 8);
 		while (env_sorted[i][++j] && env_sorted[i][j] != '=')
 			new_env[i][++export_j] = env_sorted[i][j];

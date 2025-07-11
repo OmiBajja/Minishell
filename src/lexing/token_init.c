@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_init.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 15:57:19 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/11 21:25:19 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/12 00:53:01 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ t_lex	*create_token(char *value, int type)
 
 	token = ft_calloc(sizeof(t_lex), 1);
 	if (!token)
-		return (NULL);
+		exit(EXIT_FAILURE);
 	token->type = type;
 	token->value = value;
 	token->next = NULL;

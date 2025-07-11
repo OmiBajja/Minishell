@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:40:03 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/09 12:34:16 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/12 00:12:49 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	**new_args(char **args, char *new_arg)
 	}
 	while (args[i])
 		i++;
-	all_args = ft_calloc (sizeof(char *), (i + 2));
+	all_args = ft_calloc(sizeof(char *), (i + 2));
 	if (!all_args)
 		return (NULL);
 	i = -1;
@@ -63,6 +63,8 @@ void	command_machine(t_parsing *cmd, t_lex *token)
 	{
 		cmd->cmd = ft_strdup(token->value);
 		cmd->args = new_args(NULL, token->value);
+		if (!cmd->args)
+			exit(EXIT_FAILURE);
 	}
 	else
 		cmd->args = new_args(cmd->args, token->value);
