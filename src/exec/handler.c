@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handler.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 19:53:35 by pafranci          #+#    #+#             */
-/*   Updated: 2025/07/12 00:41:05 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/12 00:57:17 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,10 +87,13 @@ static void	no_cmd_redir(t_parsing *head, t_mini *mini)
 void	exec_handler(t_parsing *head, char **envp, t_mini *mini)
 {
 	t_pipex	p;
+	int		i;
 
 	if (head && head->cmd == NULL && head->redirs)
 	{
+		prep_heredoc_get_infile(head, &i, mini);
 		no_cmd_redir(head, mini);
+		cleanup_heredoc(head);
 		return ;
 	}
 	if (head && head->next == NULL && is_builtin(head->cmd))
