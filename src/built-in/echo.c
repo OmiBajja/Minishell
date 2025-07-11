@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 00:47:17 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/11 17:23:04 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/11 22:58:46 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ int	is_newline(char **inputs)
 		return (0);
 	else
 	{
-		j = 0;
 		while (inputs[i][++j])
 		{
 			if (inputs[i][j] != 'n')

@@ -6,7 +6,7 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 00:47:38 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/11 17:59:08 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/11 22:58:04 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,7 @@ char	**ft_env_sort(char **export_list)
 				env_export[i + 1] = s;
 			}
 		}
-		i = 1;
 	}
-	i = -1;
 	ft_freestrs(export_list);
 	return (env_export);
 }

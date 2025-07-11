@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handler.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 19:53:35 by pafranci          #+#    #+#             */
-/*   Updated: 2025/07/10 21:03:47 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/11 23:01:17 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	exec_handler(t_parsing *head, char **envp, t_mini *mini)
 		no_cmd_redir(head, mini);
 		return ;
 	}
-	if (head->next == NULL && is_builtin(head->cmd))
+	if (head && head->next == NULL && is_builtin(head->cmd))
 	{
 		exec_single_builtin(head, mini);
 		return ;

@@ -6,7 +6,7 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 11:30:23 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/10 18:03:46 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/11 23:02:55 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,7 @@ char	*quote_handler(char *input, int *index, char **env, t_mini *mini)
 		quote = single_quote_handler(input, index);
 	else if (input[*index] == '"')
 		quote = double_quote_handler(input, index, env, mini);
+	else
+		quote = NULL;
 	return (quote);
 }
