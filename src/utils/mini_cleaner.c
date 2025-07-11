@@ -6,7 +6,7 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 16:10:12 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/11 20:05:40 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/11 23:41:17 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,18 @@ void	free_tokens(t_lex *tokens)
 		free(tokens);
 		tokens = tmp;
 	}
+}
+
+void	master_cleaner(t_mini *mini, t_child *child)
+{
+	if (mini->data)
+		free_parse(mini->data);
+	if (mini->lex)
+		free_tokens(mini->lex);
+	if (child)
+	{
+		free_pipex(child->pipes, child->cmd_count, child->pid);
+		free(child);
+	}
+	mini_cleaner(mini);
 }

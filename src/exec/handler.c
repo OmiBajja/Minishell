@@ -6,7 +6,7 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 19:53:35 by pafranci          #+#    #+#             */
-/*   Updated: 2025/07/11 23:01:17 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/12 00:41:05 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void	exec_builtin(t_parsing *node, t_mini *mini)
 	else if (!ft_strcmp(node->cmd, "exit"))
 		mini->status = ft_exit(mini, node->args);
 	else if (!ft_strcmp(node->cmd, "pwd"))
-		mini->status = ft_pwd(mini->env);
+		mini->status = ft_pwd();
 }
 
 static void	exec_single_builtin(t_parsing *head, t_mini *mini)
@@ -50,7 +50,7 @@ static void	exec_single_builtin(t_parsing *head, t_mini *mini)
 
 	saved_in = dup(STDIN_FILENO);
 	saved_out = dup(STDOUT_FILENO);
-	if (setup_redirs_list(head->redirs) != 0)
+	if (setup_redirs_list(head->redirs, NULL, mini) != 0)
 	{
 		mini->status = 1;
 		dup2(saved_in, STDIN_FILENO);
@@ -74,7 +74,7 @@ static void	no_cmd_redir(t_parsing *head, t_mini *mini)
 
 	saved_in = dup(STDIN_FILENO);
 	saved_out = dup(STDOUT_FILENO);
-	if (setup_redirs_list(head->redirs) < 0)
+	if (setup_redirs_list(head->redirs, NULL, mini) < 0)
 		mini->status = 1;
 	else
 		mini->status = 0;

@@ -6,7 +6,7 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:02:13 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/11 17:51:05 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/12 00:40:59 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ void		exec_handler(t_parsing *head, char **envp, t_mini *mini);
 int			ft_cd(t_mini *mini, char **args);
 int			ft_echo(char **input);
 int			ft_env(char **envp);
-int			ft_pwd(char **env);
+int			ft_pwd(void);
 int			ft_export(t_mini *mini, char **command);
 int			ft_unset(t_mini *mini, char **command);
 int			ft_exit(t_mini *mini, char **args);
@@ -136,8 +136,8 @@ void		pipex(t_pipex *pipex);
 int			**create_pipes(int n);
 void		close_pipes(int **pipes, int n);
 void		child_process(t_child *child, t_mini *mini);
-int			setup_redirs_list(t_redir *r);
-void		apply_redirs(t_child *child, t_parsing *cmd);
+int			setup_redirs_list(t_redir *r, t_child *child, t_mini *mini);
+void		apply_redirs(t_child *child, t_parsing *cmd, t_mini *mini);
 void		exec_cmd(char **cmd_args, char const *paths,
 				t_mini *mini, t_child *child);
 
@@ -188,6 +188,7 @@ void		perror_exit(void);
 void		cmd_not_found_exit(char **cmd_tab, t_mini *mini, t_child *child);
 void		invalid_usage_exit(int ac);
 void		mini_cleaner(t_mini *mini);
+void		master_cleaner(t_mini *mini, t_child *child);
 void		free_null(char *to_free);
 void		child_cleaner(t_child *child, t_mini *mini);
 
