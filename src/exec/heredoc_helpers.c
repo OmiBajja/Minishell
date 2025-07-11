@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 09:16:35 by pafranci          #+#    #+#             */
-/*   Updated: 2025/07/11 16:53:06 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/11 20:29:50 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*handle_heredoc(const char *delim, t_mini *mini)
 	while (42)
 	{
 		line = readline("> ");
-		if (!line || !strcmp(line, delim))
+		if (!line || !ft_strcmp(line, delim))
 		{
 			free(line);
 			break ;

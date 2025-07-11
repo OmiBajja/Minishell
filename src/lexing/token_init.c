@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_init.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 15:57:19 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/30 20:26:34 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/11 20:29:58 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,15 @@ int	operator_check(const char *input)
 
 int	find_operator(const char *str)
 {
-	if (!strcmp(str, "|"))
+	if (!ft_strcmp(str, "|"))
 		return (TOKEN_PIPE);
-	else if (!strcmp(str, "<<"))
+	else if (!ft_strcmp(str, "<<"))
 		return (TOKEN_HEREDOC_IN);
-	else if (!strcmp(str, ">>"))
+	else if (!ft_strcmp(str, ">>"))
 		return (TOKEN_APPEND_OUT);
-	else if (!strcmp(str, "<"))
+	else if (!ft_strcmp(str, "<"))
 		return (TOKEN_REDIR_IN);
-	else if (!strcmp(str, ">"))
+	else if (!ft_strcmp(str, ">"))
 		return (TOKEN_REDIR_OUT);
 	else
 		return (TOKEN_UNKOWN);
