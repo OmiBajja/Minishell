@@ -6,7 +6,7 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 00:54:01 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/11 18:10:20 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/11 20:06:14 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,30 +50,37 @@ char	**ft_cut_env(char **list, char *command, char **copy)
 	return (copy);
 }
 
-int	ft_unset(t_mini *mini, char **command)
+char	**ft_cut_prep(char **env, char *command)
 {
 	int		size;
 	char	**env_cpy;
-	char	**exp_cpy;
 
-	if (!command[1])
+	size = ft_strslen(env);
+	env_cpy = ft_calloc((size + 1), sizeof(char *));
+	if (!env_cpy)
+		return (NULL);
+	return (ft_cut_env(env, command, env_cpy));
+}
+
+int	ft_unset(t_mini *mini, char **command)
+{
+	int		i;
+
+	i = 0;
+	if (!command[i + 1])
 		return (0);
 	if (!mini->exp_dup)
 		mini->exp_dup = ft_strsndup(mini->env, ft_strslen(mini->env));
-	if (!is_it_in_env(mini->exp_dup, command[1]))
-		return (0);
-	size = ft_strslen(mini->env);
-	env_cpy = ft_calloc((size + 1), sizeof(char *));
-	if (!env_cpy)
-		return (1);
-	size = ft_strslen(mini->exp_dup);
-	exp_cpy = ft_calloc((size + 1), sizeof(char *));
-	if (!exp_cpy)
+	while (command[++i])
 	{
-		ft_freestrs(env_cpy);
-		return (1);
+		if (!is_it_in_env(mini->exp_dup, command[i]))
+			return (0);
+		mini->exp_dup = ft_cut_prep(mini->exp_dup, command[i]);
+		if (!mini->exp_dup)
+			return (1);
+		mini->env = ft_cut_prep(mini->env, command[i]);
+		if (!mini->env)
+			return (1);	
 	}
-	mini->exp_dup = ft_cut_env(mini->exp_dup, command[1], exp_cpy);
-	mini->env = ft_cut_env(mini->env, command[1], env_cpy);
 	return (0);
 }
