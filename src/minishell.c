@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:02:04 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/09 17:44:01 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/11 19:35:02 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	**default_env(void)
 		return (NULL);
 	getcwd(cwd, sizeof(cwd));
 	env[0] = ft_strdup(cwd);
-	env[1] = ft_strdup("SHLVL=1");
+	env[1] = ft_strdup("SHLVL=0");
 	env[2] = ft_strdup("PATH=/usr/bin");
 	return (env);
 }
