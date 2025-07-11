@@ -37,6 +37,7 @@
 #define EXPORT_REPLACE		51
 #define EXPORT_ADD_BOTH		52
 #define EXPORT_ADD_EXPORT	53
+#define EXPORT_ADD_ENV		54
 
 //=== Struct Definitions ===//
 typedef struct s_lex
@@ -160,10 +161,12 @@ void		ft_shllvl(t_mini *mini);
 int			ft_export_checker(char *str);
 char		**ft_export_expand(char **env_sorted);
 char		**ft_env_sort(char **export_list);
+void		add_to_exp(t_mini *mini, char *arg, int result);
 void		print_and_free(char **export_list);
 void		export_printer(t_mini *mini);
+int			is_it_in_env(char **exp_list, char *to_find);
 int			is_to_add_replace(char **env, char *word);
-void		replace_to_exp(t_mini *mini, char *to_replace);
+void		replace_to_exp(t_mini *mini, char *to_replace, int equals_index);
 char		*status_code(t_mini *mini);
 
 //=== String & Utility Functions ===//
