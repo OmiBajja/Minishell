@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 18:09:51 by pafranci          #+#    #+#             */
-/*   Updated: 2025/07/08 13:42:49 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/12 03:38:11 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static void	setup_pipex(t_pipex *pipex)
+static int	setup_pipex(t_pipex *pipex)
 {
 	pipex->child = ft_calloc(1, sizeof(t_child));
 	if (!pipex->child)
-		perror_exit();
+		return (EXIT_FAILURE);
 	pipex->child->infile_path = pipex->infile;
 	pipex->child->cmds = pipex->cmds;
 	pipex->child->cmd_count = pipex->cmd_count;
@@ -24,9 +24,10 @@ static void	setup_pipex(t_pipex *pipex)
 	pipex->child->pipes = create_pipes(pipex->cmd_count - 1);
 	pipex->child->pid = ft_calloc(sizeof(pid_t), pipex->cmd_count);
 	if (!pipex->child->pid)
-		perror_exit();
+		return (free(pipex->child), EXIT_FAILURE);
 	signal(SIGINT, SIG_IGN);
 	signal(SIGQUIT, SIG_IGN);
+	return (EXIT_SUCCESS);
 }
 
 static void	fork_children(t_pipex *pipex)
@@ -57,7 +58,8 @@ static void	end_pipex(t_pipex *p)
 
 void	pipex(t_pipex *pipex)
 {
-	setup_pipex(pipex);
+	if (setup_pipex(pipex))
+		return ;
 	fork_children(pipex);
 	end_pipex(pipex);
 	signal_handling();

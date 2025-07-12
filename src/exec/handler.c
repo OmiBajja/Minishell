@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handler.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 19:53:35 by pafranci          #+#    #+#             */
-/*   Updated: 2025/07/12 00:57:17 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/12 04:03:51 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,43 +45,37 @@ static void	exec_builtin(t_parsing *node, t_mini *mini)
 
 static void	exec_single_builtin(t_parsing *head, t_mini *mini)
 {
-	int	saved_in;
-	int	saved_out;
-
-	saved_in = dup(STDIN_FILENO);
-	saved_out = dup(STDOUT_FILENO);
+	mini->saved_in = dup(STDIN_FILENO);
+	mini->saved_out = dup(STDOUT_FILENO);
 	if (setup_redirs_list(head->redirs, NULL, mini) != 0)
 	{
 		mini->status = 1;
-		dup2(saved_in, STDIN_FILENO);
-		dup2(saved_out, STDOUT_FILENO);
-		close(saved_in);
-		close(saved_out);
+		dup2(mini->saved_in, STDIN_FILENO);
+		dup2(mini->saved_out, STDOUT_FILENO);
+		close(mini->saved_in);
+		close(mini->saved_out);
 		return ;
 	}
 	exec_builtin(head, mini);
 	fflush(stdout);
-	dup2(saved_in, STDIN_FILENO);
-	dup2(saved_out, STDOUT_FILENO);
-	close(saved_in);
-	close(saved_out);
+	dup2(mini->saved_in, STDIN_FILENO);
+	dup2(mini->saved_out, STDOUT_FILENO);
+	close(mini->saved_in);
+	close(mini->saved_out);
 }
 
 static void	no_cmd_redir(t_parsing *head, t_mini *mini)
 {
-	int	saved_in;
-	int	saved_out;
-
-	saved_in = dup(STDIN_FILENO);
-	saved_out = dup(STDOUT_FILENO);
+	mini->saved_in = dup(STDIN_FILENO);
+	mini->saved_out = dup(STDOUT_FILENO);
 	if (setup_redirs_list(head->redirs, NULL, mini) < 0)
 		mini->status = 1;
 	else
 		mini->status = 0;
-	dup2(saved_in, STDIN_FILENO);
-	dup2(saved_out, STDOUT_FILENO);
-	close(saved_in);
-	close(saved_out);
+	dup2(mini->saved_in, STDIN_FILENO);
+	dup2(mini->saved_out, STDOUT_FILENO);
+	close(mini->saved_in);
+	close(mini->saved_out);
 }
 
 void	exec_handler(t_parsing *head, char **envp, t_mini *mini)

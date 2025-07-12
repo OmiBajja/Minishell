@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 00:47:38 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/12 00:49:24 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/12 03:19:28 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,23 +83,33 @@ char	**ft_env_sort(char **export_list)
 	return (env_export);
 }
 
-void	add_to_exp(t_mini *mini, char *arg, int result)
+int	add_to_exp(t_mini *mini, char *arg, int result)
 {
 	char	**new_env;
 	char	**new_exp;
 
+	new_exp = NULL;
 	if (result == EXPORT_ADD_EXPORT || result == EXPORT_ADD_BOTH)
 	{
 		new_exp = ft_strsjoin(mini->exp_dup, arg);
+		if (!new_exp)
+			return (EXIT_FAILURE);
 		ft_freestrs(mini->exp_dup);
 		mini->exp_dup = new_exp;
 	}
 	if (result == EXPORT_ADD_ENV || result == EXPORT_ADD_BOTH)
 	{
 		new_env = ft_strsjoin(mini->env, arg);
+		if (!new_env)
+		{
+			if (new_exp)
+				ft_freestrs(new_exp);
+			return (EXIT_FAILURE);
+		}
 		ft_freestrs(mini->env);
 		mini->env = new_env;
 	}
+	return (EXIT_SUCCESS);
 }
 
 int	ft_export(t_mini *mini, char **command)
@@ -108,21 +118,31 @@ int	ft_export(t_mini *mini, char **command)
 	int		i;
 
 	i = 0;
+	if (!command)
+		return (EXIT_FAILURE);
 	if (!mini->exp_dup)
 		mini->exp_dup = ft_strsndup(mini->env, ft_strslen(mini->env));
+	if (!mini->exp_dup)
+		return (EXIT_FAILURE);
 	if (!command[1])
 		export_printer(mini);
 	while (command[++i])
 	{
-		if (ft_export_checker(command[i]) == 1)
-			return (1);
+		if (ft_export_checker(command[i]))
+			return (EXIT_FAILURE);
 		result = is_to_add_replace(mini->exp_dup, command[i]);
+		if (result == EXIT_FAILURE)
+			return (EXIT_FAILURE);
 		if (result == EXPORT_ADD_BOTH || result == EXPORT_ADD_EXPORT)
 		{
-			add_to_exp(mini, command[i], result);
+			if (add_to_exp(mini, command[i], result))
+				return (EXIT_FAILURE);
 		}
 		else if (result == EXPORT_REPLACE)
-			replace_to_exp(mini, command[i], -1);
+		{
+			if (replace_to_exp(mini, command[i], -1))
+				return (EXIT_FAILURE);
+		}
 	}
-	return (0);
+	return (EXIT_SUCCESS);
 }

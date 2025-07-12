@@ -6,7 +6,7 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 17:49:14 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/09 18:46:01 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/12 01:44:32 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,22 @@ char	*unquote_handler(char *input, int *i, t_mini *mini)
 
 char	*word_handler(char *input, int *i, t_mini *mini)
 {
+	char	*word;
+
 	if (input[*i] == '\'' || input[*i] == '"')
-		return (quote_handler(input, i, mini->env, mini));
+	{
+		word = quote_handler(input, i, mini->env, mini);
+		if (!word)
+			return (NULL);
+		else
+			return (word);
+	}
 	else
-		return (unquote_handler(input, i, mini));
+	{
+		word = unquote_handler(input, i, mini);
+		if (!word)
+			return (NULL);
+		else
+			return (word);
+	}
 }

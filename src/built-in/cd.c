@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 05:55:38 by pafranci          #+#    #+#             */
-/*   Updated: 2025/07/10 21:30:44 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/12 04:29:50 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static char	*ft_get_env_val(char **env, const char *key)
 	int	i;
 	int	key_len;
 
+	if (!env | !key)
+		return (NULL);	
 	key_len = ft_strlen(key);
 	i = 0;
 	while (env[i])
@@ -59,17 +61,21 @@ static int	ft_cd_do(t_mini *mini, const char *target, const char *old_pwd)
 	if (chdir(target) != 0)
 	{
 		printf("cd: %s: No such file or directory\n", target);
-		return (1);
+		return (EXIT_FAILURE);
 	}
 	if (!getcwd(cwd, sizeof(cwd)))
 	{
 		perror("cd");
-		return (1);
+		return (EXIT_FAILURE);
 	}
 	if (old_pwd)
-		ft_replace_env(&mini->env, "OLDPWD", old_pwd);
-	ft_replace_env(&mini->env, "PWD", cwd);
-	return (0);
+	{
+		if (ft_replace_env(&mini->env, "OLDPWD", old_pwd))
+			return (EXIT_FAILURE);
+	}
+	if (ft_replace_env(&mini->env, "PWD", cwd))
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }
 
 int	ft_cd(t_mini *mini, char **args)
@@ -79,12 +85,14 @@ int	ft_cd(t_mini *mini, char **args)
 	int		arg_count;
 
 	arg_count = 0;
+	if (!args)
+		return (EXIT_FAILURE);
 	while (args[arg_count])
 		arg_count++;
 	if (arg_count > 2)
 	{
 		ft_putstr_fd("cd: too many arguments\n", 2);
-		return (1);
+		return (EXIT_FAILURE);
 	}
 	target = ft_cd_get_target(mini, args);
 	if (!target)
@@ -93,7 +101,7 @@ int	ft_cd(t_mini *mini, char **args)
 			printf("cd: %s not set\n", "OLDPWD");
 		else
 			printf("cd: %s not set\n", "HOME");
-		return (1);
+		return (EXIT_FAILURE);
 	}
 	old_pwd = ft_get_env_val(mini->env, "PWD");
 	return (ft_cd_do(mini, target, old_pwd));

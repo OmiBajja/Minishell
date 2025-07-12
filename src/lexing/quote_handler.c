@@ -6,7 +6,7 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 11:30:23 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/11 23:02:55 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/12 01:41:26 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ char	*double_quote_handler(char *input, int *index, char **env, t_mini *mini)
 			if (is_extendable(temp, 1) != -1)
 			{
 				quote = ft_extender(temp, env, mini, 1);
+				if (!quote)
+					return (free(temp), NULL);
 				free(temp);
 				temp = quote;
 			}
@@ -69,9 +71,17 @@ char	*quote_handler(char *input, int *index, char **env, t_mini *mini)
 	char	*quote;
 
 	if (input[*index] == '\'')
+	{
 		quote = single_quote_handler(input, index);
+		if (!quote)
+			return (NULL);
+	}
 	else if (input[*index] == '"')
+	{
 		quote = double_quote_handler(input, index, env, mini);
+		if (!quote)
+			return (NULL);
+	}
 	else
 		quote = NULL;
 	return (quote);
