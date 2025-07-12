@@ -60,8 +60,8 @@ static int	ft_cd_do(t_mini *mini, const char *target, const char *old_pwd)
 
 	if (chdir(target) != 0)
 	{
-		printf("cd: %s: No such file or directory\n", target);
-		return (EXIT_FAILURE);
+		ft_printf_fd(2, "cd: %s: No such file or directory\n", target);
+		return (1);
 	}
 	if (!getcwd(cwd, sizeof(cwd)))
 	{
@@ -91,16 +91,16 @@ int	ft_cd(t_mini *mini, char **args)
 		arg_count++;
 	if (arg_count > 2)
 	{
-		ft_putstr_fd("cd: too many arguments\n", 2);
+		ft_printf_fd(2, "cd: too many arguments\n");
 		return (EXIT_FAILURE);
 	}
 	target = ft_cd_get_target(mini, args);
 	if (!target)
 	{
 		if (args[1])
-			printf("cd: %s not set\n", "OLDPWD");
+			ft_printf_fd(2, "cd: %s not set\n", "OLDPWD");
 		else
-			printf("cd: %s not set\n", "HOME");
+			ft_printf_fd(2, "cd: %s not set\n", "HOME");
 		return (EXIT_FAILURE);
 	}
 	old_pwd = ft_get_env_val(mini->env, "PWD");

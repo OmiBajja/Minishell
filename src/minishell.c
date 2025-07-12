@@ -81,8 +81,6 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	mini = ft_calloc(1, sizeof(t_mini));
-	if (!mini)
-		return (EXIT_FAILURE);
 	if (envp && envp[0])
 	{
 		mini->env = ft_strsndup(envp, ft_strslen(envp));
