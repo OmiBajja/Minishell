@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handler.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 19:53:35 by pafranci          #+#    #+#             */
-/*   Updated: 2025/07/12 04:03:51 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/12 21:53:54 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ static void	exec_single_builtin(t_parsing *head, t_mini *mini)
 		return ;
 	}
 	exec_builtin(head, mini);
-	fflush(stdout);
 	dup2(mini->saved_in, STDIN_FILENO);
 	dup2(mini->saved_out, STDOUT_FILENO);
 	close(mini->saved_in);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 05:55:38 by pafranci          #+#    #+#             */
-/*   Updated: 2025/07/12 04:29:50 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/12 21:50:40 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static char	*ft_cd_get_target(t_mini *mini, char **args)
 		target = ft_get_env_val(mini->env, "OLDPWD");
 		if (!target)
 			return (NULL);
-		printf("%s\n", target);
+		ft_printf_fd(STDOUT_FILENO, "%s\n", target);
 	}
 	else
 		target = args[1];

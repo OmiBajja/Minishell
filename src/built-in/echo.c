@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 00:47:17 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/12 02:42:53 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/12 21:49:47 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ void	printer(char *to_print, int nl)
 	while (to_print[++i])
 	{
 		if (to_print[i] != '\\')
-			printf("%c", to_print[i]);
+			ft_printf_fd(STDOUT_FILENO, "%c", to_print[i]);
 	}
 	if (nl == 0)
-		printf("\n");
+		ft_printf_fd(STDOUT_FILENO, "\n");
 }
 
 int	where_print(char **inputs)
@@ -88,7 +88,7 @@ int	ft_echo(char **inputs)
 		return (EXIT_FAILURE);
 	if (!inputs[0] || !inputs[1])
 	{
-		printf("\n");
+		ft_printf_fd(STDOUT_FILENO, "\n");
 		return (EXIT_SUCCESS);
 	}
 	nl = is_newline(&inputs[1]);
