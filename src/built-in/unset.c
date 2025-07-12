@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 00:54:01 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/12 03:23:29 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/12 21:23:27 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,14 +80,15 @@ int	ft_unset(t_mini *mini, char **command)
 		return (EXIT_FAILURE);
 	while (command[++i])
 	{
-		if (is_it_in_env(mini->exp_dup, command[i]))
-			return (EXIT_FAILURE);
-		mini->exp_dup = ft_cut_prep(mini->exp_dup, command[i]);
-		if (!mini->exp_dup)
-			return (EXIT_FAILURE);
-		mini->env = ft_cut_prep(mini->env, command[i]);
-		if (!mini->env)
-			return (EXIT_FAILURE);
+		if (is_it_in_env(mini->exp_dup, command[i]) == EXIT_SUCCESS)
+		{
+			mini->exp_dup = ft_cut_prep(mini->exp_dup, command[i]);
+			if (!mini->exp_dup)
+				return (EXIT_FAILURE);
+			mini->env = ft_cut_prep(mini->env, command[i]);
+			if (!mini->env)
+				return (EXIT_FAILURE);
+		}
 	}
 	return (EXIT_SUCCESS);
 }

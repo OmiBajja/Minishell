@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   setup_redir.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 10:21:17 by pafranci          #+#    #+#             */
-/*   Updated: 2025/07/11 23:51:44 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/12 21:34:37 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ int	setup_redirs_list(t_redir *r, t_child *child, t_mini *mini)
 		if (fd < 0)
 		{
 			perror(r->file);
-			master_cleaner(mini, child);
+			if (child)
+				master_cleaner(mini, child);
 			return (1);
 		}
 		if (r->type == TOKEN_REDIR_IN || r->type == TOKEN_HEREDOC_IN)
