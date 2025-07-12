@@ -6,7 +6,7 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:02:13 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/12 00:40:59 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/12 04:23:15 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ typedef struct s_mini
 	t_lex		*lex;
 	char		**export;
 	char		**exp_dup;
+	int			saved_in;
+	int			saved_out;	
 }	t_mini;
 
 typedef struct s_child
@@ -98,7 +100,7 @@ typedef struct s_pipex
 //=== Lexer Functions ===//
 t_lex		*lexing(char *input, t_mini *mini);
 t_lex		*create_token(char *value, int type);
-void		add_to_list(t_lex **head, t_lex *new);
+int			add_to_list(t_lex **head, t_lex *new);
 char		*word_lexer(char *input, int *start, t_mini *mini);
 char		*unquote_handler(char *input, int *i, t_mini *mini);
 char		*word_handler(char *input, int *i, t_mini *mini);
@@ -114,7 +116,7 @@ char		**new_args(char **args, char *new_arg);
 t_lex		*command_processor(t_parsing *cmd, t_lex *tokens);
 t_lex		*redirection_machine(t_parsing *cmd, t_lex *tokens);
 void		append_redir(t_parsing *cmd, int type, char *file);
-void		command_machine(t_parsing *cmd, t_lex *token);
+int			command_machine(t_parsing *cmd, t_lex *token);
 void		print_all_commands(t_parsing *head);
 void		free_parse(t_parsing *parse);
 
@@ -156,17 +158,17 @@ void		cleanup_heredoc(t_parsing *head);
 //=== Environment Helpers ===//
 char		*find_env_paths(char **env);
 char		*find_cmd_in_pahts(const char *cmd, char **env_paths_tab);
-void		ft_replace_env(char ***env, const char *key, const char *value);
+int			ft_replace_env(char ***env, const char *key, const char *value);
 void		ft_shllvl(t_mini *mini);
 int			ft_export_checker(char *str);
 char		**ft_export_expand(char **env_sorted);
 char		**ft_env_sort(char **export_list);
-void		add_to_exp(t_mini *mini, char *arg, int result);
+int			add_to_exp(t_mini *mini, char *arg, int result);
 void		print_and_free(char **export_list);
 void		export_printer(t_mini *mini);
 int			is_it_in_env(char **exp_list, char *to_find);
 int			is_to_add_replace(char **env, char *word);
-void		replace_to_exp(t_mini *mini, char *to_replace, int equals_index);
+int			replace_to_exp(t_mini *mini, char *to_replace, int equals_index);
 char		*status_code(t_mini *mini);
 
 //=== String & Utility Functions ===//

@@ -6,7 +6,7 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 00:47:17 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/11 22:58:46 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/12 02:42:53 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,18 +84,22 @@ int	ft_echo(char **inputs)
 	int		i;
 
 	i = 0;
+	if (!inputs)
+		return (EXIT_FAILURE);
 	if (!inputs[0] || !inputs[1])
 	{
 		printf("\n");
-		return (0);
+		return (EXIT_SUCCESS);
 	}
 	nl = is_newline(&inputs[1]);
 	if (nl == 1 && inputs[2])
 		i = where_print(&inputs[1]);
 	else if (nl == 1 && !inputs[2])
-		return (1);
+		return (EXIT_FAILURE);
 	result = ft_strscomp(&inputs[i + 1]);
+	if (!result)
+		return (EXIT_FAILURE);
 	printer(result, nl);
 	free(result);
-	return (0);
+	return (EXIT_SUCCESS);
 }
