@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 18:48:20 by pafranci          #+#    #+#             */
-/*   Updated: 2025/07/11 17:04:14 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/12 01:43:20 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	exec_cmd(char **cmd_args, char const *paths, t_mini *mini,
 	if (!cmd_args || !cmd_args[0] ||!*cmd_args[0])
 	{
 		child_cleaner(child, mini);
-		exit(127);
+		exit(0);
 	}
 	full_cmd = get_full_cmd(cmd_args, paths, mini, child);
 	stat(full_cmd, &buf);

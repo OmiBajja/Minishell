@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:02:04 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/11 23:08:23 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/12 03:01:08 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,6 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	mini = ft_calloc(1, sizeof(t_mini));
-	if (!mini)
-		return (EXIT_FAILURE);
 	if (envp && envp[0])
 	{
 		mini->env = ft_strsndup(envp, ft_strslen(envp));

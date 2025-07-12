@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:40:03 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/12 00:57:31 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/12 03:07:51 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ t_lex	*redirection_machine(t_parsing *cmd, t_lex *tokens)
 	next = tokens->next;
 	if (next == NULL || next->type != TOKEN_COMMAND)
 	{
-		printf("Broski where the filename at?\n");
+		ft_printf_fd(2, "Broski where the filename at?\n");
 		return (NULL);
 	}
 	if (tokens->type == TOKEN_REDIR_IN

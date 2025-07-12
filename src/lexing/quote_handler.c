@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quote_handler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 11:30:23 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/11 23:02:55 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/12 03:06:45 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*single_quote_handler(char *input, int *index)
 		}
 	}
 	*index = fin;
-	printf("You forgot quotes not cool\n");
+	ft_printf_fd(2, "You forgot quotes not cool\n");
 	return (NULL);
 }
 
@@ -61,7 +61,7 @@ char	*double_quote_handler(char *input, int *index, char **env, t_mini *mini)
 		}
 	}
 	*index = fin;
-	return (printf("You forgot quotes not cool\n"), NULL);
+	return (ft_printf_fd(2, "You forgot quotes not cool\n"), NULL);
 }
 
 char	*quote_handler(char *input, int *index, char **env, t_mini *mini)
