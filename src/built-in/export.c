@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 00:47:38 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/12 21:49:00 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/13 23:59:58 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,10 +104,14 @@ int	add_to_exp(t_mini *mini, char *arg, int result)
 		{
 			if (new_exp)
 				ft_freestrs(new_exp);
+			mini->exp_dup = NULL;
 			return (EXIT_FAILURE);
 		}
-		ft_freestrs(mini->env);
-		mini->env = new_env;
+		else
+		{
+			ft_freestrs(mini->env);
+			mini->env = new_env;
+		}
 	}
 	return (EXIT_SUCCESS);
 }

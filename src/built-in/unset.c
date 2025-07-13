@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 00:54:01 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/12 21:23:27 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/13 17:23:14 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	is_it_in_env(char **exp_list, char *to_find)
 	int		i;
 
 	i = -1;
-	if (!exp_list | !to_find)
+	if (!exp_list || !to_find)
 		return (EXIT_FAILURE);
 	while (exp_list[++i])
 	{
@@ -72,7 +72,7 @@ int	ft_unset(t_mini *mini, char **command)
 	int		i;
 
 	i = 0;
-	if (!command[i + 1])
+	if (!command || !command[i + 1] || !mini->env)
 		return (EXIT_SUCCESS);
 	if (!mini->exp_dup)
 		mini->exp_dup = ft_strsndup(mini->env, ft_strslen(mini->env));
@@ -80,15 +80,14 @@ int	ft_unset(t_mini *mini, char **command)
 		return (EXIT_FAILURE);
 	while (command[++i])
 	{
-		if (is_it_in_env(mini->exp_dup, command[i]) == EXIT_SUCCESS)
-		{
-			mini->exp_dup = ft_cut_prep(mini->exp_dup, command[i]);
-			if (!mini->exp_dup)
-				return (EXIT_FAILURE);
-			mini->env = ft_cut_prep(mini->env, command[i]);
-			if (!mini->env)
-				return (EXIT_FAILURE);
-		}
+		if (is_it_in_env(mini->exp_dup, command[i]))
+			return (EXIT_SUCCESS);
+		mini->exp_dup = ft_cut_prep(mini->exp_dup, command[i]);
+		if (!mini->exp_dup)
+			return (EXIT_FAILURE);
+		mini->env = ft_cut_prep(mini->env, command[i]);
+		if (!mini->env)
+			return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);
 }

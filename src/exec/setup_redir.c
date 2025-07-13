@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 10:21:17 by pafranci          #+#    #+#             */
-/*   Updated: 2025/07/12 21:34:37 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/13 13:18:47 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ int	setup_redirs_list(t_redir *r, t_child *child, t_mini *mini)
 {
 	int		fd;
 
+	(void)mini;
+	(void)child;
 	while (r)
 	{
 		if (r->type == TOKEN_REDIR_IN || r->type == TOKEN_HEREDOC_IN)
@@ -43,8 +45,6 @@ int	setup_redirs_list(t_redir *r, t_child *child, t_mini *mini)
 		if (fd < 0)
 		{
 			perror(r->file);
-			if (child)
-				master_cleaner(mini, child);
 			return (1);
 		}
 		if (r->type == TOKEN_REDIR_IN || r->type == TOKEN_HEREDOC_IN)
@@ -74,6 +74,9 @@ void	apply_redirs(t_child *child, t_parsing *cmd, t_mini *mini)
 {
 	apply_pipe_redirs(child);
 	if (setup_redirs_list(cmd->redirs, child, mini) != 0)
+	{
+		master_cleaner(mini, child);
 		exit(EXIT_FAILURE);
+	}
 	apply_default_infile(child, cmd);
 }

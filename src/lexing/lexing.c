@@ -6,7 +6,7 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 10:53:13 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/12 01:18:32 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/13 13:05:20 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ static int	handle_word(t_lex **tokens, char *input, int *i, t_mini *mini)
 			if (add_to_list(tokens, create_token(word, TOKEN_COMMAND)))
 				return (EXIT_FAILURE);
 		}
+		else
+			free (word);
 		return (EXIT_SUCCESS);
 	}
 	else
