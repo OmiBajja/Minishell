@@ -6,28 +6,44 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 09:16:35 by pafranci          #+#    #+#             */
-/*   Updated: 2025/07/11 20:29:50 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/14 00:16:19 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+#include <readline/history.h>
 
 char	*handle_heredoc(const char *delim, t_mini *mini)
 {
 	char	*line;
 	int		fd;
 	char	*filename;
+	size_t	len;
 
 	filename = ft_strdup("/tmp/.minishell_heredoc");
 	if (!filename)
 		return (NULL);
 	fd = open(filename, O_CREAT | O_WRONLY | O_TRUNC, 0600);
 	if (fd < 0)
-		return (perror("heredoc"), NULL);
+		return (perror("heredoc"), free(filename), NULL);
 	while (42)
 	{
-		line = readline("> ");
-		if (!line || !ft_strcmp(line, delim))
+		ft_printf_fd(STDOUT_FILENO, "> ");
+		line = get_next_line(STDIN_FILENO);
+		if (g_sig == SIGINT)
+		{
+			close(fd);
+			free(line);
+			unlink(filename);
+			free(filename);
+			return (NULL);
+		}
+		if (!line)
+			break ;
+		len = ft_strlen(line);
+		if (len > 0 && line[len - 1] == '\n')
+			line[len - 1] = '\0';
+		if (ft_strcmp(line, delim) == 0)
 		{
 			free(line);
 			break ;
@@ -38,7 +54,9 @@ char	*handle_heredoc(const char *delim, t_mini *mini)
 		write(fd, "\n", 1);
 		free(line);
 	}
-	return (close(fd), filename);
+	close(fd);
+	write(STDOUT_FILENO, "\n", 1);
+	return (filename);
 }
 
 char	*prep_heredoc_get_infile(t_parsing *head, int *cmd_count, t_mini *mini)
@@ -58,6 +76,8 @@ char	*prep_heredoc_get_infile(t_parsing *head, int *cmd_count, t_mini *mini)
 			if (r->type == TOKEN_HEREDOC_IN)
 			{
 				tmp = handle_heredoc(r->file, mini);
+				if (!tmp)
+					return (NULL);
 				free(r->file);
 				r->file = tmp;
 			}

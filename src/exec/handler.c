@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 19:53:35 by pafranci          #+#    #+#             */
-/*   Updated: 2025/07/12 21:53:54 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/13 23:57:32 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,17 @@ void	exec_handler(t_parsing *head, char **envp, t_mini *mini)
 {
 	t_pipex	p;
 	int		i;
+	char	*tmp;
 
 	if (head && head->cmd == NULL && head->redirs)
 	{
-		prep_heredoc_get_infile(head, &i, mini);
+		tmp = prep_heredoc_get_infile(head, &i, mini);
+		if (!tmp && g_sig == SIGINT)
+		{
+			mini->status = 128 + SIGINT;
+			g_sig = 0;
+			return ;
+		}
 		no_cmd_redir(head, mini);
 		cleanup_heredoc(head);
 		return ;
@@ -95,6 +102,12 @@ void	exec_handler(t_parsing *head, char **envp, t_mini *mini)
 		return ;
 	}
 	p.infile = prep_heredoc_get_infile(head, &p.cmd_count, mini);
+	if (!p.infile && g_sig == SIGINT)
+	{
+		mini->status = 128 + SIGINT;
+		g_sig = 0;
+		return ;
+	}
 	p.cmds = head;
 	p.env = envp;
 	p.mini = mini;

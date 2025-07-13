@@ -13,7 +13,8 @@ OBJ_DIR = obj/
 LIB = ft_calloc.c ft_isascii.c ft_itoa.c ft_memset.c ft_putnbr_fd.c ft_putnbr.c ft_strchr.c ft_strjoin.c ft_strlen.c ft_strnstr.c ft_substr.c ft_atoi.c ft_isalnum.c ft_isdigit.c ft_memcpy.c ft_memcmp.c ft_memchr.c\
 ft_putchar_fd.c ft_putstr_fd.c ft_putchar.c ft_putstr.c ft_strdup.c ft_strlcat.c ft_strmapi.c ft_strrchr.c ft_tolower.c ft_bzero.c ft_isalpha.c ft_isprint.c ft_memmove.c ft_putendl_fd.c ft_split.c\
 ft_striteri.c ft_strlcpy.c ft_strncmp.c ft_strtrim.c ft_toupper.c ft_putchar.c ft_strsndup.c ft_printf.c ft_putchar_pf.c ft_putstr_pf.c ft_printadress.c ft_putnbr_pf.c ft_putnbr_upf.c ft_putnbrhexalow.c ft_putnbrhexaupp.c ft_strslen.c\
-ft_strstr.c ft_split_str.c ft_strcmp.c ft_atoi_long.c ft_itoa_long.c ft_putchar_pfd.c ft_printadress_fd.c ft_printf_fd.c ft_putnbr_pfd.c ft_putnbr_upfd.c ft_putnbrhexalow_fd.c ft_putnbrhexaupp_fd.c ft_putstr_pfd.c
+ft_strstr.c ft_split_str.c ft_strcmp.c ft_atoi_long.c ft_itoa_long.c ft_putchar_pfd.c ft_printadress_fd.c ft_printf_fd.c ft_putnbr_pfd.c ft_putnbr_upfd.c ft_putnbrhexalow_fd.c ft_putnbrhexaupp_fd.c ft_putstr_pfd.c\
+get_next_line_bonus.c get_next_line_utils_bonus.c
 
 BONUS = ft_lstnew_bonus.c ft_lstadd_front_bonus.c ft_lstsize_bonus.c ft_lstlast_bonus.c ft_lstadd_back_bonus.c ft_lstdelone_bonus.c ft_lstclear_bonus.c ft_lstiter_bonus.c ft_lstmap_bonus.c 
 

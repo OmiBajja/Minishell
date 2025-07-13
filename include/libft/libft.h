@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 16:48:50 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/10 21:42:05 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/13 23:31:00 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,12 @@
 # include <stdint.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <stdbool.h>
+# include <stdio.h>
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+# endif
 
 // KOLOR
 # define BLACK "\033[0;30m"
@@ -57,6 +63,16 @@ typedef struct s_list
 	void			*content;
 	struct s_list	*next;
 }					t_list;
+
+char	*ft_strchr_gnl(const char *s, int c);
+char	*ft_strjoin_gnl(char *s1, char *s2);
+size_t	ft_strlen_sizet(char const *str);
+char	*ft_strdup_gnl(const char *s);
+char	*ft_substr_gnl(char const *s, unsigned int start, size_t len);
+char	*read_next_line(int fd, char *whats_left);
+char	*crop_next_line(char *whats_left);
+char	*update_whats_left(char *whats_left);
+char	*get_next_line(int fd);
 
 /* Alloue de la mémoire et l'initialise à zéro */
 void				*ft_calloc(size_t elementCount, size_t elementSize);
