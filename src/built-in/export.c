@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 00:47:38 by obajja            #+#    #+#             */
 /*   Updated: 2025/07/13 23:59:58 by obajja           ###   ########.fr       */
@@ -20,7 +20,7 @@ void	print_and_free(char **export_list)
 	if (export_list)
 	{
 		while (export_list[++i])
-			printf("%s\n", export_list[i]);
+			ft_printf_fd(STDOUT_FILENO, "%s\n", export_list[i]);
 		ft_freestrs(export_list);
 		export_list = NULL;
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:02:04 by obajja            #+#    #+#             */
-/*   Updated: 2025/06/28 16:37:21 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/12 21:48:11 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	ctrlc_handler(int sig)
 {
 	sig = 130;
 	g_sig = sig;
-	printf("\n");
+	ft_printf_fd(STDOUT_FILENO, "\n");
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();

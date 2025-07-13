@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 00:47:31 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/10 21:56:33 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/12 21:49:24 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	ft_exit(t_mini *mini, char **args)
 {
 	int	exit_code;
 
-	printf("exit\n");
+	ft_printf_fd(STDOUT_FILENO, "exit\n");
 	if (args[1])
 	{
 		if (num_check(args[1]) == 1)
