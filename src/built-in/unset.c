@@ -6,7 +6,7 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 00:54:01 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/12 03:23:29 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/13 13:11:34 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	ft_unset(t_mini *mini, char **command)
 	while (command[++i])
 	{
 		if (is_it_in_env(mini->exp_dup, command[i]))
-			return (EXIT_FAILURE);
+			return (EXIT_SUCCESS);
 		mini->exp_dup = ft_cut_prep(mini->exp_dup, command[i]);
 		if (!mini->exp_dup)
 			return (EXIT_FAILURE);
