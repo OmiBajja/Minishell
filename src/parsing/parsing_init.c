@@ -6,7 +6,7 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:40:03 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/12 02:27:10 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/14 11:42:04 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,7 @@ char	**new_args(char **args, char *new_arg)
 
 	i = 0;
 	if (!args)
-	{
-		all_args = ft_calloc(sizeof(char *), 2);
-		if (!all_args)
-			return (NULL);
-		all_args[0] = ft_strdup(new_arg);
-		if (!all_args[0])
-			return (NULL);
-		all_args[1] = NULL;
-		return (all_args);
-	}
+		return (create_args(new_arg));
 	while (args[i])
 		i++;
 	all_args = ft_calloc(sizeof(char *), (i + 2));
