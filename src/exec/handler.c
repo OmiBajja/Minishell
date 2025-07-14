@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 19:53:35 by pafranci          #+#    #+#             */
-/*   Updated: 2025/07/14 16:56:14 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/14 17:23:42 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,5 +99,4 @@ void	exec_handler(t_parsing *head, char **envp, t_mini *mini)
 		return ;
 	}
 	setup_p(&p, head, envp, mini);
-	
 }

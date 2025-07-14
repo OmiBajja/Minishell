@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:02:13 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/14 16:59:22 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/14 17:23:24 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,6 @@ void		exec_cmd(char **cmd_args, char const *paths,
 				t_mini *mini, t_child *child);
 bool		is_builtin(const char *cmd);
 void		close_saved_inout(t_mini *mini);
-
 
 //=== Pipex Helpers ===//
 void		free_pipex(int **pipes, int cmd_count, pid_t *pid);
