@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quote_handler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 11:30:23 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/12 01:41:26 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/14 13:52:53 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,7 @@ char	*double_quote_handler(char *input, int *index, char **env, t_mini *mini)
 				free(temp);
 				temp = quote;
 			}
-			quote = ft_dequoter(temp);
-			*index = fin + 1;
-			return (quote);
+			return (quote = ft_dequoter(temp), *index = fin + 1, quote);
 		}
 	}
 	*index = fin;
