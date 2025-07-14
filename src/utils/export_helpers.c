@@ -6,7 +6,7 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 18:25:10 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/12 02:59:28 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/14 13:01:23 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,37 +32,21 @@ void	export_printer(t_mini *mini)
 
 int	replace_to_exp(t_mini *mini, char *to_replace, int equals_index)
 {
-	int	i;
+	char	*variable_name;
 
-	i = -1;
 	while (to_replace[++equals_index] != '=')
 		;
-	while (mini->env[++i])
-	{
-		if (!ft_strncmp(mini->env[i], to_replace, equals_index))
-		{
-			free(mini->env[i]);
-			mini->env[i] = ft_strdup(to_replace);
-			if (!mini->env[i])
-				return (EXIT_FAILURE);
-		}
-	}
-	if (!is_it_in_env(mini->env, ft_strndup(to_replace, equals_index)))
+	variable_name = ft_strndup(to_replace, equals_index);
+	if (env_replacer(mini, to_replace, equals_index))
+		return (EXIT_FAILURE);
+	if (!is_it_in_env(mini->env, variable_name))
 	{
 		if (add_to_exp(mini, to_replace, EXPORT_ADD_ENV))
-			return (EXIT_FAILURE);
+			return (free(variable_name), EXIT_FAILURE);
 	}
-	i = -1;
-	while (mini->exp_dup[++i])
-	{
-		if (!ft_strncmp(mini->exp_dup[i], to_replace, equals_index))
-		{
-			free(mini->exp_dup[i]);
-			mini->exp_dup[i] = ft_strdup(to_replace);
-			if (!mini->exp_dup[i])
-				return (EXIT_FAILURE);
-		}
-	}
+	free(variable_name);
+	if (export_replacer(mini, to_replace, equals_index))
+		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
 
@@ -102,7 +86,7 @@ int	ft_export_checker(char *str)
 	{
 		ft_printf_fd(2,
 			"minishell: export: '%s': not a valid identifier\n", str);
-		return (1);
+		return (EXIT_FAILURE);
 	}
 	while (str[++i] && str[i] != '=')
 	{
@@ -110,8 +94,8 @@ int	ft_export_checker(char *str)
 		{
 			ft_printf_fd(2,
 				"minishell: export: '%s': not a valid identifier\n", str);
-			return (1);
+			return (EXIT_FAILURE);
 		}
 	}
-	return (0);
+	return (EXIT_SUCCESS);
 }
