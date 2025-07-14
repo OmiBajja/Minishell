@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handler.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 19:53:35 by pafranci          #+#    #+#             */
-/*   Updated: 2025/07/14 17:23:42 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/14 17:47:27 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ static void	no_cmd_redir(t_parsing *head, t_mini *mini)
 
 static void	setup_p(t_pipex *p, t_parsing *head, char **envp, t_mini *mini)
 {
+	p->cmd_count = 0;
 	p->infile = prep_heredoc_get_infile(head, &p->cmd_count, mini);
 	if (!p->infile && g_sig == 130)
 	{
