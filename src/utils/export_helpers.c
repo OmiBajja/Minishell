@@ -6,7 +6,7 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 18:25:10 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/14 13:01:23 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/14 15:54:13 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,14 @@ int	replace_to_exp(t_mini *mini, char *to_replace, int equals_index)
 	while (to_replace[++equals_index] != '=')
 		;
 	variable_name = ft_strndup(to_replace, equals_index);
-	if (env_replacer(mini, to_replace, equals_index))
-		return (EXIT_FAILURE);
 	if (!is_it_in_env(mini->env, variable_name))
 	{
+		if (env_replacer(mini, to_replace, equals_index))
+			return (EXIT_FAILURE);
+	}
+	else
 		if (add_to_exp(mini, to_replace, EXPORT_ADD_ENV))
 			return (free(variable_name), EXIT_FAILURE);
-	}
 	free(variable_name);
 	if (export_replacer(mini, to_replace, equals_index))
 		return (EXIT_FAILURE);

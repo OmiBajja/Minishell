@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 18:12:03 by pafranci          #+#    #+#             */
-/*   Updated: 2025/07/13 23:30:36 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/14 15:56:03 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ char	*crop_next_line(char *whats_left)
 
 	if (!whats_left || !whats_left[0])
 		return (NULL);
-	line_len = ft_strlen_sizet(whats_left) - (ft_strlen_sizet(ft_strchr_gnl(whats_left, '\n')));
+	line_len = ft_strlen_sizet(whats_left)
+		- (ft_strlen_sizet(ft_strchr_gnl(whats_left, '\n')));
 	if (!ft_strchr_gnl(whats_left, '\n'))
 		line_len = ft_strlen_sizet(whats_left);
 	if (whats_left[line_len] == '\n')
@@ -57,7 +58,8 @@ char	*update_whats_left(char *whats_left)
 	int		j;
 	char	*res;
 
-	i = ft_strlen_sizet(whats_left) - (ft_strlen_sizet(ft_strchr_gnl(whats_left, '\n')));
+	i = ft_strlen_sizet(whats_left)
+		- (ft_strlen_sizet(ft_strchr_gnl(whats_left, '\n')));
 	if (!whats_left[i])
 		return (free(whats_left), NULL);
 	res = (char *)malloc(sizeof(char) * (ft_strlen_sizet(whats_left) - i + 1));
