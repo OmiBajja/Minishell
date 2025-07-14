@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handler.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 19:53:35 by pafranci          #+#    #+#             */
-/*   Updated: 2025/07/14 13:32:00 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/14 14:27:04 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static void	no_cmd_redir(t_parsing *head, t_mini *mini)
 	close(mini->saved_out);
 }
 
-static void	setup_pipex(t_pipex *p, t_parsing *head, char **envp, t_mini *mini)
+static void	setup_p(t_pipex *p, t_parsing *head, char **envp, t_mini *mini)
 {
 	p->infile = prep_heredoc_get_infile(head, &p->cmd_count, mini);
 	if (!p->infile && g_sig == SIGINT)
@@ -106,5 +106,5 @@ void	exec_handler(t_parsing *head, char **envp, t_mini *mini)
 		exec_single_builtin(head, mini);
 		return ;
 	}
-	setup_pipex(&p, head, envp, mini);
+	setup_p(&p, head, envp, mini);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_helpers.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 09:16:35 by pafranci          #+#    #+#             */
-/*   Updated: 2025/07/14 13:32:44 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/14 14:25:34 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ char	*prep_heredoc_get_infile(t_parsing *head, int *cmd_count, t_mini *mini)
 	char		*tmp;
 
 	node = head;
-	count = -1;
+	count = 0;
 	while (node && ++count >= 0)
 	{
 		r = node->redirs;
