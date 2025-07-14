@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 16:48:50 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/13 23:31:00 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/14 16:09:06 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,221 +64,221 @@ typedef struct s_list
 	struct s_list	*next;
 }					t_list;
 
-char	*ft_strchr_gnl(const char *s, int c);
-char	*ft_strjoin_gnl(char *s1, char *s2);
-size_t	ft_strlen_sizet(char const *str);
-char	*ft_strdup_gnl(const char *s);
-char	*ft_substr_gnl(char const *s, unsigned int start, size_t len);
-char	*read_next_line(int fd, char *whats_left);
-char	*crop_next_line(char *whats_left);
-char	*update_whats_left(char *whats_left);
-char	*get_next_line(int fd);
+char			*ft_strchr_gnl(const char *s, int c);
+char			*ft_strjoin_gnl(char *s1, char *s2);
+size_t			ft_strlen_sizet(char const *str);
+char			*ft_strdup_gnl(const char *s);
+char			*ft_substr_gnl(char const *s, unsigned int start, size_t len);
+char			*read_next_line(int fd, char *whats_left);
+char			*crop_next_line(char *whats_left);
+char			*update_whats_left(char *whats_left);
+char			*get_next_line(int fd);
 
 /* Alloue de la mémoire et l'initialise à zéro */
-void				*ft_calloc(size_t elementCount, size_t elementSize);
+void			*ft_calloc(size_t elementCount, size_t elementSize);
 
 /* Vérifie si le caractère est dans la table ASCII */
-int					ft_isascii(int str);
+int				ft_isascii(int str);
 
 /* Duplique un tableau de chaînes de caractères */
-char				**ft_strsndup(char **src, size_t size);
+char			**ft_strsndup(char **src, size_t size);
 
 /* Libère la mémoire d'un tableau de chaînes */
-void				ft_freestrs(char **tab);
+void			ft_freestrs(char **tab);
 
 /* Convertit un entier en chaîne de caractères */
-char				*ft_itoa(int n);
+char			*ft_itoa(int n);
 
-char				*ft_itoa_long(long long n);
+char			*ft_itoa_long(long long n);
 
 /* Affiche un caractère (version pour ft_printf) */
-int					ft_putchar_pf(char c);
+int				ft_putchar_pf(char c);
 
-int					ft_putchar_pfd(int fd, char c);
+int				ft_putchar_pfd(int fd, char c);
 
 /* Affiche une chaîne (version pour ft_printf) */
-int					ft_putstr_pf(char *s);
+int				ft_putstr_pf(char *s);
 
-int					ft_putstr_pfd(int fd, char *s);
+int				ft_putstr_pfd(int fd, char *s);
 
 /* Remplit une zone mémoire avec une valeur donnée */
-void				*ft_memset(void *str, int a, size_t n);
+void			*ft_memset(void *str, int a, size_t n);
 
 /* Écrit un nombre sur un descripteur de fichier */
-void				ft_putnbr_fd(int n, int fd);
+void			ft_putnbr_fd(int n, int fd);
 
 /* Affiche un nombre entier */
-void				ft_putnbr(int n);
+void			ft_putnbr(int n);
 
 /* Recherche un caractère dans une chaîne */
-char				*ft_strchr(const char *str, int tofind);
+char			*ft_strchr(const char *str, int tofind);
 
 /* Concatène deux chaînes de caractères */
-char				*ft_strjoin(char const *s1, char const *s2);
+char			*ft_strjoin(char const *s1, char const *s2);
 
 /* Calcule la longueur d'une chaîne */
-int					ft_strlen(const char *str);
+int				ft_strlen(const char *str);
 
 /* Recherche une sous-chaîne dans une chaîne avec limite */
-char				*ft_strnstr(const char *str, const char *tofind, int n);
+char			*ft_strnstr(const char *str, const char *tofind, int n);
 
 /* Extrait une sous-chaîne d'une chaîne */
-char				*ft_substr(char const *s, unsigned int start, size_t len);
+char			*ft_substr(char const *s, unsigned int start, size_t len);
 
 /* Convertit une chaîne en entier */
-int					ft_atoi(const char *str);
+int				ft_atoi(const char *str);
 
-long long			ft_atoi_long(const char *str);
+long long		ft_atoi_long(const char *str);
 
 /* Vérifie si le caractère est alphanumérique */
-int					ft_isalnum(int str);
+int				ft_isalnum(int str);
 
 /* Vérifie si le caractère est un chiffre */
-int					ft_isdigit(int str);
+int				ft_isdigit(int str);
 
 /* Copie une zone mémoire vers une autre */
-void				*ft_memcpy(void *dest, const void *src, size_t size);
+void			*ft_memcpy(void *dest, const void *src, size_t size);
 
 /* Écrit un caractère sur un descripteur de fichier */
-void				ft_putchar_fd(char c, int fd);
+void			ft_putchar_fd(char c, int fd);
 
 /* Affiche un caractère */
-void				ft_putchar(char c);
+void			ft_putchar(char c);
 
 /* Écrit une chaîne sur un descripteur de fichier */
-void				ft_putstr_fd(char *s, int fd);
+void			ft_putstr_fd(char *s, int fd);
 
 /* Affiche une chaîne de caractères */
-void				ft_putstr(char *s);
+void			ft_putstr(char *s);
 
 /* Duplique une chaîne de caractères */
-char				*ft_strdup(const char *src);
+char			*ft_strdup(const char *src);
 
 /* Concatène deux chaînes avec une taille maximale */
-size_t				ft_strlcat(char *dst, const char *src, size_t size);
+size_t			ft_strlcat(char *dst, const char *src, size_t size);
 
 /* Applique une fonction à chaque caractère d'une chaîne */
-char				*ft_strmapi(char const *s, char (*f)(unsigned int, char));
+char			*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 
 /* Recherche la dernière occurrence d'un caractère */
-char				*ft_strrchr(const char *str, int tofind);
+char			*ft_strrchr(const char *str, int tofind);
 
 /* Convertit un caractère en minuscule */
-int					ft_tolower(int c);
+int				ft_tolower(int c);
 
 /* Initialise à zéro une zone mémoire */
-void				*ft_bzero(void *str, size_t n);
+void			*ft_bzero(void *str, size_t n);
 
 /* Vérifie si le caractère est alphabétique */
-int					ft_isalpha(int str);
+int				ft_isalpha(int str);
 
 /* Vérifie si le caractère est imprimable */
-int					ft_isprint(int str);
+int				ft_isprint(int str);
 
 /* Déplace une zone mémoire vers une autre (même chevauchante) */
-void				*ft_memmove(void *dest, const void *src, size_t size);
+void			*ft_memmove(void *dest, const void *src, size_t size);
 
 /* Recherche un octet dans une zone mémoire */
-void				*ft_memchr(const void *str, int searchedChar, size_t size);
+void			*ft_memchr(const void *str, int searchedChar, size_t size);
 
 /* Compare deux zones mémoire */
-int					ft_memcmp(const void *ptr1, const void *ptr2, size_t size);
+int				ft_memcmp(const void *ptr1, const void *ptr2, size_t size);
 
 /* Écrit une chaîne suivie d'un retour à la ligne */
-void				ft_putendl_fd(char *s, int fd);
+void			ft_putendl_fd(char *s, int fd);
 
 /* Divise une chaîne selon un délimiteur */
-char				**ft_split(char const *s, char c);
+char			**ft_split(char const *s, char c);
 
 /* Applique une fonction à chaque caractère avec index */
-void				ft_striteri(char *s, void (*f)(unsigned int, char *));
+void			ft_striteri(char *s, void (*f)(unsigned int, char *));
 
 /* Copie une chaîne avec une taille maximale */
-size_t				ft_strlcpy(char *dst, const char *src, size_t size);
+size_t			ft_strlcpy(char *dst, const char *src, size_t size);
 
 /* Compare deux chaînes avec limite */
-int					ft_strncmp(const char *str1, const char *str2, int n);
+int				ft_strncmp(const char *str1, const char *str2, int n);
 
 /* Compare deux chaînes */
-int					ft_strcmp(const char *str1, const char *str2);
+int				ft_strcmp(const char *str1, const char *str2);
 
 /* Supprime des caractères au début et à la fin d'une chaîne */
-char				*ft_strtrim(char const *s1, char const *s2);
+char			*ft_strtrim(char const *s1, char const *s2);
 
 /* Convertit un caractère en majuscule */
-int					ft_toupper(int c);
+int				ft_toupper(int c);
 
 /* Crée un nouvel élément de liste chaînée */
-t_list				*ft_lstnew(void *content);
+t_list			*ft_lstnew(void *content);
 
 /* Ajoute un élément au début de la liste */
-void				ft_lstadd_front(t_list **lst, t_list *new);
+void			ft_lstadd_front(t_list **lst, t_list *new);
 
 /* Compte le nombre d'éléments dans une liste */
-int					ft_lstsize(t_list *lst);
+int				ft_lstsize(t_list *lst);
 
 /* Retourne le dernier élément d'une liste */
-t_list				*ft_lstlast(t_list *lst);
+t_list			*ft_lstlast(t_list *lst);
 
 /* Ajoute un élément à la fin de la liste */
-void				ft_lstadd_back(t_list **lst, t_list *new);
+void			ft_lstadd_back(t_list **lst, t_list *new);
 
 /* Supprime un élément de la liste */
-void				ft_lstdelone(t_list *lst, void (*del)(void *));
+void			ft_lstdelone(t_list *lst, void (*del)(void *));
 
 /* Supprime et libère une liste entière */
-void				ft_lstclear(t_list **lst, void (*del)(void *));
+void			ft_lstclear(t_list **lst, void (*del)(void *));
 
 /* Applique une fonction à chaque élément de la liste */
-void				ft_lstiter(t_list *lst, void (*f)(void *));
+void			ft_lstiter(t_list *lst, void (*f)(void *));
 
 /* Crée une nouvelle liste en appliquant une fonction */
-t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
-						void (*del)(void *));
+t_list			*ft_lstmap(t_list *lst, void *(*f)(void *),
+					void (*del)(void *));
 
 /* Version personnalisée de printf */
-int					ft_printf(const char *str, ...);
+int				ft_printf(const char *str, ...);
 
-int					ft_printf_fd(int fd, const char *str, ...);
+int				ft_printf_fd(int fd, const char *str, ...);
 
 /* Affiche une adresse mémoire (pour ft_printf) */
-int					ft_printadress(unsigned long ptr);
+int				ft_printadress(unsigned long ptr);
 
-int					ft_printadress_fd(int fd, unsigned long ptr);
+int				ft_printadress_fd(int fd, unsigned long ptr);
 
 /* Affiche un caractère (pour ft_printf) */
-int					ft_putchar_pf(char c);
+int				ft_putchar_pf(char c);
 
 /* Affiche une chaîne (pour ft_printf) */
-int					ft_putstr_pf(char *s);
+int				ft_putstr_pf(char *s);
 
-int					ft_putstr_pfd(int fd, char *s);
+int				ft_putstr_pfd(int fd, char *s);
 
 /* Affiche un nombre non signé (pour ft_printf) */
-int					ft_putnbr_upf(unsigned int n, int *count);
+int				ft_putnbr_upf(unsigned int n, int *count);
 
-int					ft_putnbr_upfd(int fd, unsigned int n, int *count);
+int				ft_putnbr_upfd(int fd, unsigned int n, int *count);
 
 /* Affiche un nombre (pour ft_printf) */
-int					ft_putnbr_pf(int n, int *count);
+int				ft_putnbr_pf(int n, int *count);
 
-int					ft_putnbr_pfd(int fd, int n, int *count);
+int				ft_putnbr_pfd(int fd, int n, int *count);
 
 /* Affiche un nombre en hexadécimal minuscule */
-int					ft_putnbrhexalow(unsigned int n, int *count);
+int				ft_putnbrhexalow(unsigned int n, int *count);
 
-int					ft_putnbrhexalow_fd(int fd, unsigned int n, int *count);
+int				ft_putnbrhexalow_fd(int fd, unsigned int n, int *count);
 
 /* Affiche un nombre en hexadécimal majuscule */
-int					ft_putnbrhexaupp(unsigned int n, int *count);
+int				ft_putnbrhexaupp(unsigned int n, int *count);
 
-int					ft_putnbrhexaupp_fd(int fd, unsigned int n, int *count);
+int				ft_putnbrhexaupp_fd(int fd, unsigned int n, int *count);
 
 /* Calcule le nombre de chaînes dans un tableau de chaînes */
-int					ft_strslen(char **str);
+int				ft_strslen(char **str);
 
-char				*ft_strstr(char *str, char *to_find);
+char			*ft_strstr(char *str, char *to_find);
 
-char				**ft_split_str(char *str, char *charset);
+char			**ft_split_str(char *str, char *charset);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:02:13 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/14 14:05:31 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/14 16:09:47 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,8 +164,8 @@ int			ft_replace_env(char ***env, const char *key, const char *value);
 void		ft_shllvl(t_mini *mini);
 int			ft_export_checker(char *str);
 char		**ft_export_expand(char **env_sorted);
-int 		export_replacer(t_mini *mini, char *to_replace, int equals_index);
-int 		env_replacer(t_mini *mini, char *to_replace, int equals_index);
+int			export_replacer(t_mini *mini, char *to_replace, int equals_index);
+int			env_replacer(t_mini *mini, char *to_replace, int equals_index);
 char		**ft_env_sort(char **export_list);
 char		*exporter_expander(char *new_env, char *env_sorted);
 int			add_to_exp(t_mini *mini, char *arg, int result);

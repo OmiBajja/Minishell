@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 18:12:45 by pafranci          #+#    #+#             */
-/*   Updated: 2025/07/13 23:31:08 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/14 15:55:13 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,8 @@ char	*ft_substr_gnl(char const *s, unsigned int start, size_t len)
 		return (sub_s);
 	}
 	if ((start + len) >= ft_strlen_sizet(s))
-		sub_s = (char *)malloc(((ft_strlen_sizet(s) - start) + 1) * sizeof (char));
+		sub_s = (char *)malloc(((ft_strlen_sizet(s) - start) + 1)
+				* sizeof (char));
 	else
 		sub_s = (char *)malloc((len + 1) * sizeof(char));
 	if (!sub_s)
@@ -113,6 +114,5 @@ char	*ft_substr_gnl(char const *s, unsigned int start, size_t len)
 		sub_s[i] = s[i + start];
 		i++;
 	}
-	sub_s[i] = '\0';
-	return (sub_s);
+	return (sub_s[i] = '\0', sub_s);
 }
