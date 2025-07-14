@@ -6,7 +6,7 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 09:16:35 by pafranci          #+#    #+#             */
-/*   Updated: 2025/07/14 14:25:34 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/14 15:36:35 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	heredoc_loop(const char *delim, char *f_name, int fd, t_mini *mini)
 		ft_printf_fd(STDOUT_FILENO, "> ");
 		line = get_next_line(STDIN_FILENO);
 		if (g_sig == SIGINT)
-			return (close(fd), free(line), unlink(f_name), free(f_name), 1);
+			return (free(line), unlink(f_name), free(f_name), close(fd), 1);
 		if (!line)
 			break ;
 		len = ft_strlen(line);
