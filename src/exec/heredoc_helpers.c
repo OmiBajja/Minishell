@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_helpers.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 09:16:35 by pafranci          #+#    #+#             */
-/*   Updated: 2025/07/14 15:36:35 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/14 16:34:00 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	heredoc_loop(const char *delim, char *f_name, int fd, t_mini *mini)
 	{
 		ft_printf_fd(STDOUT_FILENO, "> ");
 		line = get_next_line(STDIN_FILENO);
-		if (g_sig == SIGINT)
+		if (g_sig == 130)
 			return (free(line), unlink(f_name), free(f_name), close(fd), 1);
 		if (!line)
 			break ;
@@ -47,16 +47,16 @@ char	*handle_heredoc(const char *delim, t_mini *mini)
 	int		fd;
 	char	*f_name;
 
+	g_sig = 420;
 	f_name = ft_strdup("/tmp/.minishell_heredoc");
 	if (!f_name)
-		return (NULL);
+		return (g_sig = 0, NULL);
 	fd = open(f_name, O_CREAT | O_WRONLY | O_TRUNC, 0600);
 	if (fd < 0)
-		return (perror("heredoc"), free(f_name), NULL);
+		return (perror("heredoc"), free(f_name), g_sig = 0, NULL);
 	if (heredoc_loop(delim, f_name, fd, mini) == 1)
 		return (NULL);
 	close(fd);
-	ft_printf_fd(STDOUT_FILENO, "\n");
 	return (f_name);
 }
 
