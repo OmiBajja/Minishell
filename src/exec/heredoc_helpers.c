@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 09:16:35 by pafranci          #+#    #+#             */
-/*   Updated: 2025/07/14 16:34:00 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/14 17:20:49 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,10 @@ char	*handle_heredoc(const char *delim, t_mini *mini)
 	if (fd < 0)
 		return (perror("heredoc"), free(f_name), g_sig = 0, NULL);
 	if (heredoc_loop(delim, f_name, fd, mini) == 1)
-		return (NULL);
+		return (g_sig = 0, NULL);
 	close(fd);
-	return (f_name);
+	ft_printf_fd(STDOUT_FILENO, "\n");
+	return (g_sig = 0, f_name);
 }
 
 char	*prep_heredoc_get_infile(t_parsing *head, int *cmd_count, t_mini *mini)
