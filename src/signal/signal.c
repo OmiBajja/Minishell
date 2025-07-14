@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:02:04 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/14 15:40:15 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/14 16:09:25 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,21 @@
 static void	ctrlc_handler(int sig)
 {
 	sig = 130;
-	g_sig = sig;
-	ft_printf_fd(STDOUT_FILENO, "\n");
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
+	if (g_sig == 420)
+	{
+		g_sig = sig;
+		ft_printf_fd(STDOUT_FILENO, "\n");
+		rl_on_new_line();
+		rl_replace_line("", 0);
+	}
+	else
+	{
+		g_sig = sig;
+		ft_printf_fd(STDOUT_FILENO, "\n");
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+	}
 }
 
 void	signal_handling(void)
