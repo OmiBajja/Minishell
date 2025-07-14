@@ -6,22 +6,11 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 19:53:35 by pafranci          #+#    #+#             */
-/*   Updated: 2025/07/13 23:57:32 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/14 13:32:00 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-
-static bool	is_builtin(const char *cmd)
-{
-	return (!ft_strcmp(cmd, "cd")
-		|| !ft_strcmp(cmd, "echo")
-		|| !ft_strcmp(cmd, "env")
-		|| !ft_strcmp(cmd, "exit")
-		|| !ft_strcmp(cmd, "export")
-		|| !ft_strcmp(cmd, "pwd")
-		|| !ft_strcmp(cmd, "unset"));
-}
 
 static void	exec_builtin(t_parsing *node, t_mini *mini)
 {
@@ -77,6 +66,22 @@ static void	no_cmd_redir(t_parsing *head, t_mini *mini)
 	close(mini->saved_out);
 }
 
+static void	setup_pipex(t_pipex *p, t_parsing *head, char **envp, t_mini *mini)
+{
+	p->infile = prep_heredoc_get_infile(head, &p->cmd_count, mini);
+	if (!p->infile && g_sig == SIGINT)
+	{
+		mini->status = 128 + SIGINT;
+		g_sig = 0;
+		return ;
+	}
+	p->cmds = head;
+	p->env = envp;
+	p->mini = mini;
+	pipex(p);
+	cleanup_heredoc(head);
+}
+
 void	exec_handler(t_parsing *head, char **envp, t_mini *mini)
 {
 	t_pipex	p;
@@ -101,16 +106,5 @@ void	exec_handler(t_parsing *head, char **envp, t_mini *mini)
 		exec_single_builtin(head, mini);
 		return ;
 	}
-	p.infile = prep_heredoc_get_infile(head, &p.cmd_count, mini);
-	if (!p.infile && g_sig == SIGINT)
-	{
-		mini->status = 128 + SIGINT;
-		g_sig = 0;
-		return ;
-	}
-	p.cmds = head;
-	p.env = envp;
-	p.mini = mini;
-	pipex(&p);
-	cleanup_heredoc(head);
+	setup_pipex(&p, head, envp, mini);
 }

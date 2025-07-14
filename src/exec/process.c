@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 13:24:19 by pafranci          #+#    #+#             */
-/*   Updated: 2025/07/11 23:29:38 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/14 14:00:17 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	**create_pipes(int n)
 
 	pipes = ft_calloc(n, sizeof (int *));
 	if (!pipes)
-		return (perror_exit(), NULL);
+		return (NULL);
 	i = 0;
 	while (i < n)
 	{

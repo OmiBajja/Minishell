@@ -6,38 +6,24 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 09:16:35 by pafranci          #+#    #+#             */
-/*   Updated: 2025/07/14 00:16:19 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/14 13:32:44 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 #include <readline/history.h>
 
-char	*handle_heredoc(const char *delim, t_mini *mini)
+static int	heredoc_loop(const char *delim, char *f_name, int fd, t_mini *mini)
 {
 	char	*line;
-	int		fd;
-	char	*filename;
-	size_t	len;
+	int		len;
 
-	filename = ft_strdup("/tmp/.minishell_heredoc");
-	if (!filename)
-		return (NULL);
-	fd = open(filename, O_CREAT | O_WRONLY | O_TRUNC, 0600);
-	if (fd < 0)
-		return (perror("heredoc"), free(filename), NULL);
 	while (42)
 	{
 		ft_printf_fd(STDOUT_FILENO, "> ");
 		line = get_next_line(STDIN_FILENO);
 		if (g_sig == SIGINT)
-		{
-			close(fd);
-			free(line);
-			unlink(filename);
-			free(filename);
-			return (NULL);
-		}
+			return (close(fd), free(line), unlink(f_name), free(f_name), 1);
 		if (!line)
 			break ;
 		len = ft_strlen(line);
@@ -50,13 +36,28 @@ char	*handle_heredoc(const char *delim, t_mini *mini)
 		}
 		if (is_extendable(line, 0) != -1)
 			line = ft_extender(line, mini->env, mini, 0);
-		write(fd, line, ft_strlen(line));
-		write(fd, "\n", 1);
+		ft_printf_fd(fd, "%s\n", line);
 		free(line);
 	}
+	return (0);
+}
+
+char	*handle_heredoc(const char *delim, t_mini *mini)
+{
+	int		fd;
+	char	*f_name;
+
+	f_name = ft_strdup("/tmp/.minishell_heredoc");
+	if (!f_name)
+		return (NULL);
+	fd = open(f_name, O_CREAT | O_WRONLY | O_TRUNC, 0600);
+	if (fd < 0)
+		return (perror("heredoc"), free(f_name), NULL);
+	if (heredoc_loop(delim, f_name, fd, mini) == 1)
+		return (NULL);
 	close(fd);
-	write(STDOUT_FILENO, "\n", 1);
-	return (filename);
+	ft_printf_fd(STDOUT_FILENO, "\n");
+	return (f_name);
 }
 
 char	*prep_heredoc_get_infile(t_parsing *head, int *cmd_count, t_mini *mini)
@@ -67,8 +68,8 @@ char	*prep_heredoc_get_infile(t_parsing *head, int *cmd_count, t_mini *mini)
 	char		*tmp;
 
 	node = head;
-	count = 0;
-	while (node)
+	count = -1;
+	while (node && ++count >= 0)
 	{
 		r = node->redirs;
 		while (r)
@@ -84,10 +85,8 @@ char	*prep_heredoc_get_infile(t_parsing *head, int *cmd_count, t_mini *mini)
 			r = r->next;
 		}
 		node = node->next;
-		count++;
 	}
-	*cmd_count = count;
-	return ("/dev/stdin");
+	return (*cmd_count = count, "/dev/stdin");
 }
 
 void	cleanup_heredoc(t_parsing *head)
