@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:02:13 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/14 13:01:27 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/14 14:05:31 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ t_parsing	*create_parse(void);
 
 void		parser(char *input, t_mini *mini);
 char		**new_args(char **args, char *new_arg);
+char		**create_args(char *first_arg);
 t_lex		*command_processor(t_parsing *cmd, t_lex *tokens);
 t_lex		*redirection_machine(t_parsing *cmd, t_lex *tokens);
 void		append_redir(t_parsing *cmd, int type, char *file);
@@ -163,7 +164,10 @@ int			ft_replace_env(char ***env, const char *key, const char *value);
 void		ft_shllvl(t_mini *mini);
 int			ft_export_checker(char *str);
 char		**ft_export_expand(char **env_sorted);
+int 		export_replacer(t_mini *mini, char *to_replace, int equals_index);
+int 		env_replacer(t_mini *mini, char *to_replace, int equals_index);
 char		**ft_env_sort(char **export_list);
+char		*exporter_expander(char *new_env, char *env_sorted);
 int			add_to_exp(t_mini *mini, char *arg, int result);
 void		print_and_free(char **export_list);
 void		export_printer(t_mini *mini);

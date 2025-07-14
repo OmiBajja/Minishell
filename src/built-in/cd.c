@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 05:55:38 by pafranci          #+#    #+#             */
-/*   Updated: 2025/07/14 12:46:52 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/14 14:05:55 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ static char	*ft_get_env_val(char **env, const char *key)
 	int	key_len;
 
 	if (!env | !key)
+		return (NULL);
 		return (NULL);
 	key_len = ft_strlen(key);
 	i = 0;

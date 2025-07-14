@@ -3,14 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 20:47:04 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/08 15:31:55 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/14 11:42:00 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+
+char	**create_args(char *first_arg)
+{
+	char	**all_args;
+
+	all_args = ft_calloc(sizeof(char *), 2);
+	if (!all_args)
+		return (NULL);
+	all_args[0] = ft_strdup(first_arg);
+	if (!all_args[0])
+		return (NULL);
+	all_args[1] = NULL;
+	return (all_args);
+}
 
 void	free_null(char *to_free)
 {
