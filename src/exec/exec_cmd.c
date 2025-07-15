@@ -6,7 +6,7 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 18:48:20 by pafranci          #+#    #+#             */
-/*   Updated: 2025/07/15 17:15:36 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/15 17:19:59 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,6 @@ void	exec_cmd(char **cmd_args, char const *paths, t_mini *mini,
 	}
 	full_cmd = get_full_cmd(cmd_args, paths, mini, child);
 	stat(full_cmd, &buf);
-	if (!env_size_checker(mini, full_cmd))
-		return ;
 	if (S_ISDIR(buf.st_mode))
 		is_directory_exit(full_cmd, child, mini);
 	else if (!(stat(full_cmd, &buf) == 0 && buf.st_mode & S_IXUSR))
