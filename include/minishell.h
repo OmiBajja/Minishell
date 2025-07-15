@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:02:13 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/15 14:50:55 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/15 15:16:09 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 #include <stdbool.h>
 #include <sys/wait.h>
 #include <sys/stat.h>
+#include <termios.h>
 
 //=== Token Types ===//
 #define TOKEN_UNKOWN     	0
@@ -65,14 +66,16 @@ typedef struct s_parsing
 
 typedef struct s_mini
 {
-	char		**env;
-	int			status;
-	t_parsing	*data;
-	t_lex		*lex;
-	char		**export;
-	char		**exp_dup;
-	int			saved_in;
-	int			saved_out;	
+	char			**env;
+	int				status;
+	t_parsing		*data;
+	t_lex			*lex;
+	char			**export;
+	char			**exp_dup;
+	int				saved_in;
+	int				saved_out;
+	struct termios	saved_termios;
+	
 }	t_mini;
 
 typedef struct s_child
