@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:02:04 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/15 15:48:01 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/15 15:53:59 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,7 @@ void	input_handler(char *input, t_mini *mini)
 		return ;
 	}
 	exec_handler(mini->data, mini->env, mini);
-	if (tcsetattr(STDERR_FILENO, TCSANOW, &mini->saved_termios) < 0)
-	{
-		ft_printf_fd(2, "Failed to restore termios\n");
-		return ;
-	}
+	tcsetattr(STDERR_FILENO, TCSANOW, &mini->saved_termios);
 	free_parse(mini->data);
 	free_tokens(mini->lex);
 }
@@ -88,11 +84,7 @@ int	main(int argc, char **argv, char **envp)
 	mini = ft_calloc(1, sizeof(t_mini));
 	if (!mini)
 		return (EXIT_FAILURE);
-	if (tcgetattr(STDERR_FILENO, &mini->saved_termios) < 0)
-	{
-		ft_printf_fd(2, "Failed to save termios\n");
-		return (-1);
-	}
+	tcgetattr(STDERR_FILENO, &mini->saved_termios);
 	if (envp && envp[0])
 	{
 		mini->env = ft_strsndup(envp, ft_strslen(envp));
