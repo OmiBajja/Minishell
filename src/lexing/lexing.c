@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 10:53:13 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/15 17:08:50 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/15 17:15:18 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ static int	handle_word(t_lex **tokens, char *input, int *i, t_mini *mini)
 		return (EXIT_FAILURE);
 }
 
-static int	lex(int i, char *input, t_lex *tokens, t_mini *mini)
+static t_lex	lex(int i, char *input, t_lex *tokens, t_mini *mini)
 {
 	int	op_len;
 
@@ -94,12 +94,12 @@ static int	lex(int i, char *input, t_lex *tokens, t_mini *mini)
 		if (op_len)
 		{
 			if (handle_operator(&tokens, input, &i))
-				return (-1);
+				return (NULL);
 		}
 		else if (handle_word(&tokens, input, &i, mini))
-			return (free_tokens(tokens), -1);
+			return (free_tokens(tokens), NULL);
 	}
-	return (0);
+	return (tokens);
 }
 
 t_lex	*lexing(char *input, t_mini *mini)
@@ -119,7 +119,5 @@ t_lex	*lexing(char *input, t_mini *mini)
 		ft_printf_fd(2, "bash: syntax error near unexpected token `|'\n");
 		return (NULL);
 	}
-	if (lex(i, input, tokens, mini) < 0)
-		return (NULL);
-	return (tokens);
+	return (lex(i, input, tokens, mini));
 }
