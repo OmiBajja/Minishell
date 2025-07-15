@@ -6,7 +6,7 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 19:53:35 by pafranci          #+#    #+#             */
-/*   Updated: 2025/07/14 17:47:27 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/15 17:24:52 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,5 +99,7 @@ void	exec_handler(t_parsing *head, char **envp, t_mini *mini)
 		exec_single_builtin(head, mini);
 		return ;
 	}
+	if (env_size_checker(mini, mini->data->cmd))
+		return ;
 	setup_p(&p, head, envp, mini);
 }

@@ -6,11 +6,31 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 00:47:24 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/12 02:44:56 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/15 17:21:32 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+
+int	env_size_checker(t_mini *mini, char *cmd)
+{
+	int	i;
+	int	size;
+
+	i = -1;
+	if (!mini->env)
+		return (1);
+	while (mini->env[++i])
+	{
+		size = ft_strlen(mini->env[i]);
+		if (size > 130000)
+		{
+			ft_printf_fd(2, "Minishell: %s: Argument list too long\n", cmd);
+			return (1);
+		}
+	}
+	return (0);
+}
 
 int	ft_env(char **envp)
 {
