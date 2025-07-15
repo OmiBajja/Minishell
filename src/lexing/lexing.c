@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 10:53:13 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/15 16:02:30 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/15 17:17:43 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,24 +80,10 @@ static int	handle_word(t_lex **tokens, char *input, int *i, t_mini *mini)
 		return (EXIT_FAILURE);
 }
 
-t_lex	*lexing(char *input, t_mini *mini)
+static t_lex	*lex(int i, char *input, t_lex *tokens, t_mini *mini)
 {
-	t_lex	*tokens;
-	int		op_len;
-	int		i;
+	int	op_len;
 
-	i = 0;
-	tokens = NULL;
-	if (!input)
-		return (NULL);
-	while (ft_is_whitespace(input[i]))
-		i++;
-	if (input[i] == '|')
-	{
-		mini->status = 2;
-		ft_printf_fd(2, "bash: syntax error near unexpected token `|'\n");
-		return (NULL);
-	}
 	while (input[i])
 	{
 		while (ft_is_whitespace(input[i]))
@@ -114,4 +100,24 @@ t_lex	*lexing(char *input, t_mini *mini)
 			return (free_tokens(tokens), NULL);
 	}
 	return (tokens);
+}
+
+t_lex	*lexing(char *input, t_mini *mini)
+{
+	t_lex	*tokens;
+	int		i;
+
+	i = 0;
+	tokens = NULL;
+	if (!input)
+		return (NULL);
+	while (ft_is_whitespace(input[i]))
+		i++;
+	if (input[i] == '|')
+	{
+		mini->status = 2;
+		ft_printf_fd(2, "bash: syntax error near unexpected token `|'\n");
+		return (NULL);
+	}
+	return (lex(i, input, tokens, mini));
 }
