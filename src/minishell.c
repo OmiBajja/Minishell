@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:02:04 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/15 14:42:35 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/15 15:53:59 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	input_handler(char *input, t_mini *mini)
 		return ;
 	}
 	exec_handler(mini->data, mini->env, mini);
+	tcsetattr(STDERR_FILENO, TCSANOW, &mini->saved_termios);
 	free_parse(mini->data);
 	free_tokens(mini->lex);
 }
@@ -81,6 +82,9 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	mini = ft_calloc(1, sizeof(t_mini));
+	if (!mini)
+		return (EXIT_FAILURE);
+	tcgetattr(STDERR_FILENO, &mini->saved_termios);
 	if (envp && envp[0])
 	{
 		mini->env = ft_strsndup(envp, ft_strslen(envp));
@@ -89,6 +93,7 @@ int	main(int argc, char **argv, char **envp)
 	}
 	else
 		mini->env = default_env();
+	
 	ft_shllvl(mini);
 	mini->status = 0;
 	signal_handling();
