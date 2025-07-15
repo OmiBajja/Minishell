@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 10:53:13 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/15 14:45:19 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/15 16:02:30 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,18 +90,20 @@ t_lex	*lexing(char *input, t_mini *mini)
 	tokens = NULL;
 	if (!input)
 		return (NULL);
+	while (ft_is_whitespace(input[i]))
+		i++;
+	if (input[i] == '|')
+	{
+		mini->status = 2;
+		ft_printf_fd(2, "bash: syntax error near unexpected token `|'\n");
+		return (NULL);
+	}
 	while (input[i])
 	{
 		while (ft_is_whitespace(input[i]))
 			i++;
 		if (!input[i])
 			break ;
-		if (input[i] == '|')
-		{
-			mini->status = 2;
-			ft_printf_fd(2, "bash: syntax error near unexpected token `|'\n");
-			return (NULL);
-		}
 		op_len = operator_check(&input[i]);
 		if (op_len)
 		{
