@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 18:48:20 by pafranci          #+#    #+#             */
-/*   Updated: 2025/07/14 13:38:11 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/15 17:03:05 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,8 @@ void	exec_cmd(char **cmd_args, char const *paths, t_mini *mini,
 		permission_denied_exit(full_cmd, child, mini);
 	if (!full_cmd)
 		perror_exit();
+	if (!env_size_checker(mini, full_cmd))
+		return ;
 	if (execve(full_cmd, cmd_args, mini->env) == -1)
 	{
 		child_cleaner(child, mini);

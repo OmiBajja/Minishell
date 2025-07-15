@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:02:13 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/15 15:16:09 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/15 16:43:59 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,6 +176,7 @@ int			add_to_exp(t_mini *mini, char *arg, int result);
 void		print_and_free(char **export_list);
 void		export_printer(t_mini *mini);
 int			is_it_in_env(char **exp_list, char *to_find);
+int			env_size_checker(t_mini *mini, char *cmd);
 int			is_to_add_replace(char **env, char *word);
 int			replace_to_exp(t_mini *mini, char *to_replace, int equals_index);
 char		*status_code(t_mini *mini);
