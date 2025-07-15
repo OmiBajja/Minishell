@@ -3,27 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 00:47:17 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/12 21:49:47 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/15 14:43:30 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	printer(char *to_print, int nl)
+int	printer(char *to_print, int nl)
 {
 	int	i;
+	int	err;
 
 	i = -1;
-	while (to_print[++i])
+	err = 1;
+	if (!to_print)
+		return (1);
+	while (to_print[++i] && err == 1)
+		err = write(STDOUT_FILENO, &to_print[i], 1);
+	if (err != 1)
 	{
-		if (to_print[i] != '\\')
-			ft_printf_fd(STDOUT_FILENO, "%c", to_print[i]);
+		ft_printf_fd(2, "Minishell: echo: write");
+		ft_printf_fd(2, " error: No space left on device\n");
+		return (1);
 	}
 	if (nl == 0)
 		ft_printf_fd(STDOUT_FILENO, "\n");
+	return (0);
 }
 
 int	where_print(char **inputs)
@@ -99,7 +107,9 @@ int	ft_echo(char **inputs)
 	result = ft_strscomp(&inputs[i + 1]);
 	if (!result)
 		return (EXIT_FAILURE);
-	printer(result, nl);
+	i = printer(result, nl);
+	if (i == 1)
+		return (free(result), EXIT_FAILURE);
 	free(result);
 	return (EXIT_SUCCESS);
 }
