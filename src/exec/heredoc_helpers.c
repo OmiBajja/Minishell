@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_helpers.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 09:16:35 by pafranci          #+#    #+#             */
-/*   Updated: 2025/07/14 17:20:49 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/15 13:50:03 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,10 @@ static int	heredoc_loop(const char *delim, char *f_name, int fd, t_mini *mini)
 		if (g_sig == 130)
 			return (free(line), unlink(f_name), free(f_name), close(fd), 1);
 		if (!line)
+		{
+			ft_printf_fd(2,"Minishell: warning: here-document delimited by end-of-file (wanted '%s')\n",delim);
 			break ;
+		}
 		len = ft_strlen(line);
 		if (len > 0 && line[len - 1] == '\n')
 			line[len - 1] = '\0';
