@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:02:04 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/15 15:53:59 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/15 17:03:32 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,6 @@ int	main(int argc, char **argv, char **envp)
 	}
 	else
 		mini->env = default_env();
-	
 	ft_shllvl(mini);
 	mini->status = 0;
 	signal_handling();

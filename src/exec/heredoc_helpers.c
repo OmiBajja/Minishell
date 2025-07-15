@@ -3,15 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_helpers.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 09:16:35 by pafranci          #+#    #+#             */
-/*   Updated: 2025/07/15 16:26:42 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/15 16:38:08 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 #include <readline/history.h>
+
+static void	heredoc_warning_print(const char *delim)
+{
+	ft_printf_fd(2, "Minishell: warning: here-document ");
+	ft_printf_fd(2, "delimited by end-of-file (wanted '%s')\n", delim);
+}
 
 static int	heredoc_loop(const char *delim, char *f_name, int fd, t_mini *mini)
 {
@@ -25,18 +31,12 @@ static int	heredoc_loop(const char *delim, char *f_name, int fd, t_mini *mini)
 		if (g_sig == 130)
 			return (free(line), unlink(f_name), free(f_name), close(fd), 1);
 		if (!line)
-		{
-			ft_printf_fd(2,"Minishell: warning: here-document delimited by end-of-file (wanted '%s')\n",delim);
-			break ;
-		}
+			return (heredoc_warning_print(delim), 0);
 		len = ft_strlen(line);
 		if (len > 0 && line[len - 1] == '\n')
 			line[len - 1] = '\0';
 		if (ft_strcmp(line, delim) == 0)
-		{
-			free(line);
-			break ;
-		}
+			return (free(line), 0);
 		if (is_extendable(line, 0) != -1)
 			line = ft_extender(line, mini->env, mini, 0);
 		ft_printf_fd(fd, "%s\n", line);

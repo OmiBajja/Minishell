@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:02:13 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/15 15:16:09 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/15 16:29:56 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ typedef struct s_mini
 	int				saved_in;
 	int				saved_out;
 	struct termios	saved_termios;
-	
 }	t_mini;
 
 typedef struct s_child
