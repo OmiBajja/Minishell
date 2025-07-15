@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 10:53:13 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/15 17:15:18 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/15 17:17:43 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ static int	handle_word(t_lex **tokens, char *input, int *i, t_mini *mini)
 		return (EXIT_FAILURE);
 }
 
-static t_lex	lex(int i, char *input, t_lex *tokens, t_mini *mini)
+static t_lex	*lex(int i, char *input, t_lex *tokens, t_mini *mini)
 {
 	int	op_len;
 
