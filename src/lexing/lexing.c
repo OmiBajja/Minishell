@@ -6,16 +6,11 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 10:53:13 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/15 17:17:43 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/15 17:19:23 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-
-char	*operator_handler(int op_len, char *input, int i)
-{
-	return (ft_strndup(&input[i], op_len));
-}
 
 char	*word_lexer(char *input, int *start, t_mini *mini)
 {
