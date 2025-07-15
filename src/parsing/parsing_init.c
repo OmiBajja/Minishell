@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_init.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:40:03 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/14 11:42:04 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/15 14:50:42 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	command_machine(t_parsing *cmd, t_lex *token)
 	return (EXIT_SUCCESS);
 }
 
-t_lex	*redirection_machine(t_parsing *cmd, t_lex *tokens)
+t_lex	*redirection_machine(t_parsing *cmd, t_lex *tokens, t_mini *mini)
 {
 	t_lex	*next;
 
@@ -75,6 +75,7 @@ t_lex	*redirection_machine(t_parsing *cmd, t_lex *tokens)
 	next = tokens->next;
 	if (next == NULL || next->type != TOKEN_COMMAND)
 	{
+		mini->status = 2;
 		ft_printf_fd(2, "bash: syntax error near unexpected token `newline'\n");
 		return (NULL);
 	}
@@ -86,7 +87,7 @@ t_lex	*redirection_machine(t_parsing *cmd, t_lex *tokens)
 	return (next);
 }
 
-t_lex	*command_processor(t_parsing *cmd, t_lex *tokens)
+t_lex	*command_processor(t_parsing *cmd, t_lex *tokens, t_mini *mini)
 {
 	while (tokens && tokens->type != TOKEN_PIPE)
 	{
@@ -99,7 +100,7 @@ t_lex	*command_processor(t_parsing *cmd, t_lex *tokens)
 			|| tokens->type == TOKEN_REDIR_OUT
 			|| tokens->type == TOKEN_APPEND_OUT
 			|| tokens->type == TOKEN_HEREDOC_IN)
-			tokens = redirection_machine(cmd, tokens);
+			tokens = redirection_machine(cmd, tokens, mini);
 		if (tokens == NULL)
 			return (NULL);
 		tokens = tokens->next;

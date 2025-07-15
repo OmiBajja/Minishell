@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:02:13 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/14 17:23:24 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/15 14:50:55 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,14 +108,14 @@ void		print_tokens(t_lex *tokens);
 void		free_tokens(t_lex *tokens);
 
 //=== Parser Functions ===//
-t_parsing	*token_parser(t_lex *tokens, t_parsing *head, t_parsing *node);
+t_parsing	*token_parser(t_lex *tkn, t_parsing *h, t_parsing *n, t_mini *m);
 t_parsing	*create_parse(void);
 
 void		parser(char *input, t_mini *mini);
 char		**new_args(char **args, char *new_arg);
 char		**create_args(char *first_arg);
-t_lex		*command_processor(t_parsing *cmd, t_lex *tokens);
-t_lex		*redirection_machine(t_parsing *cmd, t_lex *tokens);
+t_lex		*command_processor(t_parsing *cmd, t_lex *tokens, t_mini *mini);
+t_lex		*redirection_machine(t_parsing *cmd, t_lex *tokens, t_mini *mini);
 void		append_redir(t_parsing *cmd, int type, char *file);
 int			command_machine(t_parsing *cmd, t_lex *token);
 void		print_all_commands(t_parsing *head);

@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:02:04 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/12 21:50:29 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/15 14:42:35 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	input_handler(char *input, t_mini *mini)
 	mini->lex = lexing(input, mini);
 	if (!mini->lex)
 		return ;
-	mini->data = token_parser(mini->lex, NULL, NULL);
+	mini->data = token_parser(mini->lex, NULL, NULL, mini);
 	if (!mini->data)
 	{
 		free_tokens(mini->lex);

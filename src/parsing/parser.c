@@ -3,57 +3,58 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 00:48:21 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/10 16:59:04 by obajja           ###   ########.fr       */
+/*   Updated: 2025/07/15 14:49:40 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static t_lex	*pipe_handler(t_parsing **node, t_lex *tokens, t_parsing *head)
+static t_lex	*pipe_handler(t_parsing **n, t_lex *t, t_parsing *h, t_mini *m)
 {
-	tokens = tokens->next;
-	if (tokens == NULL)
+	t = t->next;
+	if (t == NULL)
 	{
+		m->status = 2;
 		write(2, "minishell: syntax error near unexpected token '|'\n", 50);
-		free_parse(head);
+		free_parse(h);
 		return (NULL);
 	}
-	(*node)->next = create_parse();
-	if (!(*node)->next)
+	(*n)->next = create_parse();
+	if (!(*n)->next)
 	{
-		free_parse(head);
+		free_parse(h);
 		return (NULL);
 	}
-	*node = (*node)->next;
-	return (tokens);
+	*n = (*n)->next;
+	return (t);
 }
 
-t_parsing	*token_parser(t_lex *tokens, t_parsing *head, t_parsing *node)
+t_parsing	*token_parser(t_lex *tkn, t_parsing *h, t_parsing *n, t_mini *m)
 {
-	if (!tokens)
+	if (!tkn)
 		return (NULL);
-	while (tokens)
+	while (tkn)
 	{
-		if (!node)
+		if (!n)
 		{
-			node = create_parse();
-			if (!node)
+			n = create_parse();
+			if (!n)
 				return (NULL);
-			head = node;
+			h = n;
 		}
-		tokens = command_processor(node, tokens);
-		if (node->cmd == NULL && node->redirs == NULL)
-			return (free_parse(head), NULL);
-		if (tokens == NULL)
+		tkn = command_processor(n, tkn, m);
+		if (n->cmd == NULL && n->redirs == NULL)
+			return (free_parse(h), NULL);
+		if (tkn == NULL)
 			break ;
-		if (tokens && tokens->type == TOKEN_PIPE)
-			tokens = pipe_handler(&node, tokens, head);
-		if (!tokens)
+		if (tkn && tkn->type == TOKEN_PIPE)
+			tkn = pipe_handler(&n, tkn, h, m);
+		if (!tkn)
 			return (NULL);
 	}
-	node->next = NULL;
-	return (head);
+	n->next = NULL;
+	return (h);
 }
