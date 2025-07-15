@@ -6,7 +6,7 @@
 /*   By: pafranci <pafranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 10:53:13 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/15 16:02:30 by pafranci         ###   ########.fr       */
+/*   Updated: 2025/07/15 17:08:50 by pafranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,31 @@ static int	handle_word(t_lex **tokens, char *input, int *i, t_mini *mini)
 		return (EXIT_FAILURE);
 }
 
+static int	lex(int i, char *input, t_lex *tokens, t_mini *mini)
+{
+	int	op_len;
+
+	while (input[i])
+	{
+		while (ft_is_whitespace(input[i]))
+			i++;
+		if (!input[i])
+			break ;
+		op_len = operator_check(&input[i]);
+		if (op_len)
+		{
+			if (handle_operator(&tokens, input, &i))
+				return (-1);
+		}
+		else if (handle_word(&tokens, input, &i, mini))
+			return (free_tokens(tokens), -1);
+	}
+	return (0);
+}
+
 t_lex	*lexing(char *input, t_mini *mini)
 {
 	t_lex	*tokens;
-	int		op_len;
 	int		i;
 
 	i = 0;
@@ -98,20 +119,7 @@ t_lex	*lexing(char *input, t_mini *mini)
 		ft_printf_fd(2, "bash: syntax error near unexpected token `|'\n");
 		return (NULL);
 	}
-	while (input[i])
-	{
-		while (ft_is_whitespace(input[i]))
-			i++;
-		if (!input[i])
-			break ;
-		op_len = operator_check(&input[i]);
-		if (op_len)
-		{
-			if (handle_operator(&tokens, input, &i))
-				return (NULL);
-		}
-		else if (handle_word(&tokens, input, &i, mini))
-			return (free_tokens(tokens), NULL);
-	}
+	if (lex(i, input, tokens, mini) < 0)
+		return (NULL);
 	return (tokens);
 }
