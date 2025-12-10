@@ -6,7 +6,7 @@
 /*   By: obajja <obajja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:02:04 by obajja            #+#    #+#             */
-/*   Updated: 2025/07/15 17:29:02 by obajja           ###   ########.fr       */
+/*   Updated: 2025/12/09 14:30:04 by obajja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	mini_handler(t_mini *mini)
 
 	while (42)
 	{
-		input = readline("minishell :");
+		input = readline(BGREEN"Minishell :"RESET_COLOR);
 		if (!input)
 		{
 			mini_cleaner(mini);
